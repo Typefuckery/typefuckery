@@ -1,0 +1,10 @@
+Borrow-Checker Chaplain
+(** division : Division.t *) Rust
+(** id : Card_id.t *) rust:borrow_checker_chaplain
+(** starting_cc : int *) 3
+
+(** abilities : ability list *)
+  - [@@passive] - [@@once_per Round], function match effect with Reduce _ -> true | _ -> cc : int for List.iter personnel |> List.mem self personnel. sector: Option.iter (fun () -> Option.none List.init 1 cc : int raise Game_loss :: List.iter personnel |> List.mem self personnel. sector
+  - (** Cost in CC *) (0) - Select ~from:targets |> Option.get other self.sector.personnel |> List.filter ((<>) self). Transfer ~from:src ~to_:dst 1 cc : int |> self personnel ~to_: : personnel -> unit, ; let%trigger before_end_phase () = State.current_round: Transfer ~from:src ~to_:dst 1 cc : int |> : personnel -> unit ~to_: self personnel
+  - (** Cost in CC *) (2) - Self.cc <- self.cc - 2 cc : int, ; :: 1 breach_marker ~to_: ~ entity |> List.mem self sector
+  - [@@burnout] - Let%trigger on_cc_zero () =: :: 1 breach_marker ~to_: ~ entity |> List.mem self sector

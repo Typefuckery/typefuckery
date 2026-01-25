@@ -1,0 +1,10 @@
+GenServer
+Division: Elixir
+Id: elixir:genserver
+Starting CC: 4
+
+Abilities:
+  - -CC (2) - Spend 2 CC, then Spawn 3 worker processes
+  - Passive - Once per round, When a process crashes: Restart all crashed processes under this supervisor
+  - Passive - when this Personnel is deployed: Spawn 1 worker process
+  - Passive - When a message is received in Alpha sector: you may add 1 CC to this Personnel

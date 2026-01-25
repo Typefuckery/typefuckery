@@ -1,0 +1,11 @@
+Quantum Specialist
+Division: Haskell
+Id: test:quantum_specialist
+Starting CC: 5
+
+Abilities:
+  - Passive - If sector Gamma is breached: Prevent up to 2 CC loss on each Personnel in this Personnel's sector
+  - -CC (2) - Spend 2 CC, then Choose another Personnel in your sector. Move 1 CC from this Personnel to that Personnel; Add 1 CC to that Personnel; before End Phase this round: Move 1 CC from that Personnel to this Personnel
+  - Passive - Once per round, when Personnel is deployed in sector Lambda: Add 1 CC to each Personnel in sector Lambda, then Remove 1 Breach Marker from the Entity in sector Lambda
+  - Passive - when a card effect would reduce CC for this Personnel (not from spending CC): you may move this Personnel to a chosen sector
+  - Burnout - When this Personnel's CC is reduced to 0: Remove 1 CC from each Personnel, then Flip this sector to Secure

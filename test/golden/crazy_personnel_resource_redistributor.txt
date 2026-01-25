@@ -1,0 +1,7 @@
+Resource Redistributor
+Division: OCaml
+Id: test:resource_redistributor
+Starting CC: 4
+
+Abilities:
+  - -CC (3) - Spend 3 CC, then Choose another Personnel in your sector. Choose another Personnel in your sector. Move 1 CC from that Personnel to this Personnel; Move 2 CC from this Personnel to that Personnel; Add 1 CC to that Personnel

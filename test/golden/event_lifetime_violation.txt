@@ -1,0 +1,6 @@
+Lifetime Violation
+Division: Rust
+Id: rust:lifetime_violation
+
+Resolve immediately:
+  - Remove 3 CC from a Personnel in play

@@ -1,0 +1,14 @@
+Race Hazard
+Division: Institute
+Id: institute:race_hazard
+Threat Level: Titan
+Breach Timer: 6
+
+Effect (End Phase, while uncontained):
+  - Move 1 CC from one Personnel to another
+
+Effect (On Breach):
+  - Remove 5 CC from each Personnel
+
+Containment Requirement:
+  - Sector Alpha is breached or sector Beta is breached

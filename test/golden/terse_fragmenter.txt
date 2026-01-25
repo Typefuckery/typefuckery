@@ -1,0 +1,14 @@
+Terse Fragmenter
+Division: Institute
+Id: test:terse_fragmenter
+Threat Level: Titan
+Breach Timer: 7
+
+Effect (End Phase, while uncontained):
+  - Choose a Personnel. Remove 2 CC from that Personnel; Move that Personnel to a chosen sector; Add 1 Breach Marker to the Entity in sector Alpha; Flip a chosen sector to Breached
+
+Effect (On Breach):
+  - Send a Personnel to the Abyss; Send a Personnel to the Abyss; Send a Personnel to the Abyss; Flip a chosen sector to Breached
+
+Containment Requirement:
+  - (3+ Personnel in sector Alpha or 3+ Personnel in sector Beta and sector Lambda is not breached)

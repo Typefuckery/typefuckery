@@ -1,0 +1,14 @@
+Buffer Overflow
+/// Division: Institute
+/// Id: institute:buffer_overflow
+/// ThreatLevel: ThreatLevel::Keter
+/// BreachTimer: 4
+
+/// Effect (EndPhase, while !contained):
+  - .remove() 1 cc: u32 .take() .for_each(|x| Personnel
+
+/// Effect (OnBreach):
+  - .remove() 3 cc: u32 .take() .for_each(|x| Personnel
+
+/// ContainmentRequirement:
+  - 2.. Personnel .contains( Sector Alpha

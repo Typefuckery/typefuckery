@@ -1,0 +1,10 @@
+Terse Memguard
+Division: Rust
+Id: test:terse_memguard
+Starting CC: 4
+
+Abilities:
+  - Passive - Prevent up to 1 CC loss on this Personnel
+  - Passive - Once per round, when a card effect would reduce CC for this Personnel (not from spending CC): you may prevent up to 2 CC loss on this Personnel
+  - -CC (3) - Spend 3 CC, then Prevent up to 1 CC loss on a Personnel
+  - Burnout - When this Personnel's CC is reduced to 0: Prevent up to 1 CC loss on all Personnel in this Personnel's sector

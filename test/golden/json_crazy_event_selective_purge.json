@@ -1,0 +1,1 @@
+{"card_type_std": "event", "card_type": "Event", "id": "test:selective_purge", "name": "Selective Purge", "division_std": "institute", "division": "Institute", "lore_md": null, "flavor_text": null, "text": "Remove 2 CC from a chosen Personnel that has at least 3 CC in sector Alpha, then Remove 1 CC from a chosen Personnel that has at least 2 CC in sector Beta"}

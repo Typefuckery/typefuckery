@@ -1,0 +1,6 @@
+Diplomatic Intervention
+Division: Institute
+Id: test:diplomatic_intervention
+
+Resolve immediately:
+  - Move a Personnel chosen by the starting player to a sector chosen by the starting player, then Add 2 CC to a Personnel chosen by the controller

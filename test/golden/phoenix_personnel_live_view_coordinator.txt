@@ -1,0 +1,10 @@
+LiveView Coordinator
+Division: Phoenix
+Id: phoenix:live_view_coordinator
+Starting CC: 5
+
+Abilities:
+  - -CC (1) - Spend 1 CC, then Spawn 2 worker processes
+  - -CC (2) - Spend 2 CC, then Attach LiveView component "DashboardLive"
+  - Passive - When a process crashes: Broadcast on channel "errors" to Alpha sector
+  - Passive - Once per round, When a LiveView component mounts: you may Spawn 1 worker process

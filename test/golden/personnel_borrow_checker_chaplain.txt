@@ -1,0 +1,10 @@
+Borrow-Checker Chaplain
+Division: Rust
+Id: rust:borrow_checker_chaplain
+Starting CC: 3
+
+Abilities:
+  - Passive - Once per round, when a card effect would reduce CC for all Personnel in this Personnel's sector: you may prevent up to 1 CC loss on all Personnel in this Personnel's sector
+  - -CC (0) - Choose another Personnel in your sector. Move 1 CC from this Personnel to that Personnel, then before End Phase this round: Move 1 CC from that Personnel to this Personnel
+  - -CC (2) - Spend 2 CC, then Add 1 Breach Marker to the Entity in this sector
+  - Burnout - When this Personnel's CC is reduced to 0: Add 1 Breach Marker to the Entity in this sector

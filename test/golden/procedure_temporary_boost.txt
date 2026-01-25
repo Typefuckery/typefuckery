@@ -1,0 +1,6 @@
+Temporary Boost
+Division: Rust
+Id: rust:temporary_boost
+
+Effect:
+  - Choose a Personnel. Add 1 CC to that Personnel, then before End Phase this round: Remove 1 CC from that Personnel

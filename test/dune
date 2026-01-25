@@ -1,0 +1,73 @@
+(library
+ (name util)
+ (modules util))
+
+(executable
+ (name registry)
+ (modules registry)
+ (libraries typefuckery util))
+
+(executable
+ (name registry_errors)
+ (modules registry_errors)
+ (libraries typefuckery util))
+
+(executable
+ (name divisions)
+ (modules divisions)
+ (libraries typefuckery util))
+
+(executable
+ (name to_string_functor)
+ (modules to_string_functor)
+ (libraries typefuckery util))
+
+(executable
+ (name json)
+ (modules json)
+ (libraries typefuckery util))
+
+(executable
+ (name example_cards)
+ (modules example_cards)
+ (libraries typefuckery util))
+
+(executable
+ (name crazy_cards)
+ (modules crazy_cards)
+ (libraries typefuckery util))
+
+(executable
+ (name noncore_division)
+ (modules noncore_division)
+ (libraries typefuckery util))
+
+(executable
+ (name prolog_division)
+ (modules prolog_division)
+ (libraries typefuckery util))
+
+(executable
+ (name dsl)
+ (modules dsl)
+ (libraries typefuckery util))
+
+(rule
+ (alias runtest)
+ (deps
+  (glob_files golden/*.txt)
+  (glob_files golden/*.json))
+ (action
+  (chdir
+   %{project_root}
+    (progn
+     (run %{dep:registry.exe})
+     (run %{dep:registry_errors.exe})
+     (run %{dep:divisions.exe})
+     (run %{dep:to_string_functor.exe})
+     (run %{dep:json.exe})
+     (run %{dep:example_cards.exe})
+     (run %{dep:crazy_cards.exe})
+     (run %{dep:noncore_division.exe})
+     (run %{dep:prolog_division.exe})
+     (run %{dep:dsl.exe})))))

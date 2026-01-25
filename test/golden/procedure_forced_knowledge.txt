@@ -1,0 +1,6 @@
+Forced Knowledge
+Division: Institute
+Id: institute:forced_knowledge
+
+Effect:
+  - Another target player draws 3 cards

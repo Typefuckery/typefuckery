@@ -1,0 +1,6 @@
+Terse Retreat
+Division: Institute
+Id: test:terse_retreat
+
+Resolve immediately:
+  - Move a Personnel to a chosen sector, then Flip a chosen sector to Secure

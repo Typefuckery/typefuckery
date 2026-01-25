@@ -1,0 +1,10 @@
+Haskell Lazy Evaluator
+-- Division : Division_Type := Haskell
+-- Id : Card_Id := haskell:haskell_lazy_evaluator
+-- Starting_CC : Natural := 2
+
+-- Abilities : Ability_Array :=
+  - Pragma Passive; - Append (Container, 1 CC : Natural to Self Personnel_Record
+  - -- Cost : Natural := (0) - If in range 2 .. Natural'Last Personnel_Record in Sector_Type Sector_Lambda: Move (Source => From, Target => Self Personnel_Record to A_ Selected Sector_Type
+  - Pragma Passive; - when Entity_Ref.all Resolve (Effect); in Sector_Type Sector_Gamma: Append (Container, 1 CC : Natural to for Item of Personnel_Record in Sector_Type Sector_Gamma
+  - Pragma Finalize (Self); - Procedure On_CC_Zero_Trigger is: Append (Container, 1 Breach_Marker_Type to The_ Entity_Record in Self Sector_Type

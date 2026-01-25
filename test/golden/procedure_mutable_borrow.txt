@@ -1,0 +1,6 @@
+Mutable Borrow
+Division: Rust
+Id: rust:mutable_borrow
+
+Effect:
+  - Move 1 CC from one of 2 chosen Personnel to the other. If you can't, do nothing

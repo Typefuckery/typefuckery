@@ -1,0 +1,7 @@
+Temporal Strategist
+Division: Haskell
+Id: test:temporal_strategist
+Starting CC: 6
+
+Abilities:
+  - -CC (4) - Spend 4 CC, then Choose a Personnel. Add 1 CC to that Personnel; before End Phase this round: Add 2 CC to that Personnel; before End Phase this round: Remove 1 CC from that Personnel; at end of round this round: Flip sector Alpha to Secure

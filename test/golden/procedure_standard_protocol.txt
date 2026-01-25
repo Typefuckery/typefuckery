@@ -1,0 +1,6 @@
+Standard Protocol
+Division: Institute
+Id: institute:standard_protocol
+
+Effect:
+  - Add 1 CC to a Personnel, then Remove 1 Breach Marker from a chosen Entity

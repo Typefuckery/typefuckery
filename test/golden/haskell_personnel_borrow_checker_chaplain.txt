@@ -1,0 +1,10 @@
+Borrow-Checker Chaplain
+-- | division :: Rust
+-- | cardId :: rust:borrow_checker_chaplain
+-- | startingCC :: 3
+
+-- | abilities ::
+  - Deriving Passive - Guard =<< uses _usedThisRound not, \case whenM (asks $ is _ReduceEffect) cc :: Natural for traverse_ Personnel `elem` self (^. personnel) Sector: whenM mayActivate $ guard . not [1.. 1 cc :: Natural throwError GameLoss : traverse_ Personnel `elem` self (^. personnel) Sector
+  - -- | Cost in CC (0) - SelectM >>= other (self ^. _sector . _personnel) ^.. folded . filtered (/= self). _from . at k <<.= 1 cc :: Natural <$ self Personnel $> :: Personnel -> GameM (), >>= beforeEndPhase :: GameM () currentRound: _from . at k <<.= 1 cc :: Natural <$ :: Personnel -> GameM () $> self Personnel
+  - -- | Cost in CC (2) - _cc -=  2 cc :: Natural, >>= Modify . cons $ 1 BreachMarker $> the Entity `elem` self Sector
+  - Self .= mempty - OnCCZero :: GameM (): Modify . cons $ 1 BreachMarker $> the Entity `elem` self Sector

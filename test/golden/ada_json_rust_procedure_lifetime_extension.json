@@ -1,0 +1,6 @@
+Lifetime Extension
+-- Division : Division_Type := Rust
+-- Id : Card_Id := rust:lifetime_extension
+
+-- Effect : Effect_Type :=
+  - Append (Container, 1 Breach_Marker_Type to A_ Selected Entity_Record

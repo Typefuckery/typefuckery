@@ -1,0 +1,13 @@
+The Unifier
+Division: Prolog
+Id: prolog:the_unifier
+Starting CC: 5
+
+Abilities:
+  - -CC (2) - Spend 2 CC, then Unify X with target, then Add 1 CC to this Personnel
+  - -CC (1) - Spend 1 CC, then Query member/2 against the knowledge base
+  - Passive - Once per round, When a unification fails: Backtrack to the last choice point, then Draw 1 card
+  - Passive - When solve succeeds: you may Assert fact: solved(problem)
+  - Passive - If 1+ Personnel in sector Alpha: Cut: commit to current solution path
+  - Passive - When execution backtracks: you may remove 1 Breach Marker from the Entity in sector Alpha
+  - Burnout - When this Personnel's CC is reduced to 0: Retract fact: all, then Remove 2 CC from each Personnel

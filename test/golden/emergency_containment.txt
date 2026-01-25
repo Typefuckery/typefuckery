@@ -1,0 +1,9 @@
+Emergency Containment
+Division: Institute
+Id: institute:emergency_containment
+
+Effect:
+  - Contain the Entity in this sector this round
+
+---
+Temporary measures for permanent problems.

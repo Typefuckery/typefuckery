@@ -1,0 +1,10 @@
+OCaml Module Architect
+-- Division : Division_Type := OCaml
+-- Id : Card_Id := ocaml:ocaml_module_architect
+-- Starting_CC : Natural := 3
+
+-- Abilities : Ability_Array :=
+  - Pragma Passive; - Pragma Restriction (Max_Calls => 1, Per => Round);, Prevent (Effect => in range 1 .. 1 CC : Natural raise Game_Loss onto Self Personnel_Record
+  - -- Cost : Natural := (1) - If in range 2 .. Natural'Last Personnel_Record in Sector_Type Sector_Beta: Spend (Amount => 1 CC : Natural, ; Move (Source => From, Target => A_ Personnel_Record in Sector_Type Sector_Beta to Sector_Type Sector_Lambda, ; Append (Container, 1 CC : Natural to Self Personnel_Record
+  - Pragma Passive; - when Entity_Ref.all Resolve (Effect);: Recompute module graph
+  - Pragma Finalize (Self); - Procedure On_CC_Zero_Trigger is: Send (Destination => Abyss, Self Personnel_Record to Abyss_Zone

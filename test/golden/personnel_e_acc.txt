@@ -1,0 +1,9 @@
+e/acc
+Division: Institute
+Id: institute:e_acc
+Starting CC: 4
+
+Abilities:
+  - -CC (1) - Spend 1 CC, then Remove 1 Breach Marker from the Entity in this sector, then Add 1 CC to each Personnel in this Personnel's sector
+  - -CC (2) - Spend 2 CC, then Add 1 CC to each Personnel
+  - Burnout - When this Personnel's CC is reduced to 0: Draw 1 card

@@ -1,0 +1,14 @@
+Syntax Glitch
+Division: Institute
+Id: institute:syntax_glitch
+Threat Level: Safe
+Breach Timer: 1
+
+Effect (End Phase, while uncontained):
+  - No effect
+
+Effect (On Breach):
+  - Discard 1 card
+
+Containment Requirement:
+  - Always contained

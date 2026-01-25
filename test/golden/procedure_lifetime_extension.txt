@@ -1,0 +1,6 @@
+Lifetime Extension
+Division: Rust
+Id: rust:lifetime_extension
+
+Effect:
+  - Add 1 Breach Marker to a chosen Entity

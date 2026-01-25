@@ -1,0 +1,14 @@
+Cascading Failure
+Division: Institute
+Id: test:cascading_failure
+Threat Level: Keter
+Breach Timer: 5
+
+Effect (End Phase, while uncontained):
+  - Remove 1 CC from each Personnel, then Add 1 Breach Marker to all Entities
+
+Effect (On Breach):
+  - Remove 3 CC from each Personnel, then Discard 3 cards
+
+Containment Requirement:
+  - 2+ Personnel in sector Gamma, each with 2+ CC

@@ -1,0 +1,8 @@
+Channel Router
+Division: Phoenix
+Id: phoenix:channel_router
+Starting CC: 3
+
+Abilities:
+  - Passive - When a client joins a channel in Beta sector: Track presence for all connected clients, then Add 1 CC to this Personnel
+  - -CC (2) - Spend 2 CC, then Send a message to Lambda sector, then Broadcast on channel "updates" to Lambda sector

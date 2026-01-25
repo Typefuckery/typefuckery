@@ -1,0 +1,10 @@
+Ada Safety Engineer
+/// Division: Ada
+/// Id: ada:ada_safety_engineer
+/// StartingCC: 4
+
+/// Abilities:
+  - #[derive(Passive)] - #[once(per = Round)], If let Some(_) = Sector Alpha .is_breached(): .lock().unwrap() ..= 1 cc: u32 Err(Loss) .push( .iter() Personnel .contains( Sector Alpha
+  - /// Cost in CC (1) - .saturating_sub( 1 cc: u32, .and_then(|_| .toggle() impl unwrap() Sector .into() SectorState::Secure
+  - #[derive(Passive)] - #[on_spawn]: .push() 1 cc: u32 .into() &self Personnel
+  - Mem::drop(self) - If self.cc == 0: .toggle() &self Sector .into() SectorState::Secure

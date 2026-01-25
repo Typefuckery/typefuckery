@@ -1,0 +1,9 @@
+Terse Defender
+Division: Rust
+Id: test:terse_defender
+Starting CC: 5
+
+Abilities:
+  - Passive - Once per round, If sector Alpha is breached: Prevent up to 1 CC loss on all Personnel in sector Alpha
+  - Passive - Once per round, If sector Beta is breached: Prevent up to 1 CC loss on all Personnel in sector Beta
+  - Passive - Once per round, Prevent up to 1 CC loss on this Personnel

@@ -1,0 +1,10 @@
+Ada Safety Engineer
+Division: Ada
+Id: ada:ada_safety_engineer
+Starting CC: 4
+
+Abilities:
+  - Passive - Once per round, If sector Alpha is breached: Prevent up to 1 CC loss on all Personnel in sector Alpha
+  - -CC (1) - Spend 1 CC, then Flip a chosen sector to Secure
+  - Passive - when this Personnel is deployed: Add 1 CC to this Personnel
+  - Burnout - When this Personnel's CC is reduced to 0: Flip this sector to Secure

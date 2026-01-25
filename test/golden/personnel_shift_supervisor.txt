@@ -1,0 +1,9 @@
+Shift Supervisor
+Division: Institute
+Id: institute:shift_supervisor
+Starting CC: 4
+
+Abilities:
+  - Passive - Once per round, Prevent up to 1 CC loss on all Personnel in this Personnel's sector
+  - -CC (2) - Spend 2 CC, then Flip a chosen sector to Secure
+  - Burnout - When this Personnel's CC is reduced to 0: Remove 1 Breach Marker from a chosen Entity

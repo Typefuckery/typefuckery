@@ -1,0 +1,13 @@
+The Unifier
+KB PROLOG
+id prolog:the_unifier
+init_energy 5
+
+rules
+  - cost (2) - consume 2 energy, then X = target, then assert 1 energy -> self agent
+  - cost (1) - consume 1 energy, then ?- member/2
+  - fact - once/round, \+ unify(_, _) :-: fail, redo, then consult 1 clause
+  - fact - solve :- true,: ?user :- optional assert(solved(problem))
+  - fact - :- >= 1 agent @ zone alpha: !
+  - fact - redo :-: ?user :- optional remove 1 corruption <-  anomaly @ zone alpha
+  - on_halt - energy(self, 0) :-: retract(all), then retract 2 energy <- foreach agent

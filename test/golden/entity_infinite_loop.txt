@@ -1,0 +1,14 @@
+Infinite Loop
+Division: Institute
+Id: institute:infinite_loop
+Threat Level: Safe
+Breach Timer: 5
+
+Effect (End Phase, while uncontained):
+  - Add 1 Breach Marker to all Entities
+
+Effect (On Breach):
+  - Discard 2 cards
+
+Containment Requirement:
+  - Sector Gamma is breached

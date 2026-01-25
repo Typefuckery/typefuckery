@@ -1,0 +1,6 @@
+Strategic Retreat
+Division: Institute
+Id: institute:strategic_retreat
+
+Resolve immediately:
+  - Move a Personnel chosen by the starting player to a chosen sector

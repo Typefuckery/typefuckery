@@ -1,0 +1,9 @@
+Sigkill Engagement
+Division: Institute
+Id: institute:sigkill_engagement
+
+Effect:
+  - Choose a Personnel you control. Remove 2 CC from that Personnel, then Add 1 Breach Marker to a chosen Entity
+
+---
+Sigkill takes what containment cannot.

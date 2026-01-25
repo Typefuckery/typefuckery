@@ -1,0 +1,6 @@
+Ownership Transfer
+Division: Rust
+Id: rust:ownership_transfer
+
+Effect:
+  - Move a Personnel to a chosen sector

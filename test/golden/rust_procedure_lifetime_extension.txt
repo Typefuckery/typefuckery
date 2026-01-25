@@ -1,0 +1,6 @@
+Lifetime Extension
+/// Division: Rust
+/// Id: rust:lifetime_extension
+
+/// Effect:
+  - .push() 1 BreachMarker .into() impl unwrap() Entity

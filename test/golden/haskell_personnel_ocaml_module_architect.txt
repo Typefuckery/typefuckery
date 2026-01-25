@@ -1,0 +1,10 @@
+OCaml Module Architect
+-- | division :: OCaml
+-- | cardId :: ocaml:ocaml_module_architect
+-- | startingCC :: 3
+
+-- | abilities ::
+  - Deriving Passive - Guard =<< uses _usedThisRound not, Guard . not $ [1.. 1 cc :: Natural throwError GameLoss : self Personnel
+  - -- | Cost in CC (1) - When (>= 2) Personnel `elem` Sector Beta: _cc -=  1 cc :: Natural, >>= _from . at k <<.= pure Personnel `elem` Sector Beta $> Sector Lambda, >>= Modify . cons $ 1 cc :: Natural $> self Personnel
+  - Deriving Passive - \case (entity ^.) >>= resolve: Recompute module graph
+  - Self .= mempty - OnCCZero :: GameM (): _abyss <>= pure $ self Personnel $> abyss

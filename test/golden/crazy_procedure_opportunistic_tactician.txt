@@ -1,0 +1,6 @@
+Opportunistic Tactician
+Division: Haskell
+Id: test:opportunistic_tactician
+
+Effect:
+  - Move 2 CC from one Personnel to another. If you can't, do nothing; Add 1 Breach Marker to a chosen Entity. If you can't, do nothing; Add 1 CC to a Personnel

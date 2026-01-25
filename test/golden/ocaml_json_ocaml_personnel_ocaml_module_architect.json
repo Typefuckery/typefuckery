@@ -1,0 +1,10 @@
+OCaml Module Architect
+(** division : Division.t *) OCaml
+(** id : Card_id.t *) ocaml:ocaml_module_architect
+(** starting_cc : int *) 3
+
+(** abilities : ability list *)
+  - [@@passive] - [@@once_per Round], None (* prevented *) List.init 1 cc : int raise Game_loss :: self personnel
+  - (** Cost in CC *) (1) - If (fun x -> x >= 2) personnel |> List.mem sector Sector.Beta: Self.cc <- self.cc - 1 cc : int, ; Transfer ~from:src ~to_:dst Some personnel |> List.mem sector Sector.Beta ~to_: sector Sector.Lambda, ; :: 1 cc : int ~to_: self personnel
+  - [@@passive] - function entity. |> Effect.resolve: Recompute module graph
+  - [@@burnout] - Let%trigger on_cc_zero () =: Zones.abyss := card :: self personnel ~to_: Zones.abyss

@@ -1,0 +1,6 @@
+Lifetime Extension
+-- | division :: Rust
+-- | cardId :: rust:lifetime_extension
+
+-- | effect ::
+  - Modify . cons $ 1 BreachMarker $> pure fromJust Entity

@@ -1,0 +1,10 @@
+OCaml Module Architect
+Division: OCaml
+Id: ocaml:ocaml_module_architect
+Starting CC: 3
+
+Abilities:
+  - Passive - Once per round, Prevent up to 1 CC loss on this Personnel
+  - -CC (1) - If 2+ Personnel in sector Beta: Spend 1 CC, then Move a Personnel in sector Beta to sector Lambda, then Add 1 CC to this Personnel
+  - Passive - when an Entity's effect resolves: Recompute module graph
+  - Burnout - When this Personnel's CC is reduced to 0: Send this Personnel to the Abyss

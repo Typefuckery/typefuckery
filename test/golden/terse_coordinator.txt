@@ -1,0 +1,8 @@
+Terse Coordinator
+Division: Institute
+Id: test:terse_coordinator
+Starting CC: 5
+
+Abilities:
+  - Passive - when Personnel is deployed in sector Alpha: Add 1 CC to this Personnel, then Add 1 CC to each Personnel in sector Alpha
+  - Passive - Once per round, when Personnel is deployed in sector Beta: you may draw 1 card

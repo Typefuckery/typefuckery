@@ -1,0 +1,10 @@
+Borrow-Checker Chaplain
+-- Division : Division_Type := Rust
+-- Id : Card_Id := rust:borrow_checker_chaplain
+-- Starting_CC : Natural := 3
+
+-- Abilities : Ability_Array :=
+  - Pragma Passive; - Pragma Restriction (Max_Calls => 1, Per => Round);, when Effect in Reduce_Effect'Class CC : Natural for All_ Personnel_Record in Self Personnel_Record.all Sector_Type: if May_Activate then Prevent in range 1 .. 1 CC : Natural raise Game_Loss onto All_ Personnel_Record in Self Personnel_Record.all Sector_Type
+  - -- Cost : Natural := (0) - Select (From => Valid_Targets, Other_ (for all P of Self.Sector.Personnel => P /= Self). Move (Source => From, Target => 1 CC : Natural from Self Personnel_Record to procedure Apply (Target : in out Personnel_Record), ; procedure Before_End_Phase_Trigger is Current_Round: Move (Source => From, Target => 1 CC : Natural from procedure Apply (Target : in out Personnel_Record) to Self Personnel_Record
+  - -- Cost : Natural := (2) - Spend (Amount => 2 CC : Natural, ; Append (Container, 1 Breach_Marker_Type to The_ Entity_Record in Self Sector_Type
+  - Pragma Finalize (Self); - Procedure On_CC_Zero_Trigger is: Append (Container, 1 Breach_Marker_Type to The_ Entity_Record in Self Sector_Type

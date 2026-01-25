@@ -1,0 +1,6 @@
+Sector Lockdown
+Division: Ada
+Id: test:sector_lockdown
+
+Effect:
+  - Flip a chosen sector to Secure, then Add 1 CC to each Personnel in sector Alpha

@@ -1,0 +1,14 @@
+Memory Leak
+Division: Institute
+Id: institute:memory_leak
+Threat Level: Euclid
+Breach Timer: 4
+
+Effect (End Phase, while uncontained):
+  - Remove 1 CC from each Personnel in sector Lambda
+
+Effect (On Breach):
+  - Remove 2 CC from each Personnel
+
+Containment Requirement:
+  - 2+ Personnel in sector Lambda, each with 1+ CC

@@ -1,0 +1,1 @@
+{"card_type": "entity", "id": "elixir:otp_supervisor", "name": "OTP Supervisor", "division": "elixir", "threat_level": "euclid", "breach_timer": 4, "end_phase_effect_text": "Spawn 2 worker processes, then Remove 1 CC from each Personnel", "breach_effect_text": "Spawn 10 worker processes, then Remove 3 CC from each Personnel", "containment_text": "2+ Personnel in sector Lambda"}

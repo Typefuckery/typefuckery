@@ -1,0 +1,6 @@
+Rapid Response
+Division: Institute
+Id: institute:rapid_response
+
+Effect:
+  - Move a Personnel to a chosen sector

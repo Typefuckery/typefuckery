@@ -1,0 +1,6 @@
+Quantum Entangler
+Division: Haskell
+Id: test:quantum_entangler
+
+Effect:
+  - Choose a Personnel. Choose another Personnel in your sector. Move 1 CC from that Personnel to that Personnel; before End Phase this round: Move 1 CC from that Personnel to that Personnel; before End Phase this round: Add 1 CC to that Personnel; before End Phase this round: Add 1 CC to that Personnel

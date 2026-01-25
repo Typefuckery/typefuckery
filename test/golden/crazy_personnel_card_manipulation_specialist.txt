@@ -1,0 +1,9 @@
+Card Manipulation Specialist
+Division: Institute
+Id: test:card_manipulation_specialist
+Starting CC: 5
+
+Abilities:
+  - -CC (2) - Spend 2 CC, then Draw 3 cards
+  - -CC (1) - Spend 1 CC, then Discard 2 cards, then Draw 2 cards
+  - Passive - Once per round, when sector Alpha is breached: Draw 1 card

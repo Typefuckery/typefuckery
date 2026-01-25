@@ -1,0 +1,7 @@
+Custom Effect Engineer
+Division: Rust
+Id: test:custom_effect_engineer
+Starting CC: 4
+
+Abilities:
+  - -CC (3) - Spend 3 CC, then Initiate quantum flux protocol (intensity=high, target_sector=alpha), then Add 1 CC to this Personnel

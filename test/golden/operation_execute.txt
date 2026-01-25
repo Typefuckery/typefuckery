@@ -1,0 +1,9 @@
+Operation Execute
+Division: Institute
+Id: institute:operation_execute
+
+Effect:
+  - Choose a Personnel you control. Remove 3 CC from that Personnel, then Add 1 Breach Marker to all Entities
+
+---
+No process survives a SIGKILL. Neither do we.

@@ -1,0 +1,6 @@
+Terse Assault
+Division: Rust
+Id: test:terse_assault
+
+Effect:
+  - Choose a Personnel. Add 3 CC to that Personnel; Move that Personnel to a chosen sector; before End Phase this round: Remove 2 CC from that Personnel

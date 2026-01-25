@@ -1,0 +1,6 @@
+Lifetime Extension
+(** division : Division.t *) Rust
+(** id : Card_id.t *) rust:lifetime_extension
+
+(** effect : Effect.t *)
+  - :: 1 breach_marker ~to_: Some Option.get entity

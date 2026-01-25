@@ -1,0 +1,14 @@
+Buffer Overflow
+-- Division : Division_Type := Institute
+-- Id : Card_Id := institute:buffer_overflow
+-- Threat_Level : Threat_Type := Threat_Keter
+-- Breach_Timer : Natural := 4
+
+-- End_Phase_Effect : Effect_Type := -- while not Contained
+  - Delete (Container, 1 CC : Natural from for Item of Personnel_Record
+
+-- Breach_Effect : Effect_Type := -- on breach
+  - Delete (Container, 3 CC : Natural from for Item of Personnel_Record
+
+-- Containment_Requirement : Requirement_Type :=
+  - In range 2 .. Natural'Last Personnel_Record in Sector_Type Sector_Alpha

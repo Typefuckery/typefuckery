@@ -1,0 +1,14 @@
+OTP Supervisor
+Division: Elixir
+Id: elixir:otp_supervisor
+Threat Level: Euclid
+Breach Timer: 4
+
+Effect (End Phase, while uncontained):
+  - Spawn 2 worker processes, then Remove 1 CC from each Personnel
+
+Effect (On Breach):
+  - Spawn 10 worker processes, then Remove 3 CC from each Personnel
+
+Containment Requirement:
+  - 2+ Personnel in sector Lambda

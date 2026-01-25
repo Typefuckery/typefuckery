@@ -1,0 +1,9 @@
+Containment Override
+Division: Institute
+Id: institute:containment_override
+
+Effect:
+  - Choose a Personnel you control. Remove 4 CC from that Personnel; Flip sector Alpha to Secure; Flip sector Beta to Secure; Flip sector Lambda to Secure; Flip sector Gamma to Secure
+
+---
+SIGKILL -9: reality. The memetic field flatlines. All sectors report nominal.

@@ -1,0 +1,11 @@
+Terse Responder
+Division: Ada
+Id: test:terse_responder
+Starting CC: 7
+
+Abilities:
+  - Passive - when this Personnel is deployed: Add 1 CC to this Personnel
+  - Passive - at end of phase: Add 1 CC to this Personnel
+  - Passive - Once per round, at end of round: you may remove 1 CC from this Personnel
+  - Passive - when sector Alpha is breached: Flip sector Alpha to Secure
+  - Passive - when an Entity's effect resolves in sector Beta: Add 1 CC to each Personnel in sector Beta

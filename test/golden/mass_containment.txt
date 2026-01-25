@@ -1,0 +1,9 @@
+Mass Containment
+Division: Institute
+Id: institute:mass_containment
+
+Effect:
+  - Contain the Entity in this sector this round, then Contain a chosen Entity this round
+
+---
+When one containment isn't enough.

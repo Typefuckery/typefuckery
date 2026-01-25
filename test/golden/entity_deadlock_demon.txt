@@ -1,0 +1,14 @@
+Deadlock Demon
+Division: Institute
+Id: institute:deadlock_demon
+Threat Level: Euclid
+Breach Timer: 3
+
+Effect (End Phase, while uncontained):
+  - Flip a chosen sector to Breached
+
+Effect (On Breach):
+  - Send a Personnel to the Abyss
+
+Containment Requirement:
+  - 1+ Personnel in sector Beta

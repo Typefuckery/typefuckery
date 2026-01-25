@@ -1,0 +1,6 @@
+DSL Sector Procedure
+Division: Institute
+Id: test:dsl_sector_procedure
+
+Effect:
+  - Add 1 CC to each Personnel in sector Lambda, then Remove 1 CC from each Personnel in this Personnel's sector

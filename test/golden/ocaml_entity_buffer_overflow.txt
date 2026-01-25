@@ -1,0 +1,14 @@
+Buffer Overflow
+(** division : Division.t *) Institute
+(** id : Card_id.t *) institute:buffer_overflow
+(** threat_level : Threat.t *) Threat.Keter
+(** breach_timer : int *) 4
+
+(** end_phase_effect : Effect.t (* when not contained *) *)
+  - |> List.filter ((<>) 1 cc : int |> List.iter personnel
+
+(** breach_effect : Effect.t (* on breach *) *)
+  - |> List.filter ((<>) 3 cc : int |> List.iter personnel
+
+(** containment : Containment.t *)
+  - (fun x -> x >= 2) personnel |> List.mem sector Sector.Alpha

@@ -1,0 +1,6 @@
+Borrow Checker Rejection
+Division: Rust
+Id: rust:borrow_checker_rejection
+
+Resolve immediately:
+  - Remove 1 CC from each Personnel in sector Alpha

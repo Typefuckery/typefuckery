@@ -1,0 +1,10 @@
+Haskell Lazy Evaluator
+/// Division: Haskell
+/// Id: haskell:haskell_lazy_evaluator
+/// StartingCC: 2
+
+/// Abilities:
+  - #[derive(Passive)] - .push() 1 cc: u32 .into() &self Personnel
+  - /// Cost in CC (0) - If let Some(_) = 2.. Personnel .contains( Sector Lambda: Mem::take(&mut &self Personnel .into() impl unwrap() Sector
+  - #[derive(Passive)] - match entity.borrow() .resolve() .contains( Sector Gamma: .push() 1 cc: u32 .into() .for_each(|x| Personnel .contains( Sector Gamma
+  - Mem::drop(self) - If self.cc == 0: .push() 1 BreachMarker .into() &mut Entity .contains( &self Sector

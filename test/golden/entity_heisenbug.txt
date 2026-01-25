@@ -1,0 +1,14 @@
+Heisenbug
+Division: Institute
+Id: institute:heisenbug
+Threat Level: Euclid
+Breach Timer: 2
+
+Effect (End Phase, while uncontained):
+  - Remove 1 CC from each Personnel in this Personnel's sector, then Add 1 Breach Marker to the Entity in this sector
+
+Effect (On Breach):
+  - Remove 2 CC from each Personnel
+
+Containment Requirement:
+  - 1+ Personnel in sector Alpha

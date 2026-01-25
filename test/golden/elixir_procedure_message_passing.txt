@@ -1,0 +1,6 @@
+Message Passing
+Division: Elixir
+Id: elixir:message_passing
+
+Effect:
+  - Send a message to Beta sector, then Add 1 CC to each Personnel in sector Beta

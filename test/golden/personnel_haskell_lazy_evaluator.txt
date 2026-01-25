@@ -1,0 +1,10 @@
+Haskell Lazy Evaluator
+Division: Haskell
+Id: haskell:haskell_lazy_evaluator
+Starting CC: 2
+
+Abilities:
+  - Passive - Add 1 CC to this Personnel
+  - -CC (0) - If 2+ Personnel in sector Lambda: Move this Personnel to a chosen sector
+  - Passive - when an Entity's effect resolves in sector Gamma: Add 1 CC to each Personnel in sector Gamma
+  - Burnout - When this Personnel's CC is reduced to 0: Add 1 Breach Marker to the Entity in this sector

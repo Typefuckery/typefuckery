@@ -1,0 +1,10 @@
+Institute Operative
+Division: Institute
+Id: institute:institute_operative
+Starting CC: 3
+
+Abilities:
+  - Passive - Once per round, Prevent up to 1 CC loss on this Personnel
+  - -CC (1) - Spend 1 CC, then Add 1 CC to a Personnel
+  - Passive - when this Personnel is deployed: Add 1 CC to this Personnel
+  - Burnout - When this Personnel's CC is reduced to 0: File a final incident report

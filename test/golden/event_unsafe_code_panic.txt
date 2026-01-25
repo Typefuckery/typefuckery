@@ -1,0 +1,6 @@
+Unsafe Code Panic
+Division: Rust
+Id: rust:unsafe_code_panic
+
+Resolve immediately:
+  - Add 1 Breach Marker to a chosen Entity

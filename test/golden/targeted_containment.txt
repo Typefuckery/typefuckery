@@ -1,0 +1,9 @@
+Targeted Containment
+Division: Institute
+Id: institute:targeted_containment
+
+Effect:
+  - Contain the Entity in sector Alpha this round
+
+---
+Focus the suppression field on sector Alpha.

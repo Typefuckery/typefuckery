@@ -1,0 +1,14 @@
+Buffer Overflow
+Division: Institute
+Id: institute:buffer_overflow
+Threat Level: Keter
+Breach Timer: 4
+
+Effect (End Phase, while uncontained):
+  - Remove 1 CC from each Personnel
+
+Effect (On Breach):
+  - Remove 3 CC from each Personnel
+
+Containment Requirement:
+  - 2+ Personnel in sector Alpha

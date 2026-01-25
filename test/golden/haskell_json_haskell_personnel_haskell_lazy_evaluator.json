@@ -1,0 +1,10 @@
+Haskell Lazy Evaluator
+-- | division :: Haskell
+-- | cardId :: haskell:haskell_lazy_evaluator
+-- | startingCC :: 2
+
+-- | abilities ::
+  - Deriving Passive - Modify . cons $ 1 cc :: Natural $> self Personnel
+  - -- | Cost in CC (0) - When (>= 2) Personnel `elem` Sector Lambda: _from . at k <<.= self Personnel $> pure fromJust Sector
+  - Deriving Passive - \case (entity ^.) >>= resolve `elem` Sector Gamma: Modify . cons $ 1 cc :: Natural $> forM_ Personnel `elem` Sector Gamma
+  - Self .= mempty - OnCCZero :: GameM (): Modify . cons $ 1 BreachMarker $> the Entity `elem` self Sector

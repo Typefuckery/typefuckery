@@ -1,0 +1,6 @@
+Terse Violation
+Division: Rust
+Id: test:terse_violation
+
+Resolve immediately:
+  - Remove 3 CC from a Personnel

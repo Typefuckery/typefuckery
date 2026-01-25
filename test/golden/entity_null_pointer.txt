@@ -1,0 +1,14 @@
+Null Pointer
+Division: Institute
+Id: institute:null_pointer
+Threat Level: Keter
+Breach Timer: 3
+
+Effect (End Phase, while uncontained):
+  - Send a Personnel to the Abyss
+
+Effect (On Breach):
+  - Send a Personnel to the Abyss, then Send a Personnel to the Abyss
+
+Containment Requirement:
+  - Always contained

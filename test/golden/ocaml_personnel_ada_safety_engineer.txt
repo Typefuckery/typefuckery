@@ -1,0 +1,10 @@
+Ada Safety Engineer
+(** division : Division.t *) Ada
+(** id : Card_id.t *) ada:ada_safety_engineer
+(** starting_cc : int *) 4
+
+(** abilities : ability list *)
+  - [@@passive] - [@@once_per Round], If sector Sector.Alpha .breached: None (* prevented *) List.init 1 cc : int raise Game_loss :: List.iter personnel |> List.mem sector Sector.Alpha
+  - (** Cost in CC *) (1) - Self.cc <- self.cc - 1 cc : int, ; Card.flipped <- not card.flipped Some Option.get sector ~to_: Sector_state.Secure
+  - [@@passive] - let%trigger on_deploy () =: :: 1 cc : int ~to_: self personnel
+  - [@@burnout] - Let%trigger on_cc_zero () =: Card.flipped <- not card.flipped self sector ~to_: Sector_state.Secure

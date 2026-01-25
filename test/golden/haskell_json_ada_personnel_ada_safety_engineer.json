@@ -1,0 +1,10 @@
+Ada Safety Engineer
+-- | division :: Ada
+-- | cardId :: ada:ada_safety_engineer
+-- | startingCC :: 4
+
+-- | abilities ::
+  - Deriving Passive - Guard =<< uses _usedThisRound not, When Sector Alpha (^. breached): Guard . not $ [1.. 1 cc :: Natural throwError GameLoss : traverse_ Personnel `elem` Sector Alpha
+  - -- | Cost in CC (1) - _cc -=  1 cc :: Natural, >>= Flipped %= not $ pure fromJust Sector $> Secure
+  - Deriving Passive - onDeploy :: GameM (): Modify . cons $ 1 cc :: Natural $> self Personnel
+  - Self .= mempty - OnCCZero :: GameM (): Flipped %= not $ self Sector $> Secure

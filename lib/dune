@@ -1,0 +1,35 @@
+(include_subdirs unqualified)
+
+(library
+ (name typefuckery)
+ (public_name typefuckery)
+ (modules
+  no_ext
+  int
+  core
+  targets
+  effects
+  abilities
+  lore
+  cards
+  division_intf
+  division_helper
+  registry
+  language_registry
+  engine
+  card_dsl
+  phrases_common
+  to_string
+  to_json
+  ada
+  haskell
+  ocaml
+  rust
+  institute
+  divisions
+  english_phrases
+  pidgin_english_phrases
+  rust_phrases
+  haskell_phrases
+  ada_phrases
+  ocaml_phrases))

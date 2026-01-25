@@ -1,0 +1,10 @@
+Terse Operative
+Division: Institute
+Id: test:terse_operative
+Starting CC: 3
+
+Abilities:
+  - Passive - Add 1 CC to this Personnel
+  - -CC (1) - Spend 1 CC, then Add 2 CC to a Personnel
+  - Passive - when this Personnel is deployed: Remove 1 CC from each Personnel in sector Alpha
+  - Burnout - When this Personnel's CC is reduced to 0: Remove 1 CC from each Personnel

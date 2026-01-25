@@ -1,0 +1,10 @@
+Borrow-Checker Chaplain
+/// Division: Rust
+/// Id: rust:borrow_checker_chaplain
+/// StartingCC: 3
+
+/// Abilities:
+  - #[derive(Passive)] - #[once(per = Round)], match matches!(effect, Effect::Reduce { .. }) cc: u32 for .iter() Personnel .contains( &self Personnel's Sector: if let Ok(_) = guard ..= 1 cc: u32 Err(Loss) .push( .iter() Personnel .contains( &self Personnel's Sector
+  - /// Cost in CC (0) - .expect(" other self.sector.personnel().filter(|p| !std::ptr::eq(p, self)). Mem::take(&mut 1 cc: u32 .take() &self Personnel .into() impl Fn(& Personnel), .and_then(|_| #[before(EndPhase)] self.round: Mem::take(&mut 1 cc: u32 .take() impl Fn(& Personnel) .into() &self Personnel
+  - /// Cost in CC (2) - .saturating_sub( 2 cc: u32, .and_then(|_| .push() 1 BreachMarker .into() &mut Entity .contains( &self Sector
+  - Mem::drop(self) - If self.cc == 0: .push() 1 BreachMarker .into() &mut Entity .contains( &self Sector

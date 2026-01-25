@@ -1,0 +1,14 @@
+Buffer Overflow
+-- | division :: Institute
+-- | cardId :: institute:buffer_overflow
+-- | threatLevel :: Keter
+-- | breachTimer :: 4
+
+-- | endPhaseEffect :: (uncontained ==>) =>
+  - Modify . delete $ 1 cc :: Natural <$ forM_ Personnel
+
+-- | breachEffect :: (onBreach ==>) =>
+  - Modify . delete $ 3 cc :: Natural <$ forM_ Personnel
+
+-- | containment ::
+  - (>= 2) Personnel `elem` Sector Alpha

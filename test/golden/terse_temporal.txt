@@ -1,0 +1,7 @@
+Terse Temporal
+Division: Haskell
+Id: test:terse_temporal
+Starting CC: 6
+
+Abilities:
+  - -CC (4) - Spend 4 CC, then Choose a Personnel. Add 1 CC to that Personnel; before End Phase this round: Add 2 CC to that Personnel; at end of round this round: Flip sector Alpha to Secure

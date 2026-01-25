@@ -1,0 +1,10 @@
+Ada Safety Engineer
+-- Division : Division_Type := Ada
+-- Id : Card_Id := ada:ada_safety_engineer
+-- Starting_CC : Natural := 4
+
+-- Abilities : Ability_Array :=
+  - Pragma Passive; - Pragma Restriction (Max_Calls => 1, Per => Round);, If Sector_Type Sector_Alpha 'Breached: Prevent (Effect => in range 1 .. 1 CC : Natural raise Game_Loss onto All_ Personnel_Record in Sector_Type Sector_Alpha
+  - -- Cost : Natural := (1) - Spend (Amount => 1 CC : Natural, ; Flip (Card => A_ Selected Sector_Type to State_Secure
+  - Pragma Passive; - procedure On_Deploy_Trigger is: Append (Container, 1 CC : Natural to Self Personnel_Record
+  - Pragma Finalize (Self); - Procedure On_CC_Zero_Trigger is: Flip (Card => Self Sector_Type to State_Secure

@@ -1,0 +1,10 @@
+OCaml Module Architect
+/// Division: OCaml
+/// Id: ocaml:ocaml_module_architect
+/// StartingCC: 3
+
+/// Abilities:
+  - #[derive(Passive)] - #[once(per = Round)], .lock().unwrap() ..= 1 cc: u32 Err(Loss) .push( &self Personnel
+  - /// Cost in CC (1) - If let Some(_) = 2.. Personnel .contains( Sector Beta: .saturating_sub( 1 cc: u32, .and_then(|_| Mem::take(&mut impl Personnel .contains( Sector Beta .into() Sector Lambda, .and_then(|_| .push() 1 cc: u32 .into() &self Personnel
+  - #[derive(Passive)] - match entity.borrow() .resolve(): Recompute module graph
+  - Mem::drop(self) - If self.cc == 0: Tx.send( &self Personnel .into() Abyss::default()
