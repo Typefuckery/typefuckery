@@ -1,5 +1,8 @@
 module J = Typefuckery.To_json
 module E = Typefuckery.Engine
+module Int = Typefuckery.Int
+module T = Typefuckery.Targets
+module Condition = Typefuckery.Condition
 open Typefuckery.Core
 open Typefuckery.Abilities
 open Typefuckery.Cards
@@ -12,7 +15,7 @@ let test_personnel : core_personnel =
     division = Rust;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.three;
+    starting_cc = Int.three;
     abilities =
       [
         Passive
@@ -21,19 +24,22 @@ let test_personnel : core_personnel =
             limit = Some Once_per_round;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:T.this_personnel
+                ~amount:Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.two;
+            cc_cost = Int.two;
             condition = None;
-            card_effect = E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
           };
         Burnout
           {
             id = None;
-            card_effect = E.add_cc ~target:E.all_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.all_personnel ~amount:Int.Positive.one;
           };
       ];
   }
@@ -46,10 +52,12 @@ let test_entity : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Euclid;
-    breach_timer = E.Timer.three;
-    end_phase_effect = E.remove_cc ~target:E.all_personnel ~amount:E.Amount.one;
-    breach_effect = E.remove_cc ~target:E.all_personnel ~amount:E.Amount.three;
-    containment = { check = E.personnel_count_in_sector Alpha 2 };
+    breach_timer = Int.Positive.three;
+    end_phase_effect =
+      E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.one;
+    breach_effect =
+      E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.three;
+    containment = { check = Condition.personnel_count_in_sector Alpha 2 };
   }
 
 let () =

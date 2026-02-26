@@ -1,23 +1,6 @@
 open Core
 
-type core_condition_kind =
-  | Always
-  | Never
-  | Sector_breached of sector
-  | Personnel_count of { sector : sector; min_count : int }
-  | Personnel_with_min_cc of { sector : sector; min_count : int; min_cc : int }
-  | Total_cc_in_sector of { sector : sector; total : int }
-  | Total_cc_in_this_sector of { total : int }
-
-type 'ext condition_kind =
-  | Core_cond of core_condition_kind
-  | Ext of 'ext
-  | Not of 'ext condition_kind
-  | And of 'ext condition_kind * 'ext condition_kind
-  | Or of 'ext condition_kind * 'ext condition_kind
-
-type 'ext cond = { check : ctx -> bool; kind : 'ext condition_kind }
-type condition = No_ext.t cond
+type condition = Condition.core
 type personnel_filter_tag = Other | In_play | Generic
 
 type personnel_filter_kind =
@@ -30,25 +13,19 @@ type personnel_filter_kind =
   | Filter_in_play
   | Controlled_by_active_player
 
-type personnel_filter = {
-  check : ctx -> Id.obj -> bool;
-  kind : personnel_filter_kind;
-  tag : personnel_filter_tag;
-}
-
 type entity_filter_kind = Uncontained
-
-type entity_filter = {
-  check : ctx -> sector -> entity_state -> bool;
-  kind : entity_filter_kind;
-}
-
 type sector_filter_kind = Sector_filter_placeholder | Other_than_source_sector
+type personnel_filter
+type entity_filter
+type sector_filter
 
-type sector_filter = {
-  check : ctx -> sector -> bool;
-  kind : sector_filter_kind;
-}
+val personnel_filter_kind : personnel_filter -> personnel_filter_kind
+val personnel_filter_tag : personnel_filter -> personnel_filter_tag
+val personnel_filter_check : personnel_filter -> ctx -> Id.obj -> bool
+val entity_filter_kind : entity_filter -> entity_filter_kind
+val entity_filter_check : entity_filter -> ctx -> sector -> entity_state -> bool
+val sector_filter_kind : sector_filter -> sector_filter_kind
+val sector_filter_check : sector_filter -> ctx -> sector -> bool
 
 type bound_kind =
   | Bound_that
@@ -92,3 +69,58 @@ type target_sector =
       chooser : Core.chooser option;
     }
   | Bound_entity_sector of { index : int }
+
+val this_personnel : target_personnel
+val this_personnel_sector : target_personnel
+
+val choose_personnel :
+  ?in_sector:Core.sector ->
+  ?filter:personnel_filter ->
+  ?chooser:Core.chooser ->
+  unit ->
+  target_personnel
+
+val choose_personnel_each_player :
+  ?in_sector:Core.sector -> unit -> target_personnel
+
+val choose_personnel_pair :
+  ?in_sector:Core.sector ->
+  ?filter:personnel_filter ->
+  ?chooser:Core.chooser ->
+  unit ->
+  target_personnel
+
+val all_personnel_in_sector : Core.sector -> target_personnel
+val all_personnel : target_personnel
+val all_personnel_in_this_sector : target_personnel
+
+val all_personnel_with :
+  ?in_sector:Core.sector -> ?filter:personnel_filter -> unit -> target_personnel
+
+val entity_in_this_sector : target_entity
+val entity_in_sector : Core.sector -> target_entity
+val choose_entity : ?filter:entity_filter -> unit -> target_entity
+val all_entities : ?filter:entity_filter -> unit -> target_entity
+val this_sector : target_sector
+val specific_sector : Core.sector -> target_sector
+
+val choose_sector :
+  ?filter:sector_filter -> ?chooser:Core.chooser -> unit -> target_sector
+
+val you : target_player
+val another_player : target_player
+val any_player : target_player
+val each_player : target_player
+val personnel_has_min_cc : int -> personnel_filter
+val personnel_in_sector : Core.sector -> personnel_filter
+
+val personnel_filter_and :
+  personnel_filter -> personnel_filter -> personnel_filter
+
+val in_same_sector_as_this_personnel : personnel_filter
+val exclude_this_personnel : personnel_filter
+val other_personnel : personnel_filter
+val personnel_in_play : personnel_filter
+val personnel_controlled_by_active_player : personnel_filter
+val entity_is_uncontained : entity_filter
+val sector_other_than_source : sector_filter

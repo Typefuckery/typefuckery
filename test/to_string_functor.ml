@@ -6,6 +6,7 @@ module Abilities = Typefuckery.Abilities
 module Core = Typefuckery.Core
 module Int = Typefuckery.Int
 module Division_intf = Typefuckery.Division_intf
+module Condition = Typefuckery.Condition
 open Util
 
 let assert_eq actual expected label =
@@ -260,7 +261,7 @@ let test_entity_with_extension () =
         end_phase_effect = Effects.Ext (Test_extension.Custom_effect "breach!");
         breach_effect =
           Effects.Ext (Test_extension.Custom_effect "catastrophe!");
-        containment = { check = Engine.Core.always };
+        containment = { check = Condition.always };
       }
   in
   let output = Test_renderer.card_to_string card in

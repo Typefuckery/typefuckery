@@ -1,4 +1,3 @@
-open Engine
 open Cards
 open Card_dsl
 
@@ -7,7 +6,7 @@ let space_leak =
     ~timer:ten
     ~on_end_phase:(discard ~player:each_player one)
     ~on_breach:(discard_hand ~player:each_player ())
-    ~contained:never ()
+    ~contained:Condition.never ()
 
 include Division_helper.Make_core_division (struct
   let id = "haskell"

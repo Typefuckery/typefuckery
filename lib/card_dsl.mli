@@ -24,9 +24,6 @@ module type S = sig
   val anyone :
     ?in_sector:sector -> ?filter:personnel_filter -> unit -> target_personnel
 
-  val any_personnel :
-    ?in_sector:sector -> ?filter:personnel_filter -> unit -> target_personnel
-
   val each_player_personnel : ?in_sector:sector -> unit -> target_personnel
   val controlled_by_you : personnel_filter
   val anyone_else : unit -> target_personnel
@@ -106,9 +103,6 @@ val me : target_personnel
 val my_sector : target_personnel
 
 val anyone :
-  ?in_sector:sector -> ?filter:personnel_filter -> unit -> target_personnel
-
-val any_personnel :
   ?in_sector:sector -> ?filter:personnel_filter -> unit -> target_personnel
 
 val each_player_personnel : ?in_sector:sector -> unit -> target_personnel

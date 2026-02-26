@@ -2,6 +2,8 @@ module Core = Typefuckery.Core
 module Cards = Typefuckery.Cards
 module Abilities = Typefuckery.Abilities
 module Engine = Typefuckery.Engine
+module T = Typefuckery.Targets
+module Condition = Typefuckery.Condition
 module TS = Typefuckery.To_string
 module Int = Typefuckery.Int
 open Util
@@ -578,7 +580,7 @@ let the_unifier :
                 [
                   E.ext
                     (Prolog_types.Unify { variable = "X"; value = "target" });
-                  E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+                  E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
                 ];
           };
         Abilities.Activated
@@ -600,7 +602,7 @@ let the_unifier :
               E.composite
                 [
                   E.ext Prolog_types.Backtrack;
-                  E.draw ~player:E.you ~amount:E.Amount.one;
+                  E.draw ~player:T.you ~amount:Int.Positive.one;
                 ];
           };
         Abilities.Triggered
@@ -619,7 +621,7 @@ let the_unifier :
           {
             id = None;
             limit = None;
-            condition = Some (E.personnel_count_in_sector Core.Alpha 1);
+            condition = Some (Condition.personnel_count_in_sector Core.Alpha 1);
             card_effect = E.ext Prolog_types.Cut;
           };
         Abilities.Triggered
@@ -631,8 +633,8 @@ let the_unifier :
             condition = None;
             card_effect =
               E.remove_breach_marker
-                ~target:(E.entity_in_sector Core.Alpha)
-                ~amount:E.Amount.one;
+                ~target:(T.entity_in_sector Core.Alpha)
+                ~amount:Int.Positive.one;
           };
         Abilities.Burnout
           {
@@ -641,7 +643,7 @@ let the_unifier :
               E.composite
                 [
                   E.ext (Prolog_types.Retract_fact { fact = "all" });
-                  E.remove_cc ~target:E.all_personnel ~amount:E.Amount.two;
+                  E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.two;
                 ];
           };
       ];

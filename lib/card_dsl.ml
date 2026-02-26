@@ -24,9 +24,6 @@ module type S = sig
   val anyone :
     ?in_sector:sector -> ?filter:personnel_filter -> unit -> target_personnel
 
-  val any_personnel :
-    ?in_sector:sector -> ?filter:personnel_filter -> unit -> target_personnel
-
   val each_player_personnel : ?in_sector:sector -> unit -> target_personnel
   val controlled_by_you : personnel_filter
   val anyone_else : unit -> target_personnel
@@ -76,64 +73,66 @@ module Make (E : Engine.S) : S with type effect_t = E.effect_t = struct
   let ( +@ ) target amount = E.add_cc ~target ~amount
   let ( -@ ) target amount = E.remove_cc ~target ~amount
   let ( &+ ) a b = E.composite [ a; b ]
-  let ( ==> ) from to_ = E.move_cc ~from ~to_ ~amount:E.Amount.one
+  let ( ==> ) from to_ = E.move_cc ~from ~to_ ~amount:Int.Positive.one
   let ( --> ) target to_sector = E.move_personnel ~target ~to_sector
   let ( |+ ) target amount = E.add_breach_marker ~target ~amount
   let ( |- ) target amount = E.remove_breach_marker ~target ~amount
   let reset_breach_markers target = E.reset_breach_markers ~target
   let transfer amount from to_ = E.move_cc ~from ~to_ ~amount
-  let me = E.this_personnel
-  let my_sector = E.this_personnel_sector
-  let anyone ?in_sector ?filter () = E.choose_personnel ?in_sector ?filter ()
+  let me = Targets.this_personnel
+  let my_sector = Targets.this_personnel_sector
 
-  let any_personnel ?in_sector ?filter () =
-    E.choose_personnel ?in_sector ?filter ()
+  let anyone ?in_sector ?filter () =
+    Targets.choose_personnel ?in_sector ?filter ()
 
   let each_player_personnel ?in_sector () =
-    E.choose_personnel_each_player ?in_sector ()
+    Targets.choose_personnel_each_player ?in_sector ()
 
-  let controlled_by_you = E.personnel_controlled_by_active_player
-  let anyone_else () = E.choose_personnel ~filter:E.other_personnel ()
+  let controlled_by_you = Targets.personnel_controlled_by_active_player
+
+  let anyone_else () =
+    Targets.choose_personnel ~filter:Targets.other_personnel ()
 
   let others_in_play =
-    E.all_personnel_with
+    Targets.all_personnel_with
       ~filter:
-        (E.personnel_filter_and E.exclude_this_personnel E.personnel_in_play)
+        (Targets.personnel_filter_and Targets.exclude_this_personnel
+           Targets.personnel_in_play)
       ()
 
-  let everyone = E.all_personnel
-  let everyone_in sector = E.all_personnel_in_sector sector
-  let everyone_here = E.all_personnel_in_this_sector
+  let everyone = Targets.all_personnel
+  let everyone_in sector = Targets.all_personnel_in_sector sector
+  let everyone_here = Targets.all_personnel_in_this_sector
 
   let each_personnel_in_play =
-    All_personnel { in_sector = None; filter = Some E.personnel_in_play }
+    All_personnel { in_sector = None; filter = Some Targets.personnel_in_play }
 
-  let entity_here = E.entity_in_this_sector
-  let entity_in sector = E.entity_in_sector sector
-  let any_entity ?filter () = E.choose_entity ?filter ()
-  let all_entities ?filter () = E.all_entities ?filter ()
+  let entity_here = Targets.entity_in_this_sector
+  let entity_in sector = Targets.entity_in_sector sector
+  let any_entity ?filter () = Targets.choose_entity ?filter ()
+  let all_entities ?filter () = Targets.all_entities ?filter ()
   let contain target = E.contain_entity ~target
-  let here = E.this_sector
-  let to_sector sector = E.specific_sector sector
-  let any_sector ?filter () = E.choose_sector ?filter ()
-  let other_than_source_sector = E.sector_other_than_source
+  let here = Targets.this_sector
+  let to_sector sector = Targets.specific_sector sector
+  let any_sector ?filter () = Targets.choose_sector ?filter ()
+  let other_than_source_sector = Targets.sector_other_than_source
   let all_sectors = [ Alpha; Beta; Gamma; Lambda ]
 
   let secure_all_sectors =
     E.composite
       (List.map
          (fun sector ->
-           E.flip_sector ~target:(E.specific_sector sector) ~state:Secure)
+           E.flip_sector ~target:(Targets.specific_sector sector) ~state:Secure)
          all_sectors)
 
-  let each_player = E.each_player
+  let each_player = Targets.each_player
 end
 
 module Make_syntax (E : Engine.S) : SYNTAX with type effect_t = E.effect_t =
 struct
   type effect_t = E.effect_t
 
-  let ( let* ) target f = E.let_ "Personnel" target f
+  let ( let* ) target f = E.let_ target f
 end
 
 module Make_entity_syntax (E : Engine.S) :
@@ -144,16 +143,16 @@ module Make_entity_syntax (E : Engine.S) :
 end
 
 module Conditions = struct
-  let ( &&? ) = Engine.Core.and_
-  let ( ||? ) = Engine.Core.or_
-  let ( !? ) = Engine.Core.not_
-  let always = Engine.Core.always
-  let never = Engine.Core.never
-  let sector_breached = Engine.Core.sector_is_breached
-  let personnel_count = Engine.Core.personnel_count_in_sector
-  let personnel_with_cc = Engine.Core.personnel_with_min_cc
-  let total_cc = Engine.Core.total_cc_in_sector
-  let total_cc_here = Engine.Core.total_cc_in_this_sector
+  let ( &&? ) = Condition.and_
+  let ( ||? ) = Condition.or_
+  let ( !? ) = Condition.not_
+  let always = Condition.always
+  let never = Condition.never
+  let sector_breached = Condition.sector_is_breached
+  let personnel_count = Condition.personnel_count_in_sector
+  let personnel_with_cc = Condition.personnel_with_min_cc
+  let total_cc = Condition.total_cc_in_sector
+  let total_cc_here = Condition.total_cc_in_this_sector
 end
 
 module Core_ = Make (Engine.Core)
@@ -161,49 +160,19 @@ module Syntax = Make_syntax (Engine.Core)
 module Entity_syntax = Make_entity_syntax (Engine.Core)
 include Core_
 
-let controlled_by_you = Engine.Core.personnel_controlled_by_active_player
+let one = Int.Positive.one
+let two = Int.Positive.two
+let three = Int.Positive.three
+let four = Int.Positive.four
+let five = Int.Positive.five
+let six = Int.Positive.six
+let seven = Int.Positive.seven
+let eight = Int.Positive.eight
+let nine = Int.Positive.nine
+let ten = Int.Positive.ten
 
-let any_personnel ?in_sector ?filter () =
-  Engine.Core.choose_personnel ?in_sector ?filter ()
-
-let each_player_personnel ?in_sector () =
-  Engine.Core.choose_personnel_each_player ?in_sector ()
-
-let each_player = Engine.Core.each_player
-
-let others_in_play =
-  Engine.Core.all_personnel_with
-    ~filter:
-      (Engine.Core.personnel_filter_and Engine.Core.exclude_this_personnel
-         Engine.Core.personnel_in_play)
-    ()
-
-let each_personnel_in_play =
-  Engine.Core.all_personnel_with ~filter:Engine.Core.personnel_in_play ()
-
-let all_sectors = [ Alpha; Beta; Gamma; Lambda ]
-let other_than_source_sector = Engine.Core.sector_other_than_source
-
-let secure_all_sectors =
-  Engine.Core.composite
-    (List.map
-       (fun sector ->
-         Engine.Core.flip_sector ~target:(to_sector sector) ~state:Secure)
-       all_sectors)
-
-let one = Engine.Core.Amount.one
-let two = Engine.Core.Amount.two
-let three = Engine.Core.Amount.three
-let four = Engine.Core.Amount.four
-let five = Engine.Core.Amount.five
-let six = Engine.Core.Amount.six
-let seven = Engine.Core.Amount.seven
-let eight = Engine.Core.Amount.eight
-let nine = Engine.Core.Amount.nine
-let ten = Engine.Core.Amount.ten
-
-module CC = Engine.Core.CC
-module Timer = Engine.Core.Timer
+module CC = Int
+module Timer = Int.Positive
 
 let once_per_round = Once_per_round
 let safe = Safe
@@ -211,14 +180,9 @@ let euclid = Euclid
 let keter = Keter
 let titan = Titan
 let seq effects = Engine.Core.composite effects
-let draw ?(player = Engine.Core.you) amount = Engine.Core.draw ~player ~amount
-
-let discard ?(player = Engine.Core.you) amount =
-  Engine.Core.discard ~player ~amount
-
-let discard_hand ?(player = Engine.Core.you) () =
-  Engine.Core.discard_hand ~player
-
+let draw ?(player = Targets.you) amount = Engine.Core.draw ~player ~amount
+let discard ?(player = Targets.you) amount = Engine.Core.discard ~player ~amount
+let discard_hand ?(player = Targets.you) () = Engine.Core.discard_hand ~player
 let shield target amount = Engine.Core.prevent_cc_loss ~target ~amount
 let secure target = Engine.Core.flip_sector ~target ~state:Secure
 let breach_sector target = Engine.Core.flip_sector ~target ~state:Breached
@@ -232,16 +196,16 @@ let at_end_round eff =
   Engine.Core.delayed ~window:End_of_round ~scope:This_round ~then_do:eff
 
 let any_personnel_pair ?in_sector ?filter () =
-  Engine.Core.choose_personnel_pair ?in_sector ?filter ()
+  Targets.choose_personnel_pair ?in_sector ?filter ()
 
 let transfer_between_pair amount pair =
   Engine.Core.move_cc_between_pair ~pair ~amount
 
 let if_possible eff = Engine.Core.if_possible eff
 let noop = Engine.Core.noop
-let you = Engine.Core.you
-let another_player = Engine.Core.another_player
-let any_player = Engine.Core.any_player
+let you = Targets.you
+let another_player = Targets.another_player
+let any_player = Targets.any_player
 
 let player_chooses ~player ~option_a ~option_b =
   Engine.Core.player_choice ~player ~option_a ~option_b

@@ -1,4 +1,7 @@
 module E = Typefuckery.Engine
+module T = Typefuckery.Targets
+module Int = Typefuckery.Int
+module Condition = Typefuckery.Condition
 module R = Typefuckery.Registry
 module TS = Typefuckery.To_string.Detailed_English
 module J = Typefuckery.To_json
@@ -14,26 +17,26 @@ let card_manipulation_specialist : core_personnel =
     division = Institute;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.five;
+    starting_cc = Int.five;
     abilities =
       [
         Activated
           {
             id = None;
-            cc_cost = E.CC.two;
+            cc_cost = Int.two;
             condition = None;
-            card_effect = E.draw ~player:E.you ~amount:E.Amount.three;
+            card_effect = E.draw ~player:T.you ~amount:Int.Positive.three;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.one;
+            cc_cost = Int.one;
             condition = None;
             card_effect =
               E.composite
                 [
-                  E.discard ~player:E.you ~amount:E.Amount.two;
-                  E.draw ~player:E.you ~amount:E.Amount.two;
+                  E.discard ~player:T.you ~amount:Int.Positive.two;
+                  E.draw ~player:T.you ~amount:Int.Positive.two;
                 ];
           };
         Triggered
@@ -43,7 +46,7 @@ let card_manipulation_specialist : core_personnel =
             limit = Some Once_per_round;
             optionality = Mandatory;
             condition = None;
-            card_effect = E.draw ~player:E.you ~amount:E.Amount.one;
+            card_effect = E.draw ~player:T.you ~amount:Int.Positive.one;
           };
       ];
   }
@@ -55,27 +58,26 @@ let resource_redistributor : core_personnel =
     division = OCaml;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.four;
+    starting_cc = Int.four;
     abilities =
       [
         Activated
           {
             id = None;
-            cc_cost = E.CC.three;
+            cc_cost = Int.three;
             condition = None;
             card_effect =
-              E.let_ "Personnel"
-                (E.choose_personnel ~filter:E.other_personnel ()) (fun donor ->
-                  E.let_ "Recipient"
-                    (E.choose_personnel ~filter:E.other_personnel ())
+              E.let_ (T.choose_personnel ~filter:T.other_personnel ())
+                (fun donor ->
+                  E.let_ (T.choose_personnel ~filter:T.other_personnel ())
                     (fun recipient ->
                       E.composite
                         [
-                          E.move_cc ~from:donor ~to_:E.this_personnel
-                            ~amount:E.Amount.one;
-                          E.move_cc ~from:E.this_personnel ~to_:recipient
-                            ~amount:E.Amount.two;
-                          E.add_cc ~target:recipient ~amount:E.Amount.one;
+                          E.move_cc ~from:donor ~to_:T.this_personnel
+                            ~amount:Int.Positive.one;
+                          E.move_cc ~from:T.this_personnel ~to_:recipient
+                            ~amount:Int.Positive.two;
+                          E.add_cc ~target:recipient ~amount:Int.Positive.one;
                         ]));
           };
       ];
@@ -88,26 +90,26 @@ let temporal_strategist : core_personnel =
     division = Haskell;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.six;
+    starting_cc = Int.six;
     abilities =
       [
         Activated
           {
             id = None;
-            cc_cost = E.CC.four;
+            cc_cost = Int.four;
             condition = None;
             card_effect =
-              E.let_ "Personnel" (E.choose_personnel ()) (fun target ->
+              E.let_ (T.choose_personnel ()) (fun target ->
                   E.composite
                     [
-                      E.add_cc ~target ~amount:E.Amount.one;
+                      E.add_cc ~target ~amount:Int.Positive.one;
                       E.delayed ~window:End_phase ~scope:This_round
-                        ~then_do:(E.add_cc ~target ~amount:E.Amount.two);
+                        ~then_do:(E.add_cc ~target ~amount:Int.Positive.two);
                       E.delayed ~window:End_phase ~scope:This_round
-                        ~then_do:(E.remove_cc ~target ~amount:E.Amount.one);
+                        ~then_do:(E.remove_cc ~target ~amount:Int.Positive.one);
                       E.delayed ~window:End_of_round ~scope:This_round
                         ~then_do:
-                          (E.flip_sector ~target:(E.specific_sector Alpha)
+                          (E.flip_sector ~target:(T.specific_sector Alpha)
                              ~state:Secure);
                     ]);
           };
@@ -121,7 +123,7 @@ let conditional_operative : core_personnel =
     division = Ada;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.three;
+    starting_cc = Int.three;
     abilities =
       [
         Passive
@@ -130,24 +132,25 @@ let conditional_operative : core_personnel =
             limit = None;
             condition =
               Some
-                (E.and_
-                   (E.or_
-                      (E.sector_is_breached Alpha)
-                      (E.sector_is_breached Beta))
-                   (E.not_ (E.sector_is_breached Lambda)));
-            card_effect = E.add_cc ~target:E.this_personnel ~amount:E.Amount.two;
+                (Condition.and_
+                   (Condition.or_
+                      (Condition.sector_is_breached Alpha)
+                      (Condition.sector_is_breached Beta))
+                   (Condition.not_ (Condition.sector_is_breached Lambda)));
+            card_effect =
+              E.add_cc ~target:T.this_personnel ~amount:Int.Positive.two;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.two;
+            cc_cost = Int.two;
             condition =
               Some
-                (E.and_
-                   (E.personnel_count_in_sector Alpha 2)
-                   (E.personnel_count_in_sector Beta 1));
+                (Condition.and_
+                   (Condition.personnel_count_in_sector Alpha 2)
+                   (Condition.personnel_count_in_sector Beta 1));
             card_effect =
-              E.flip_sector ~target:(E.choose_sector ()) ~state:Secure;
+              E.flip_sector ~target:(T.choose_sector ()) ~state:Secure;
           };
       ];
   }
@@ -159,13 +162,13 @@ let custom_effect_engineer : core_personnel =
     division = Rust;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.four;
+    starting_cc = Int.four;
     abilities =
       [
         Activated
           {
             id = None;
-            cc_cost = E.CC.three;
+            cc_cost = Int.three;
             condition = None;
             card_effect =
               E.composite
@@ -173,7 +176,7 @@ let custom_effect_engineer : core_personnel =
                   E.log
                     "Initiate quantum flux protocol (intensity=high, \
                      target_sector=alpha)";
-                  E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+                  E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
                 ];
           };
       ];
@@ -187,21 +190,25 @@ let cascading_failure : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Keter;
-    breach_timer = E.Timer.five;
+    breach_timer = Int.Positive.five;
     end_phase_effect =
       E.composite
         [
-          E.remove_cc ~target:E.all_personnel ~amount:E.Amount.one;
-          E.add_breach_marker ~target:(E.all_entities ()) ~amount:E.Amount.one;
+          E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.one;
+          E.add_breach_marker ~target:(T.all_entities ())
+            ~amount:Int.Positive.one;
         ];
     breach_effect =
       E.composite
         [
-          E.remove_cc ~target:E.all_personnel ~amount:E.Amount.three;
-          E.discard ~player:E.you ~amount:E.Amount.three;
+          E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.three;
+          E.discard ~player:T.you ~amount:Int.Positive.three;
         ];
     containment =
-      { check = E.personnel_with_min_cc Gamma ~min_count:2 ~min_cc_each:2 };
+      {
+        check =
+          Condition.personnel_with_min_cc Gamma ~min_count:2 ~min_cc_each:2;
+      };
   }
 
 let deployment_coordinator : core_personnel =
@@ -211,7 +218,7 @@ let deployment_coordinator : core_personnel =
     division = Institute;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.five;
+    starting_cc = Int.five;
     abilities =
       [
         Triggered
@@ -224,10 +231,10 @@ let deployment_coordinator : core_personnel =
             card_effect =
               E.composite
                 [
-                  E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+                  E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
                   E.add_cc
-                    ~target:(E.all_personnel_in_sector Alpha)
-                    ~amount:E.Amount.one;
+                    ~target:(T.all_personnel_in_sector Alpha)
+                    ~amount:Int.Positive.one;
                 ];
           };
         Triggered
@@ -237,7 +244,7 @@ let deployment_coordinator : core_personnel =
             limit = Some Once_per_round;
             optionality = Optional;
             condition = None;
-            card_effect = E.draw ~player:E.you ~amount:E.Amount.one;
+            card_effect = E.draw ~player:T.you ~amount:Int.Positive.one;
           };
       ];
   }
@@ -253,12 +260,12 @@ let opportunistic_tactician : core_procedure =
       E.composite
         [
           E.if_possible
-            (E.move_cc ~from:(E.choose_personnel ())
-               ~to_:(E.choose_personnel ()) ~amount:E.Amount.two);
+            (E.move_cc ~from:(T.choose_personnel ())
+               ~to_:(T.choose_personnel ()) ~amount:Int.Positive.two);
           E.if_possible
-            (E.add_breach_marker ~target:(E.choose_entity ())
-               ~amount:E.Amount.one);
-          E.add_cc ~target:(E.choose_personnel ()) ~amount:E.Amount.one;
+            (E.add_breach_marker ~target:(T.choose_entity ())
+               ~amount:Int.Positive.one);
+          E.add_cc ~target:(T.choose_personnel ()) ~amount:Int.Positive.one;
         ];
   }
 
@@ -270,13 +277,13 @@ let coordinated_assault : core_procedure =
     lore = None;
     flavor_text = None;
     card_effect =
-      E.let_ "Personnel" (E.choose_personnel ()) (fun target ->
+      E.let_ (T.choose_personnel ()) (fun target ->
           E.composite
             [
-              E.add_cc ~target ~amount:E.Amount.three;
-              E.move_personnel ~target ~to_sector:(E.choose_sector ());
+              E.add_cc ~target ~amount:Int.Positive.three;
+              E.move_personnel ~target ~to_sector:(T.choose_sector ());
               E.delayed ~window:End_phase ~scope:This_round
-                ~then_do:(E.remove_cc ~target ~amount:E.Amount.two);
+                ~then_do:(E.remove_cc ~target ~amount:Int.Positive.two);
             ]);
   }
 
@@ -292,14 +299,14 @@ let selective_purge : core_event =
         [
           E.remove_cc
             ~target:
-              (E.choose_personnel ~in_sector:Alpha
-                 ~filter:(E.personnel_has_min_cc 3) ())
-            ~amount:E.Amount.two;
+              (T.choose_personnel ~in_sector:Alpha
+                 ~filter:(T.personnel_has_min_cc 3) ())
+            ~amount:Int.Positive.two;
           E.remove_cc
             ~target:
-              (E.choose_personnel ~in_sector:Beta
-                 ~filter:(E.personnel_has_min_cc 2) ())
-            ~amount:E.Amount.one;
+              (T.choose_personnel ~in_sector:Beta
+                 ~filter:(T.personnel_has_min_cc 2) ())
+            ~amount:Int.Positive.one;
         ];
   }
 
@@ -314,11 +321,11 @@ let diplomatic_intervention : core_event =
       E.composite
         [
           E.move_personnel
-            ~target:(E.choose_personnel ~chooser:(Some Starting_player) ())
-            ~to_sector:(E.choose_sector ~chooser:(Some Starting_player) ());
+            ~target:(T.choose_personnel ~chooser:Starting_player ())
+            ~to_sector:(T.choose_sector ~chooser:Starting_player ());
           E.add_cc
-            ~target:(E.choose_personnel ~chooser:(Some Controller) ())
-            ~amount:E.Amount.two;
+            ~target:(T.choose_personnel ~chooser:Controller ())
+            ~amount:Int.Positive.two;
         ];
   }
 
@@ -329,7 +336,7 @@ let omni_responsive_agent : core_personnel =
     division = Ada;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.seven;
+    starting_cc = Int.seven;
     abilities =
       [
         Triggered
@@ -339,7 +346,8 @@ let omni_responsive_agent : core_personnel =
             limit = None;
             optionality = Mandatory;
             condition = None;
-            card_effect = E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
           };
         Triggered
           {
@@ -348,7 +356,8 @@ let omni_responsive_agent : core_personnel =
             limit = None;
             optionality = Mandatory;
             condition = None;
-            card_effect = E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
           };
         Triggered
           {
@@ -358,7 +367,7 @@ let omni_responsive_agent : core_personnel =
             optionality = Optional;
             condition = None;
             card_effect =
-              E.remove_cc ~target:E.this_personnel ~amount:E.Amount.one;
+              E.remove_cc ~target:T.this_personnel ~amount:Int.Positive.one;
           };
         Triggered
           {
@@ -368,7 +377,7 @@ let omni_responsive_agent : core_personnel =
             optionality = Mandatory;
             condition = None;
             card_effect =
-              E.flip_sector ~target:(E.specific_sector Alpha) ~state:Secure;
+              E.flip_sector ~target:(T.specific_sector Alpha) ~state:Secure;
           };
         Triggered
           {
@@ -379,8 +388,8 @@ let omni_responsive_agent : core_personnel =
             condition = None;
             card_effect =
               E.add_cc
-                ~target:(E.all_personnel_in_sector Beta)
-                ~amount:E.Amount.one;
+                ~target:(T.all_personnel_in_sector Beta)
+                ~amount:Int.Positive.one;
           };
       ];
   }
@@ -393,34 +402,33 @@ let reality_fragmenter : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Titan;
-    breach_timer = E.Timer.seven;
+    breach_timer = Int.Positive.seven;
     end_phase_effect =
-      E.let_ "Personnel" (E.choose_personnel ~filter:E.personnel_in_play ())
-        (fun victim ->
+      E.let_ (T.choose_personnel ~filter:T.personnel_in_play ()) (fun victim ->
           E.composite
             [
-              E.remove_cc ~target:victim ~amount:E.Amount.two;
-              E.move_personnel ~target:victim ~to_sector:(E.choose_sector ());
-              E.add_breach_marker ~target:(E.entity_in_sector Alpha)
-                ~amount:E.Amount.one;
-              E.flip_sector ~target:(E.choose_sector ()) ~state:Breached;
+              E.remove_cc ~target:victim ~amount:Int.Positive.two;
+              E.move_personnel ~target:victim ~to_sector:(T.choose_sector ());
+              E.add_breach_marker ~target:(T.entity_in_sector Alpha)
+                ~amount:Int.Positive.one;
+              E.flip_sector ~target:(T.choose_sector ()) ~state:Breached;
             ]);
     breach_effect =
       E.composite
         [
-          E.send_to_abyss (E.choose_personnel ());
-          E.send_to_abyss (E.choose_personnel ());
-          E.send_to_abyss (E.choose_personnel ());
-          E.flip_sector ~target:(E.choose_sector ()) ~state:Breached;
+          E.send_to_abyss (T.choose_personnel ());
+          E.send_to_abyss (T.choose_personnel ());
+          E.send_to_abyss (T.choose_personnel ());
+          E.flip_sector ~target:(T.choose_sector ()) ~state:Breached;
         ];
     containment =
       {
         check =
-          E.and_
-            (E.or_
-               (E.personnel_count_in_sector Alpha 3)
-               (E.personnel_count_in_sector Beta 3))
-            (E.not_ (E.sector_is_breached Lambda));
+          Condition.and_
+            (Condition.or_
+               (Condition.personnel_count_in_sector Alpha 3)
+               (Condition.personnel_count_in_sector Beta 3))
+            (Condition.not_ (Condition.sector_is_breached Lambda));
       };
   }
 
@@ -431,28 +439,28 @@ let adaptive_defender : core_personnel =
     division = Rust;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.five;
+    starting_cc = Int.five;
     abilities =
       [
         Passive
           {
             id = None;
             limit = Some Once_per_round;
-            condition = Some (E.sector_is_breached Alpha);
+            condition = Some (Condition.sector_is_breached Alpha);
             card_effect =
               E.prevent_cc_loss
-                ~target:(E.all_personnel_in_sector Alpha)
-                ~amount:E.Amount.one;
+                ~target:(T.all_personnel_in_sector Alpha)
+                ~amount:Int.Positive.one;
           };
         Passive
           {
             id = None;
             limit = Some Once_per_round;
-            condition = Some (E.sector_is_breached Beta);
+            condition = Some (Condition.sector_is_breached Beta);
             card_effect =
               E.prevent_cc_loss
-                ~target:(E.all_personnel_in_sector Beta)
-                ~amount:E.Amount.one;
+                ~target:(T.all_personnel_in_sector Beta)
+                ~amount:Int.Positive.one;
           };
         Passive
           {
@@ -460,7 +468,8 @@ let adaptive_defender : core_personnel =
             limit = Some Once_per_round;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:T.this_personnel
+                ~amount:Int.Positive.one;
           };
       ];
   }
@@ -475,10 +484,10 @@ let sector_lockdown : core_procedure =
     card_effect =
       E.composite
         [
-          E.flip_sector ~target:(E.choose_sector ()) ~state:Secure;
+          E.flip_sector ~target:(T.choose_sector ()) ~state:Secure;
           E.add_cc
-            ~target:(E.all_personnel_in_sector Alpha)
-            ~amount:E.Amount.one;
+            ~target:(T.all_personnel_in_sector Alpha)
+            ~amount:Int.Positive.one;
         ];
   }
 
@@ -490,19 +499,19 @@ let quantum_entangler : core_procedure =
     lore = None;
     flavor_text = None;
     card_effect =
-      E.let_ "Personnel" (E.choose_personnel ()) (fun first ->
-          E.let_ "other Personnel"
-            (E.choose_personnel ~filter:E.other_personnel ()) (fun second ->
+      E.let_ (T.choose_personnel ()) (fun first ->
+          E.let_ (T.choose_personnel ~filter:T.other_personnel ()) (fun second ->
               E.composite
                 [
-                  E.move_cc ~from:first ~to_:second ~amount:E.Amount.one;
+                  E.move_cc ~from:first ~to_:second ~amount:Int.Positive.one;
                   E.delayed ~window:End_phase ~scope:This_round
                     ~then_do:
-                      (E.move_cc ~from:second ~to_:first ~amount:E.Amount.one);
+                      (E.move_cc ~from:second ~to_:first
+                         ~amount:Int.Positive.one);
                   E.delayed ~window:End_phase ~scope:This_round
-                    ~then_do:(E.add_cc ~target:first ~amount:E.Amount.one);
+                    ~then_do:(E.add_cc ~target:first ~amount:Int.Positive.one);
                   E.delayed ~window:End_phase ~scope:This_round
-                    ~then_do:(E.add_cc ~target:second ~amount:E.Amount.one);
+                    ~then_do:(E.add_cc ~target:second ~amount:Int.Positive.one);
                 ]));
   }
 

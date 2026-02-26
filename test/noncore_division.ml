@@ -3,6 +3,8 @@ module Cards = Typefuckery.Cards
 module Effects = Typefuckery.Effects
 module Abilities = Typefuckery.Abilities
 module Engine = Typefuckery.Engine
+module T = Typefuckery.Targets
+module Condition = Typefuckery.Condition
 module TS = Typefuckery.To_string
 module R = Typefuckery.Registry
 module Int = Typefuckery.Int
@@ -534,7 +536,8 @@ let genserver :
             limit = None;
             optionality = Abilities.Optional;
             condition = None;
-            card_effect = E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
           };
       ];
   }
@@ -552,8 +555,8 @@ let message_passing :
         [
           E.ext (Elixir_types.Send_message { to_sector = Core.Beta });
           E.add_cc
-            ~target:(E.all_personnel_in_sector Core.Beta)
-            ~amount:E.Amount.one;
+            ~target:(T.all_personnel_in_sector Core.Beta)
+            ~amount:Int.Positive.one;
         ];
   }
 
@@ -570,15 +573,15 @@ let otp_supervisor : (Elixir_extension.div, Elixir_extension.fx) Cards.entity =
       E.composite
         [
           E.ext (Elixir_types.Spawn_process { count = 2 });
-          E.remove_cc ~target:E.all_personnel ~amount:E.Amount.one;
+          E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.one;
         ];
     breach_effect =
       E.composite
         [
           E.ext (Elixir_types.Spawn_process { count = 10 });
-          E.remove_cc ~target:E.all_personnel ~amount:E.Amount.three;
+          E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.three;
         ];
-    containment = { check = E.personnel_count_in_sector Core.Lambda 2 };
+    containment = { check = Condition.personnel_count_in_sector Core.Lambda 2 };
   }
 
 let elixir_cards : elixir_card list =
@@ -688,8 +691,8 @@ let channel_router :
               Phoenix_E.composite
                 [
                   Phoenix_helpers.presence_track;
-                  Phoenix_E.add_cc ~target:Phoenix_E.this_personnel
-                    ~amount:Phoenix_E.Amount.one;
+                  Phoenix_E.add_cc ~target:T.this_personnel
+                    ~amount:Int.Positive.one;
                 ];
           };
         Abilities.Activated
@@ -722,17 +725,16 @@ let pubsub_storm : (Phoenix_extension.div, Phoenix_extension.fx) Cards.entity =
         [
           Phoenix_helpers.broadcast ~channel:"chaos" ~to_sector:Core.Gamma;
           Phoenix_helpers.spawn_process ~count:5;
-          Phoenix_E.remove_cc ~target:Phoenix_E.all_personnel
-            ~amount:Phoenix_E.Amount.two;
+          Phoenix_E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.two;
         ];
     breach_effect =
       Phoenix_E.composite
         [
           Phoenix_helpers.broadcast ~channel:"catastrophe" ~to_sector:Core.Alpha;
-          Phoenix_E.send_to_abyss (Phoenix_E.choose_personnel ());
-          Phoenix_E.send_to_abyss (Phoenix_E.choose_personnel ());
+          Phoenix_E.send_to_abyss (T.choose_personnel ());
+          Phoenix_E.send_to_abyss (T.choose_personnel ());
         ];
-    containment = { check = Phoenix_E.personnel_count_in_sector Core.Gamma 3 };
+    containment = { check = Condition.personnel_count_in_sector Core.Gamma 3 };
   }
 
 let phoenix_cards : phoenix_card list =

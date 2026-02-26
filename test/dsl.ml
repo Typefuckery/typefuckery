@@ -1,4 +1,7 @@
 module E = Typefuckery.Engine
+module T = Typefuckery.Targets
+module Int = Typefuckery.Int
+module Condition = Typefuckery.Condition
 module DSL = Typefuckery.Card_dsl
 module TS = Typefuckery.To_string.Detailed_English
 open Typefuckery.Core
@@ -11,9 +14,9 @@ open DSL.Conditions
 
 let test_dsl_equivalence () =
   let functional_effect =
-    E.add_cc ~target:E.this_personnel ~amount:E.Amount.one
+    E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one
   in
-  let dsl_effect = me +@ E.Amount.one in
+  let dsl_effect = me +@ Int.Positive.one in
   assert_true
     (TS.card_effect_to_string functional_effect
     = TS.card_effect_to_string dsl_effect)
@@ -22,19 +25,19 @@ let test_dsl_equivalence () =
   let functional_composite =
     E.composite
       [
-        E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
-        E.remove_cc ~target:E.all_personnel ~amount:E.Amount.two;
+        E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
+        E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.two;
       ]
   in
-  let dsl_composite = me +@ E.Amount.one &+ everyone -@ E.Amount.two in
+  let dsl_composite = me +@ Int.Positive.one &+ everyone -@ Int.Positive.two in
   assert_true
     (TS.card_effect_to_string functional_composite
     = TS.card_effect_to_string dsl_composite)
     "DSL &+ equals E.composite";
 
   let functional_transfer =
-    E.move_cc ~from:E.this_personnel ~to_:(E.choose_personnel ())
-      ~amount:E.Amount.one
+    E.move_cc ~from:T.this_personnel ~to_:(T.choose_personnel ())
+      ~amount:Int.Positive.one
   in
   let dsl_transfer = me ==> anyone () in
   assert_true
@@ -43,18 +46,18 @@ let test_dsl_equivalence () =
     "DSL ==> equals E.move_cc";
 
   let functional_transfer_two =
-    E.move_cc ~from:E.this_personnel ~to_:(E.choose_personnel ())
-      ~amount:E.Amount.two
+    E.move_cc ~from:T.this_personnel ~to_:(T.choose_personnel ())
+      ~amount:Int.Positive.two
   in
-  let dsl_transfer_two = transfer E.Amount.two me (anyone ()) in
+  let dsl_transfer_two = transfer Int.Positive.two me (anyone ()) in
   assert_true
     (TS.card_effect_to_string functional_transfer_two
     = TS.card_effect_to_string dsl_transfer_two)
     "DSL transfer equals E.move_cc with amount";
 
   let functional_move =
-    E.move_personnel ~target:E.this_personnel
-      ~to_sector:(E.specific_sector Lambda)
+    E.move_personnel ~target:T.this_personnel
+      ~to_sector:(T.specific_sector Lambda)
   in
   let dsl_move = me --> to_sector Lambda in
   assert_true
@@ -63,8 +66,8 @@ let test_dsl_equivalence () =
     "DSL --> equals E.move_personnel";
 
   let functional_move_choose =
-    E.move_personnel ~target:(E.choose_personnel ())
-      ~to_sector:(E.choose_sector ())
+    E.move_personnel ~target:(T.choose_personnel ())
+      ~to_sector:(T.choose_sector ())
   in
   let dsl_move_choose = anyone () --> any_sector () in
   assert_true
@@ -74,15 +77,15 @@ let test_dsl_equivalence () =
 
   let let_star_effect =
     let* target = anyone_else () in
-    me ==> target &+ target +@ E.Amount.one
+    me ==> target &+ target +@ Int.Positive.one
   in
   let functional_let =
-    E.let_ "Personnel" (E.choose_personnel ~filter:E.other_personnel ())
-      (fun target ->
+    E.let_ (T.choose_personnel ~filter:T.other_personnel ()) (fun target ->
         E.composite
           [
-            E.move_cc ~from:E.this_personnel ~to_:target ~amount:E.Amount.one;
-            E.add_cc ~target ~amount:E.Amount.one;
+            E.move_cc ~from:T.this_personnel ~to_:target
+              ~amount:Int.Positive.one;
+            E.add_cc ~target ~amount:Int.Positive.one;
           ])
   in
   assert_true
@@ -91,18 +94,18 @@ let test_dsl_equivalence () =
     "DSL let* equals E.let_";
 
   let functional_add_breach =
-    E.add_breach_marker ~target:E.entity_in_this_sector ~amount:E.Amount.one
+    E.add_breach_marker ~target:T.entity_in_this_sector ~amount:Int.Positive.one
   in
-  let dsl_add_breach = entity_here |+ E.Amount.one in
+  let dsl_add_breach = entity_here |+ Int.Positive.one in
   assert_true
     (TS.card_effect_to_string functional_add_breach
     = TS.card_effect_to_string dsl_add_breach)
     "DSL |+ equals E.add_breach_marker";
 
   let functional_remove_breach =
-    E.remove_breach_marker ~target:(E.choose_entity ()) ~amount:E.Amount.two
+    E.remove_breach_marker ~target:(T.choose_entity ()) ~amount:Int.Positive.two
   in
-  let dsl_remove_breach = any_entity () |- E.Amount.two in
+  let dsl_remove_breach = any_entity () |- Int.Positive.two in
   assert_true
     (TS.card_effect_to_string functional_remove_breach
     = TS.card_effect_to_string dsl_remove_breach)
@@ -111,51 +114,65 @@ let test_dsl_equivalence () =
 let test_condition_equivalence () =
   let and_cond = sector_breached Alpha &&? sector_breached Beta in
   let functional_and =
-    E.and_ (E.sector_is_breached Alpha) (E.sector_is_breached Beta)
+    Condition.and_
+      (Condition.sector_is_breached Alpha)
+      (Condition.sector_is_breached Beta)
   in
-  assert_true (and_cond.kind = functional_and.kind) "DSL &&? equals E.and_";
+  assert_true
+    (and_cond.kind = functional_and.kind)
+    "DSL &&? equals Condition.and_";
 
   let or_cond = sector_breached Alpha ||? sector_breached Beta in
   let functional_or =
-    E.or_ (E.sector_is_breached Alpha) (E.sector_is_breached Beta)
+    Condition.or_
+      (Condition.sector_is_breached Alpha)
+      (Condition.sector_is_breached Beta)
   in
-  assert_true (or_cond.kind = functional_or.kind) "DSL ||? equals E.or_";
+  assert_true (or_cond.kind = functional_or.kind) "DSL ||? equals Condition.or_";
 
   let not_cond = !?(sector_breached Lambda) in
-  let functional_not = E.not_ (E.sector_is_breached Lambda) in
-  assert_true (not_cond.kind = functional_not.kind) "DSL !? equals E.not_";
+  let functional_not = Condition.not_ (Condition.sector_is_breached Lambda) in
+  assert_true
+    (not_cond.kind = functional_not.kind)
+    "DSL !? equals Condition.not_";
 
   let complex_cond =
     sector_breached Alpha ||? sector_breached Beta
     &&? !?(sector_breached Lambda)
   in
   let functional_complex =
-    E.and_
-      (E.or_ (E.sector_is_breached Alpha) (E.sector_is_breached Beta))
-      (E.not_ (E.sector_is_breached Lambda))
+    Condition.and_
+      (Condition.or_
+         (Condition.sector_is_breached Alpha)
+         (Condition.sector_is_breached Beta))
+      (Condition.not_ (Condition.sector_is_breached Lambda))
   in
   assert_true
     (complex_cond.kind = functional_complex.kind)
     "DSL complex condition equals functional equivalent";
 
-  assert_true (always.kind = E.always.kind) "DSL always equals E.always";
-  assert_true (never.kind = E.never.kind) "DSL never equals E.never";
+  assert_true
+    (always.kind = Condition.always.kind)
+    "DSL always equals Condition.always";
+  assert_true
+    (never.kind = Condition.never.kind)
+    "DSL never equals Condition.never";
 
   let count_cond = personnel_count Alpha 2 in
-  let functional_count = E.personnel_count_in_sector Alpha 2 in
+  let functional_count = Condition.personnel_count_in_sector Alpha 2 in
   assert_true
     (count_cond.kind = functional_count.kind)
-    "DSL personnel_count equals E.personnel_count_in_sector";
+    "DSL personnel_count equals Condition.personnel_count_in_sector";
 
   let cc_cond = personnel_with_cc Beta ~min_count:3 ~min_cc_each:2 in
   let functional_cc =
-    E.personnel_with_min_cc Beta ~min_count:3 ~min_cc_each:2
+    Condition.personnel_with_min_cc Beta ~min_count:3 ~min_cc_each:2
   in
   assert_true
     (cc_cond.kind = functional_cc.kind)
-    "DSL personnel_with_cc equals E.personnel_with_min_cc";
+    "DSL personnel_with_cc equals Condition.personnel_with_min_cc";
 
-  assert_true (here = E.this_sector) "DSL here equals E.this_sector"
+  assert_true (here = T.this_sector) "DSL here equals T.this_sector"
 
 let dsl_operative : core_personnel =
   {
@@ -164,7 +181,7 @@ let dsl_operative : core_personnel =
     division = Institute;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.three;
+    starting_cc = Int.three;
     abilities =
       [
         Passive
@@ -172,14 +189,14 @@ let dsl_operative : core_personnel =
             id = None;
             limit = None;
             condition = None;
-            card_effect = me +@ E.Amount.one;
+            card_effect = me +@ Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.one;
+            cc_cost = Int.one;
             condition = None;
-            card_effect = anyone () +@ E.Amount.two;
+            card_effect = anyone () +@ Int.Positive.two;
           };
         Triggered
           {
@@ -188,9 +205,9 @@ let dsl_operative : core_personnel =
             limit = None;
             optionality = Mandatory;
             condition = None;
-            card_effect = everyone_in Alpha -@ E.Amount.one;
+            card_effect = everyone_in Alpha -@ Int.Positive.one;
           };
-        Burnout { id = None; card_effect = everyone -@ E.Amount.one };
+        Burnout { id = None; card_effect = everyone -@ Int.Positive.one };
       ];
   }
 
@@ -201,25 +218,26 @@ let dsl_composite_test : core_personnel =
     division = Rust;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.four;
+    starting_cc = Int.four;
     abilities =
       [
         Activated
           {
             id = None;
-            cc_cost = E.CC.two;
+            cc_cost = Int.two;
             condition = None;
-            card_effect = me +@ E.Amount.one &+ everyone_here -@ E.Amount.one;
+            card_effect =
+              me +@ Int.Positive.one &+ everyone_here -@ Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.one;
+            cc_cost = Int.one;
             condition = None;
             card_effect =
-              anyone_else () +@ E.Amount.one
-              &+ me -@ E.Amount.one
-              &+ everyone_in Beta +@ E.Amount.two;
+              anyone_else () +@ Int.Positive.one
+              &+ me -@ Int.Positive.one
+              &+ everyone_in Beta +@ Int.Positive.two;
           };
       ];
   }
@@ -232,7 +250,7 @@ let dsl_sector_procedure : core_procedure =
     lore = None;
     flavor_text = None;
     card_effect =
-      everyone_in Lambda +@ E.Amount.one &+ my_sector -@ E.Amount.one;
+      everyone_in Lambda +@ Int.Positive.one &+ my_sector -@ Int.Positive.one;
   }
 
 let terse_operative =
@@ -330,13 +348,13 @@ let terse_assault =
 let sigkill_engagement =
   procedure "institute:sigkill_engagement" "Sigkill Engagement" Institute
     ~flavor_text:"Sigkill takes what containment cannot."
-    (let* source = any_personnel ~filter:controlled_by_you () in
+    (let* source = anyone ~filter:controlled_by_you () in
      seq [ source -@ two; any_entity () |+ one ])
 
 let operation_execute =
   procedure "institute:operation_execute" "Operation Execute" Institute
     ~flavor_text:"No process survives a SIGKILL. Neither do we."
-    (let* source = any_personnel ~filter:controlled_by_you () in
+    (let* source = anyone ~filter:controlled_by_you () in
      seq [ source -@ three; all_entities () |+ one ])
 
 let containment_override =
@@ -344,7 +362,7 @@ let containment_override =
     ~flavor_text:
       "SIGKILL -9: reality. The memetic field flatlines. All sectors report \
        nominal."
-    (let* source = any_personnel ~filter:controlled_by_you () in
+    (let* source = anyone ~filter:controlled_by_you () in
      seq
        [
          source -@ four;

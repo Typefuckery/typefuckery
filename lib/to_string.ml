@@ -344,39 +344,39 @@ struct
       (player_id_to_string c.active_player)
 
   let core_condition_kind_to_string = function
-    | Always -> P.always_contained
-    | Never -> P.cannot_be_contained
-    | Sector_breached sector ->
+    | Condition.Always -> P.always_contained
+    | Condition.Never -> P.cannot_be_contained
+    | Condition.Sector_breached sector ->
         Printf.sprintf "%s %s %s" P.sector (sector_to_string sector)
           P.is_breached
-    | Personnel_count { sector; min_count } ->
+    | Condition.Personnel_count { sector; min_count } ->
         Printf.sprintf "%s %s %s %s %s" (P.or_more min_count) P.personnel P.in_
           P.sector (sector_to_string sector)
-    | Personnel_with_min_cc { sector; min_count; min_cc } ->
+    | Condition.Personnel_with_min_cc { sector; min_count; min_cc } ->
         Printf.sprintf "%s %s %s %s %s, %s %s %s %s" (P.or_more min_count)
           P.personnel P.in_ P.sector (sector_to_string sector) P.each P.with_
           (P.or_more min_cc) P.cc
-    | Total_cc_in_sector { sector; total } ->
+    | Condition.Total_cc_in_sector { sector; total } ->
         Printf.sprintf "%s %s %s %s %s %s" P.total_cc P.in_ P.sector
           (sector_to_string sector) P.is_ (string_of_int total)
-    | Total_cc_in_this_sector { total } ->
+    | Condition.Total_cc_in_this_sector { total } ->
         Printf.sprintf "%s %s %s %s %s" P.total_cc P.in_ P.this_sector P.is_
           (string_of_int total)
 
   let rec condition_kind_to_string = function
-    | Core_cond core -> core_condition_kind_to_string core
-    | Ext (_ : No_ext.t) -> .
-    | Not (Core_cond (Sector_breached sector)) ->
+    | Condition.Core_cond core -> core_condition_kind_to_string core
+    | Condition.Ext (_ : No_ext.t) -> .
+    | Condition.Not (Condition.Core_cond (Condition.Sector_breached sector)) ->
         Printf.sprintf "%s %s %s" P.sector (sector_to_string sector)
           P.is_not_breached
-    | Not kind ->
+    | Condition.Not kind ->
         Printf.sprintf "%s (%s)" P.not_ (condition_kind_to_string kind)
-    | And (k1, k2) ->
+    | Condition.And (k1, k2) ->
         Printf.sprintf "(%s %s %s)"
           (condition_kind_to_string k1)
           P.and_
           (condition_kind_to_string k2)
-    | Or (k1, k2) ->
+    | Condition.Or (k1, k2) ->
         Printf.sprintf "%s %s %s"
           (condition_kind_to_string k1)
           P.or_
@@ -398,13 +398,13 @@ struct
     | Targets.Controlled_by_active_player -> P.controlled_by_active_player
 
   let personnel_filter_to_string (f : personnel_filter) =
-    personnel_filter_kind_to_string f.kind
+    personnel_filter_kind_to_string (Targets.personnel_filter_kind f)
 
   let entity_filter_kind_to_string = function
     | Targets.Uncontained -> P.filter_uncontained
 
   let entity_filter_to_string (f : entity_filter) =
-    entity_filter_kind_to_string f.kind
+    entity_filter_kind_to_string (Targets.entity_filter_kind f)
 
   let sector_filter_kind_to_string = function
     | Targets.Sector_filter_placeholder -> P.sector
@@ -412,7 +412,7 @@ struct
         Printf.sprintf "%s %s" P.other_than P.that_sector
 
   let sector_filter_to_string (f : sector_filter) =
-    sector_filter_kind_to_string f.kind
+    sector_filter_kind_to_string (Targets.sector_filter_kind f)
 
   let bound_kind_to_string = function
     | Targets.Bound_that -> P.bound_that
@@ -431,17 +431,20 @@ struct
     | None -> None
     | Some filter -> (
         let desc = personnel_filter_to_string filter in
-        match filter.tag with
+        match Targets.personnel_filter_tag filter with
         | Other -> Some desc
         | In_play -> Some desc
         | Generic -> Some (Printf.sprintf "%s %s" P.that desc))
 
   let is_other_in_play_filter (filter : personnel_filter option) =
     match filter with
-    | Some { kind = Filter_and (Exclude_this, Filter_in_play); _ }
-    | Some { kind = Filter_and (Filter_in_play, Exclude_this); _ } ->
-        true
-    | _ -> false
+    | Some f -> (
+        match Targets.personnel_filter_kind f with
+        | Filter_and (Exclude_this, Filter_in_play)
+        | Filter_and (Filter_in_play, Exclude_this) ->
+            true
+        | _ -> false)
+    | None -> false
 
   let describe_entity_filter = function
     | None -> None
@@ -478,11 +481,11 @@ struct
           match filter with
           | Some f -> (
               let desc = personnel_filter_to_string f in
-              match f.kind with
+              match Targets.personnel_filter_kind f with
               | Controlled_by_active_player ->
                   Printf.sprintf "%s %s %s" P.a P.personnel desc
               | _ -> (
-                  match f.tag with
+                  match Targets.personnel_filter_tag f with
                   | Other -> Printf.sprintf "%s %s" P.another desc
                   | In_play -> Printf.sprintf "%s %s %s" P.a P.personnel desc
                   | Generic ->

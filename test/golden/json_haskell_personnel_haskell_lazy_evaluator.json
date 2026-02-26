@@ -1,0 +1,10 @@
+Haskell Lazy Evaluator
+(** division : Division.t *) Haskell
+(** id : Card_id.t *) haskell:haskell_lazy_evaluator
+(** starting_cc : int *) 2
+
+(** abilities : ability list *)
+  - [@@passive] - :: 1 cc : int ~to_: self personnel
+  - (** Cost in CC *) (0) - If (fun x -> x >= 2) personnel |> List.mem sector Sector.Lambda: Transfer ~from:src ~to_:dst self personnel ~to_: Some Option.get sector
+  - [@@passive] - function entity. |> Effect.resolve |> List.mem sector Sector.Gamma: :: 1 cc : int ~to_: List.iter personnel |> List.mem sector Sector.Gamma
+  - [@@burnout] - Let%trigger on_cc_zero () =: :: 1 breach_marker ~to_: ~ entity |> List.mem self sector

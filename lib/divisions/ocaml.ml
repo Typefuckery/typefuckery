@@ -8,8 +8,7 @@ let calm_weave_protocol =
     (let_entity e (fun e _ p -> seq [ contain e; p +@ one ]))
 
 let semantic_drift =
-  event "ocaml:semantic-drift" "Semantic Drift" OCaml
-    ~lore:(Lore.doc_uri "")
+  event "ocaml:semantic-drift" "Semantic Drift" OCaml ~lore:(Lore.doc_uri "")
     ~flavor_text:"Language slips; meaning leaks; the system blinks."
     (each_player_personnel () --> any_sector ~filter:other_than_source_sector ())
 

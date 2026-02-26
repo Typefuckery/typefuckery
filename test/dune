@@ -60,14 +60,14 @@
  (action
   (chdir
    %{project_root}
-    (progn
-     (run %{dep:registry.exe})
-     (run %{dep:registry_errors.exe})
-     (run %{dep:divisions.exe})
-     (run %{dep:to_string_functor.exe})
-     (run %{dep:json.exe})
-     (run %{dep:example_cards.exe})
-     (run %{dep:crazy_cards.exe})
-     (run %{dep:noncore_division.exe})
-     (run %{dep:prolog_division.exe})
-     (run %{dep:dsl.exe})))))
+   (progn
+    (run %{dep:registry.exe})
+    (run %{dep:registry_errors.exe})
+    (run %{dep:divisions.exe})
+    (run %{dep:to_string_functor.exe})
+    (run %{dep:json.exe})
+    (run %{dep:example_cards.exe})
+    (run %{dep:crazy_cards.exe})
+    (run %{dep:noncore_division.exe})
+    (run %{dep:prolog_division.exe})
+    (run %{dep:dsl.exe})))))

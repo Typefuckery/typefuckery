@@ -1,4 +1,7 @@
 module E = Typefuckery.Engine
+module T = Typefuckery.Targets
+module Int = Typefuckery.Int
+module Condition = Typefuckery.Condition
 module R = Typefuckery.Registry
 module TS = Typefuckery.To_string.Detailed_English
 module TS_Rust = Typefuckery.To_string.Rust
@@ -18,7 +21,7 @@ let borrow_checker_chaplain : core_personnel =
     division = Rust;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.three;
+    starting_cc = Int.three;
     abilities =
       [
         Triggered
@@ -27,48 +30,47 @@ let borrow_checker_chaplain : core_personnel =
             trigger =
               Core
                 (When_cc_would_reduce
-                   { target = E.this_personnel_sector; exclude_source = None });
+                   { target = T.this_personnel_sector; exclude_source = None });
             limit = Some Once_per_round;
             optionality = Optional;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel_sector
-                ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:T.this_personnel_sector
+                ~amount:Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.zero;
+            cc_cost = Int.zero;
             condition = None;
             card_effect =
-              E.let_ "Personnel"
-                (E.choose_personnel ~filter:E.other_personnel ())
+              E.let_ (T.choose_personnel ~filter:T.other_personnel ())
                 (fun personnel ->
                   E.composite
                     [
-                      E.move_cc ~from:E.this_personnel ~to_:personnel
-                        ~amount:E.Amount.one;
+                      E.move_cc ~from:T.this_personnel ~to_:personnel
+                        ~amount:Int.Positive.one;
                       E.delayed ~window:End_phase ~scope:This_round
                         ~then_do:
-                          (E.move_cc ~from:personnel ~to_:E.this_personnel
-                             ~amount:E.Amount.one);
+                          (E.move_cc ~from:personnel ~to_:T.this_personnel
+                             ~amount:Int.Positive.one);
                     ]);
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.two;
+            cc_cost = Int.two;
             condition = None;
             card_effect =
-              E.add_breach_marker ~target:E.entity_in_this_sector
-                ~amount:E.Amount.one;
+              E.add_breach_marker ~target:T.entity_in_this_sector
+                ~amount:Int.Positive.one;
           };
         Burnout
           {
             id = None;
             card_effect =
-              E.add_breach_marker ~target:E.entity_in_this_sector
-                ~amount:E.Amount.one;
+              E.add_breach_marker ~target:T.entity_in_this_sector
+                ~amount:Int.Positive.one;
           };
       ];
   }
@@ -80,26 +82,26 @@ let ada_safety_engineer : core_personnel =
     division = Ada;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.four;
+    starting_cc = Int.four;
     abilities =
       [
         Passive
           {
             id = None;
             limit = Some Once_per_round;
-            condition = Some (E.sector_is_breached Alpha);
+            condition = Some (Condition.sector_is_breached Alpha);
             card_effect =
               E.prevent_cc_loss
-                ~target:(E.all_personnel_in_sector Alpha)
-                ~amount:E.Amount.one;
+                ~target:(T.all_personnel_in_sector Alpha)
+                ~amount:Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.one;
+            cc_cost = Int.one;
             condition = None;
             card_effect =
-              E.flip_sector ~target:(E.choose_sector ()) ~state:Secure;
+              E.flip_sector ~target:(T.choose_sector ()) ~state:Secure;
           };
         Triggered
           {
@@ -108,12 +110,13 @@ let ada_safety_engineer : core_personnel =
             limit = None;
             optionality = Mandatory;
             condition = None;
-            card_effect = E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
           };
         Burnout
           {
             id = None;
-            card_effect = E.flip_sector ~target:E.this_sector ~state:Secure;
+            card_effect = E.flip_sector ~target:T.this_sector ~state:Secure;
           };
       ];
   }
@@ -125,7 +128,7 @@ let haskell_lazy_evaluator : core_personnel =
     division = Haskell;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.two;
+    starting_cc = Int.two;
     abilities =
       [
         Passive
@@ -133,16 +136,17 @@ let haskell_lazy_evaluator : core_personnel =
             id = None;
             limit = None;
             condition = None;
-            card_effect = E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.zero;
-            condition = Some (E.personnel_count_in_sector Lambda 2);
+            cc_cost = Int.zero;
+            condition = Some (Condition.personnel_count_in_sector Lambda 2);
             card_effect =
-              E.move_personnel ~target:E.this_personnel
-                ~to_sector:(E.choose_sector ());
+              E.move_personnel ~target:T.this_personnel
+                ~to_sector:(T.choose_sector ());
           };
         Triggered
           {
@@ -153,15 +157,15 @@ let haskell_lazy_evaluator : core_personnel =
             condition = None;
             card_effect =
               E.add_cc
-                ~target:(E.all_personnel_in_sector Gamma)
-                ~amount:E.Amount.one;
+                ~target:(T.all_personnel_in_sector Gamma)
+                ~amount:Int.Positive.one;
           };
         Burnout
           {
             id = None;
             card_effect =
-              E.add_breach_marker ~target:E.entity_in_this_sector
-                ~amount:E.Amount.one;
+              E.add_breach_marker ~target:T.entity_in_this_sector
+                ~amount:Int.Positive.one;
           };
       ];
   }
@@ -173,7 +177,7 @@ let ocaml_module_architect : core_personnel =
     division = OCaml;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.three;
+    starting_cc = Int.three;
     abilities =
       [
         Passive
@@ -182,20 +186,21 @@ let ocaml_module_architect : core_personnel =
             limit = Some Once_per_round;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:T.this_personnel
+                ~amount:Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.one;
-            condition = Some (E.personnel_count_in_sector Beta 2);
+            cc_cost = Int.one;
+            condition = Some (Condition.personnel_count_in_sector Beta 2);
             card_effect =
               E.composite
                 [
                   E.move_personnel
-                    ~target:(E.choose_personnel ~in_sector:Beta ())
-                    ~to_sector:(E.specific_sector Lambda);
-                  E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+                    ~target:(T.choose_personnel ~in_sector:Beta ())
+                    ~to_sector:(T.specific_sector Lambda);
+                  E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
                 ];
           };
         Triggered
@@ -207,7 +212,7 @@ let ocaml_module_architect : core_personnel =
             condition = None;
             card_effect = E.log "Recompute module graph";
           };
-        Burnout { id = None; card_effect = E.send_to_abyss E.this_personnel };
+        Burnout { id = None; card_effect = E.send_to_abyss T.this_personnel };
       ];
   }
 
@@ -218,7 +223,7 @@ let institute_operative : core_personnel =
     division = Institute;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.three;
+    starting_cc = Int.three;
     abilities =
       [
         Passive
@@ -227,15 +232,16 @@ let institute_operative : core_personnel =
             limit = Some Once_per_round;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:T.this_personnel
+                ~amount:Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.one;
+            cc_cost = Int.one;
             condition = None;
             card_effect =
-              E.add_cc ~target:(E.choose_personnel ()) ~amount:E.Amount.one;
+              E.add_cc ~target:(T.choose_personnel ()) ~amount:Int.Positive.one;
           };
         Triggered
           {
@@ -244,7 +250,8 @@ let institute_operative : core_personnel =
             limit = None;
             optionality = Mandatory;
             condition = None;
-            card_effect = E.add_cc ~target:E.this_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.this_personnel ~amount:Int.Positive.one;
           };
         Burnout
           { id = None; card_effect = E.log "File a final incident report" };
@@ -258,7 +265,7 @@ let shift_supervisor : core_personnel =
     division = Institute;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.four;
+    starting_cc = Int.four;
     abilities =
       [
         Passive
@@ -267,23 +274,23 @@ let shift_supervisor : core_personnel =
             limit = Some Once_per_round;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel_sector
-                ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:T.this_personnel_sector
+                ~amount:Int.Positive.one;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.two;
+            cc_cost = Int.two;
             condition = None;
             card_effect =
-              E.flip_sector ~target:(E.choose_sector ()) ~state:Secure;
+              E.flip_sector ~target:(T.choose_sector ()) ~state:Secure;
           };
         Burnout
           {
             id = None;
             card_effect =
-              E.remove_breach_marker ~target:(E.choose_entity ())
-                ~amount:E.Amount.one;
+              E.remove_breach_marker ~target:(T.choose_entity ())
+                ~amount:Int.Positive.one;
           };
       ];
   }
@@ -296,7 +303,7 @@ let lifetime_extension : core_procedure =
     lore = None;
     flavor_text = None;
     card_effect =
-      E.add_breach_marker ~target:(E.choose_entity ()) ~amount:E.Amount.one;
+      E.add_breach_marker ~target:(T.choose_entity ()) ~amount:Int.Positive.one;
   }
 
 let ownership_transfer : core_procedure =
@@ -307,8 +314,8 @@ let ownership_transfer : core_procedure =
     lore = None;
     flavor_text = None;
     card_effect =
-      E.move_personnel ~target:(E.choose_personnel ())
-        ~to_sector:(E.choose_sector ());
+      E.move_personnel ~target:(T.choose_personnel ())
+        ~to_sector:(T.choose_sector ());
   }
 
 let mutable_borrow : core_procedure =
@@ -321,8 +328,8 @@ let mutable_borrow : core_procedure =
     card_effect =
       E.if_possible
         (E.move_cc_between_pair
-           ~pair:(E.choose_personnel_pair ())
-           ~amount:E.Amount.one);
+           ~pair:(T.choose_personnel_pair ())
+           ~amount:Int.Positive.one);
   }
 
 let rapid_response : core_procedure =
@@ -333,8 +340,8 @@ let rapid_response : core_procedure =
     lore = None;
     flavor_text = None;
     card_effect =
-      E.move_personnel ~target:(E.choose_personnel ())
-        ~to_sector:(E.choose_sector ());
+      E.move_personnel ~target:(T.choose_personnel ())
+        ~to_sector:(T.choose_sector ());
   }
 
 let standard_protocol : core_procedure =
@@ -347,9 +354,9 @@ let standard_protocol : core_procedure =
     card_effect =
       E.composite
         [
-          E.add_cc ~target:(E.choose_personnel ()) ~amount:E.Amount.one;
-          E.remove_breach_marker ~target:(E.choose_entity ())
-            ~amount:E.Amount.one;
+          E.add_cc ~target:(T.choose_personnel ()) ~amount:Int.Positive.one;
+          E.remove_breach_marker ~target:(T.choose_entity ())
+            ~amount:Int.Positive.one;
         ];
   }
 
@@ -362,8 +369,8 @@ let lifetime_violation : core_event =
     flavor_text = None;
     card_effect =
       E.remove_cc
-        ~target:(E.choose_personnel ~filter:E.personnel_in_play ())
-        ~amount:E.Amount.three;
+        ~target:(T.choose_personnel ~filter:T.personnel_in_play ())
+        ~amount:Int.Positive.three;
   }
 
 let borrow_checker_rejection : core_event =
@@ -374,7 +381,9 @@ let borrow_checker_rejection : core_event =
     lore = None;
     flavor_text = None;
     card_effect =
-      E.remove_cc ~target:(E.all_personnel_in_sector Alpha) ~amount:E.Amount.one;
+      E.remove_cc
+        ~target:(T.all_personnel_in_sector Alpha)
+        ~amount:Int.Positive.one;
   }
 
 let unsafe_code_panic : core_event =
@@ -385,7 +394,7 @@ let unsafe_code_panic : core_event =
     lore = None;
     flavor_text = None;
     card_effect =
-      E.add_breach_marker ~target:(E.choose_entity ()) ~amount:E.Amount.one;
+      E.add_breach_marker ~target:(T.choose_entity ()) ~amount:Int.Positive.one;
   }
 
 let buffer_overflow : core_entity =
@@ -396,10 +405,12 @@ let buffer_overflow : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Keter;
-    breach_timer = E.Timer.four;
-    end_phase_effect = E.remove_cc ~target:E.all_personnel ~amount:E.Amount.one;
-    breach_effect = E.remove_cc ~target:E.all_personnel ~amount:E.Amount.three;
-    containment = { check = E.personnel_count_in_sector Alpha 2 };
+    breach_timer = Int.Positive.four;
+    end_phase_effect =
+      E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.one;
+    breach_effect =
+      E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.three;
+    containment = { check = Condition.personnel_count_in_sector Alpha 2 };
   }
 
 let deadlock_demon : core_entity =
@@ -410,11 +421,11 @@ let deadlock_demon : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Euclid;
-    breach_timer = E.Timer.three;
+    breach_timer = Int.Positive.three;
     end_phase_effect =
-      E.flip_sector ~target:(E.choose_sector ()) ~state:Breached;
-    breach_effect = E.send_to_abyss (E.choose_personnel ());
-    containment = { check = E.personnel_count_in_sector Beta 1 };
+      E.flip_sector ~target:(T.choose_sector ()) ~state:Breached;
+    breach_effect = E.send_to_abyss (T.choose_personnel ());
+    containment = { check = Condition.personnel_count_in_sector Beta 1 };
   }
 
 let infinite_loop : core_entity =
@@ -425,11 +436,11 @@ let infinite_loop : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Safe;
-    breach_timer = E.Timer.five;
+    breach_timer = Int.Positive.five;
     end_phase_effect =
-      E.add_breach_marker ~target:(E.all_entities ()) ~amount:E.Amount.one;
-    breach_effect = E.discard ~player:E.you ~amount:E.Amount.two;
-    containment = { check = E.sector_is_breached Gamma };
+      E.add_breach_marker ~target:(T.all_entities ()) ~amount:Int.Positive.one;
+    breach_effect = E.discard ~player:T.you ~amount:Int.Positive.two;
+    containment = { check = Condition.sector_is_breached Gamma };
   }
 
 let memory_leak : core_entity =
@@ -440,14 +451,17 @@ let memory_leak : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Euclid;
-    breach_timer = E.Timer.four;
+    breach_timer = Int.Positive.four;
     end_phase_effect =
       E.remove_cc
-        ~target:(E.all_personnel_in_sector Lambda)
-        ~amount:E.Amount.one;
-    breach_effect = E.remove_cc ~target:E.all_personnel ~amount:E.Amount.two;
+        ~target:(T.all_personnel_in_sector Lambda)
+        ~amount:Int.Positive.one;
+    breach_effect = E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.two;
     containment =
-      { check = E.personnel_with_min_cc Lambda ~min_count:2 ~min_cc_each:1 };
+      {
+        check =
+          Condition.personnel_with_min_cc Lambda ~min_count:2 ~min_cc_each:1;
+      };
   }
 
 let null_pointer : core_entity =
@@ -458,15 +472,15 @@ let null_pointer : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Keter;
-    breach_timer = E.Timer.three;
-    end_phase_effect = E.send_to_abyss (E.choose_personnel ());
+    breach_timer = Int.Positive.three;
+    end_phase_effect = E.send_to_abyss (T.choose_personnel ());
     breach_effect =
       E.composite
         [
-          E.send_to_abyss (E.choose_personnel ());
-          E.send_to_abyss (E.choose_personnel ());
+          E.send_to_abyss (T.choose_personnel ());
+          E.send_to_abyss (T.choose_personnel ());
         ];
-    containment = { check = E.always };
+    containment = { check = Condition.always };
   }
 
 let race_hazard : core_entity =
@@ -477,13 +491,19 @@ let race_hazard : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Titan;
-    breach_timer = E.Timer.six;
+    breach_timer = Int.Positive.six;
     end_phase_effect =
-      E.move_cc ~from:(E.choose_personnel ()) ~to_:(E.choose_personnel ())
-        ~amount:E.Amount.one;
-    breach_effect = E.remove_cc ~target:E.all_personnel ~amount:E.Amount.five;
+      E.move_cc ~from:(T.choose_personnel ()) ~to_:(T.choose_personnel ())
+        ~amount:Int.Positive.one;
+    breach_effect =
+      E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.five;
     containment =
-      { check = E.or_ (E.sector_is_breached Alpha) (E.sector_is_breached Beta) };
+      {
+        check =
+          Condition.or_
+            (Condition.sector_is_breached Alpha)
+            (Condition.sector_is_breached Beta);
+      };
   }
 
 let syntax_glitch : core_entity =
@@ -494,10 +514,10 @@ let syntax_glitch : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Safe;
-    breach_timer = E.Timer.one;
+    breach_timer = Int.Positive.one;
     end_phase_effect = E.noop;
-    breach_effect = E.discard ~player:E.you ~amount:E.Amount.one;
-    containment = { check = E.always };
+    breach_effect = E.discard ~player:T.you ~amount:Int.Positive.one;
+    containment = { check = Condition.always };
   }
 
 let heisenbug : core_entity =
@@ -508,17 +528,17 @@ let heisenbug : core_entity =
     lore = None;
     flavor_text = None;
     threat_level = Euclid;
-    breach_timer = E.Timer.two;
+    breach_timer = Int.Positive.two;
     end_phase_effect =
       E.composite
         [
-          E.remove_cc ~target:E.all_personnel_in_this_sector
-            ~amount:E.Amount.one;
-          E.add_breach_marker ~target:E.entity_in_this_sector
-            ~amount:E.Amount.one;
+          E.remove_cc ~target:T.all_personnel_in_this_sector
+            ~amount:Int.Positive.one;
+          E.add_breach_marker ~target:T.entity_in_this_sector
+            ~amount:Int.Positive.one;
         ];
-    breach_effect = E.remove_cc ~target:E.all_personnel ~amount:E.Amount.two;
-    containment = { check = E.personnel_count_in_sector Alpha 1 };
+    breach_effect = E.remove_cc ~target:T.all_personnel ~amount:Int.Positive.two;
+    containment = { check = Condition.personnel_count_in_sector Alpha 1 };
   }
 
 let memguard : core_personnel =
@@ -528,7 +548,7 @@ let memguard : core_personnel =
     division = Rust;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.four;
+    starting_cc = Int.four;
     abilities =
       [
         Passive
@@ -537,33 +557,35 @@ let memguard : core_personnel =
             limit = Some Once_per_round;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:T.this_personnel
+                ~amount:Int.Positive.one;
           };
         Triggered
           {
             id = None;
-            trigger = E.when_cc_would_reduce_not_from_spend E.this_personnel;
+            trigger = E.when_cc_would_reduce_not_from_spend T.this_personnel;
             limit = Some Once_per_round;
             optionality = Optional;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel ~amount:E.Amount.two;
+              E.prevent_cc_loss ~target:T.this_personnel
+                ~amount:Int.Positive.two;
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.three;
+            cc_cost = Int.three;
             condition = None;
             card_effect =
-              E.prevent_cc_loss ~target:(E.choose_personnel ())
-                ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:(T.choose_personnel ())
+                ~amount:Int.Positive.one;
           };
         Burnout
           {
             id = None;
             card_effect =
-              E.prevent_cc_loss ~target:E.this_personnel_sector
-                ~amount:E.Amount.one;
+              E.prevent_cc_loss ~target:T.this_personnel_sector
+                ~amount:Int.Positive.one;
           };
       ];
   }
@@ -576,12 +598,12 @@ let temporary_boost : core_procedure =
     lore = None;
     flavor_text = None;
     card_effect =
-      E.let_ "Personnel" (E.choose_personnel ()) (fun personnel ->
+      E.let_ (T.choose_personnel ()) (fun personnel ->
           E.composite
             [
-              E.add_cc ~target:personnel ~amount:E.Amount.one;
+              E.add_cc ~target:personnel ~amount:Int.Positive.one;
               E.before_end_phase_step_1_this_round
-                (E.remove_cc ~target:personnel ~amount:E.Amount.one);
+                (E.remove_cc ~target:personnel ~amount:Int.Positive.one);
             ]);
   }
 
@@ -592,7 +614,7 @@ let forced_knowledge : core_procedure =
     division = Institute;
     lore = None;
     flavor_text = None;
-    card_effect = E.draw ~player:E.another_player ~amount:E.Amount.three;
+    card_effect = E.draw ~player:T.another_player ~amount:Int.Positive.three;
   }
 
 let e_acc : core_personnel =
@@ -602,31 +624,36 @@ let e_acc : core_personnel =
     division = Institute;
     lore = None;
     flavor_text = None;
-    starting_cc = E.CC.four;
+    starting_cc = Int.four;
     abilities =
       [
         Activated
           {
             id = None;
-            cc_cost = E.CC.one;
+            cc_cost = Int.one;
             condition = None;
             card_effect =
               E.composite
                 [
-                  E.remove_breach_marker ~target:E.entity_in_this_sector
-                    ~amount:E.Amount.one;
-                  E.add_cc ~target:E.this_personnel_sector ~amount:E.Amount.one;
+                  E.remove_breach_marker ~target:T.entity_in_this_sector
+                    ~amount:Int.Positive.one;
+                  E.add_cc ~target:T.this_personnel_sector
+                    ~amount:Int.Positive.one;
                 ];
           };
         Activated
           {
             id = None;
-            cc_cost = E.CC.two;
+            cc_cost = Int.two;
             condition = None;
-            card_effect = E.add_cc ~target:E.all_personnel ~amount:E.Amount.one;
+            card_effect =
+              E.add_cc ~target:T.all_personnel ~amount:Int.Positive.one;
           };
         Burnout
-          { id = None; card_effect = E.draw ~player:E.you ~amount:E.Amount.one };
+          {
+            id = None;
+            card_effect = E.draw ~player:T.you ~amount:Int.Positive.one;
+          };
       ];
   }
 
@@ -641,8 +668,8 @@ let strategic_retreat : core_event =
       E.composite
         [
           E.move_personnel
-            ~target:(E.choose_personnel ~chooser:(Some Starting_player) ())
-            ~to_sector:(E.choose_sector ());
+            ~target:(T.choose_personnel ~chooser:Starting_player ())
+            ~to_sector:(T.choose_sector ());
         ];
   }
 

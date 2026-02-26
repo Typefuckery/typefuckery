@@ -7,6 +7,7 @@
   no_ext
   int
   core
+  condition
   targets
   effects
   abilities
