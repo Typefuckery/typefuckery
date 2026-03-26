@@ -6,12 +6,12 @@ module Effects = Typefuckery.Effects
 
 let assert_true = Util.assert_true
 
-let make_personnel id_str name : Cards.core_card =
+let make_personnel id_str name =
   Cards.Personnel
     {
       id = Core.Card_id.of_string id_str;
       name;
-      division = Core.Rust;
+      division = Core.Rust_div;
       lore = None;
       flavor_text = None;
       starting_cc = Int.one;
@@ -25,7 +25,7 @@ let test_duplicate_set_id () =
   let registry =
     match
       R.register_core_division R.empty ~id:"my-set" ~name:"My Set"
-        ~cards:[ card1 ]
+        ~cards:[ Cards.pack_core_card card1 ]
     with
     | Ok r -> r
     | Error _ -> failwith "First registration should succeed"
@@ -33,7 +33,7 @@ let test_duplicate_set_id () =
 
   match
     R.register_core_division registry ~id:"my-set" ~name:"Different Name"
-      ~cards:[ card2 ]
+      ~cards:[ Cards.pack_core_card card2 ]
   with
   | Ok _ -> failwith "Expected duplicate set_id error"
   | Error (`Set_id_already_registered id) ->
@@ -47,7 +47,7 @@ let test_duplicate_set_name () =
   let registry =
     match
       R.register_core_division R.empty ~id:"set-1" ~name:"Same Name"
-        ~cards:[ card1 ]
+        ~cards:[ Cards.pack_core_card card1 ]
     with
     | Ok r -> r
     | Error _ -> failwith "First registration should succeed"
@@ -55,7 +55,7 @@ let test_duplicate_set_name () =
 
   match
     R.register_core_division registry ~id:"set-2" ~name:"Same Name"
-      ~cards:[ card2 ]
+      ~cards:[ Cards.pack_core_card card2 ]
   with
   | Ok _ -> failwith "Expected duplicate set_name error"
   | Error (`Set_name_already_registered (name, existing_id)) ->
@@ -69,7 +69,7 @@ let test_duplicate_card_id_within_set () =
 
   match
     R.register_core_division R.empty ~id:"my-set" ~name:"My Set"
-      ~cards:[ card1; card2 ]
+      ~cards:[ Cards.pack_core_card card1; Cards.pack_core_card card2 ]
   with
   | Ok _ -> failwith "Expected duplicate card_id within set error"
   | Error (`Duplicate_card_id_within_set (set_id, card_id, idx)) ->
@@ -87,7 +87,7 @@ let test_duplicate_card_id_across_sets () =
   let registry =
     match
       R.register_core_division R.empty ~id:"set-1" ~name:"Set One"
-        ~cards:[ card1 ]
+        ~cards:[ Cards.pack_core_card card1 ]
     with
     | Ok r -> r
     | Error _ -> failwith "First registration should succeed"
@@ -95,7 +95,7 @@ let test_duplicate_card_id_across_sets () =
 
   match
     R.register_core_division registry ~id:"set-2" ~name:"Set Two"
-      ~cards:[ card2 ]
+      ~cards:[ Cards.pack_core_card card2 ]
   with
   | Ok _ -> failwith "Expected card_id already registered error"
   | Error (`Card_id_already_registered (card_id, existing_set, new_set)) ->
@@ -127,13 +127,16 @@ let test_multiple_valid_registrations () =
   let registry =
     R.empty |> fun r ->
     Result.get_ok
-      (R.register_core_division r ~id:"set-1" ~name:"Set One" ~cards:[ card1 ])
+      (R.register_core_division r ~id:"set-1" ~name:"Set One"
+         ~cards:[ Cards.pack_core_card card1 ])
     |> fun r ->
     Result.get_ok
-      (R.register_core_division r ~id:"set-2" ~name:"Set Two" ~cards:[ card2 ])
+      (R.register_core_division r ~id:"set-2" ~name:"Set Two"
+         ~cards:[ Cards.pack_core_card card2 ])
     |> fun r ->
     Result.get_ok
-      (R.register_core_division r ~id:"set-3" ~name:"Set Three" ~cards:[ card3 ])
+      (R.register_core_division r ~id:"set-3" ~name:"Set Three"
+         ~cards:[ Cards.pack_core_card card3 ])
   in
 
   assert_true (List.length (R.list_sets registry) = 3) "3 sets registered";

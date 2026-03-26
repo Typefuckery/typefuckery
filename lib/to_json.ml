@@ -12,11 +12,12 @@ type json =
 
 module type S = sig
   val json_to_string : json -> string
-  val card_to_json : Cards.core_card -> json
-  val personnel_to_json : Cards.core_personnel -> json
-  val procedure_to_json : Cards.core_procedure -> json
-  val event_to_json : Cards.core_event -> json
-  val entity_to_json : Cards.core_entity -> json
+  val card_to_json : 'div Cards.core_card -> json
+  val personnel_to_json : 'div Cards.core_personnel -> json
+  val procedure_to_json : 'div Cards.core_procedure -> json
+  val event_to_json : 'div Cards.core_event -> json
+  val entity_to_json : 'div Cards.core_entity -> json
+  val any_core_card_to_json : Cards.any_core_card -> json
 end
 
 module Make (TS : To_string.TEXT_SERIALIZER) : S = struct
@@ -53,8 +54,8 @@ module Make (TS : To_string.TEXT_SERIALIZER) : S = struct
         in
         Printf.sprintf "{%s}" pairs_str
 
-  let division_std (d : division) : string =
-    match d with
+  let division_std (d : 'div Core.division_tag) : string =
+    match Core.division_of_tag d with
     | Ada -> "ada"
     | Haskell -> "haskell"
     | OCaml -> "ocaml"
@@ -78,7 +79,7 @@ module Make (TS : To_string.TEXT_SERIALIZER) : S = struct
   let ability_to_json (a : core_ability) : json =
     Object [ ("text", String (TS.ability_to_string a)) ]
 
-  let personnel_to_json (p : core_personnel) : json =
+  let personnel_to_json (p : 'div core_personnel) : json =
     Object
       [
         ("card_type_std", String "personnel");
@@ -93,7 +94,7 @@ module Make (TS : To_string.TEXT_SERIALIZER) : S = struct
         ("abilities", Array (List.map ability_to_json p.abilities));
       ]
 
-  let procedure_to_json (p : core_procedure) : json =
+  let procedure_to_json (p : 'div core_procedure) : json =
     Object
       [
         ("card_type_std", String "procedure");
@@ -107,7 +108,7 @@ module Make (TS : To_string.TEXT_SERIALIZER) : S = struct
         ("text", String (TS.card_effect_to_string p.card_effect));
       ]
 
-  let event_to_json (e : core_event) : json =
+  let event_to_json (e : 'div core_event) : json =
     Object
       [
         ("card_type_std", String "event");
@@ -121,7 +122,7 @@ module Make (TS : To_string.TEXT_SERIALIZER) : S = struct
         ("text", String (TS.card_effect_to_string e.card_effect));
       ]
 
-  let entity_to_json (e : core_entity) : json =
+  let entity_to_json (e : 'div core_entity) : json =
     Object
       [
         ("card_type_std", String "entity");
@@ -142,11 +143,13 @@ module Make (TS : To_string.TEXT_SERIALIZER) : S = struct
           String (TS.containment_requirement_to_string e.containment) );
       ]
 
-  let card_to_json : core_card -> json = function
+  let card_to_json : 'div core_card -> json = function
     | Personnel p -> personnel_to_json p
     | Procedure p -> procedure_to_json p
     | Event e -> event_to_json e
     | Entity e -> entity_to_json e
+
+  let any_core_card_to_json (Any_core_card card) = card_to_json card
 end
 
 module Core = Make (To_string.Detailed_English)

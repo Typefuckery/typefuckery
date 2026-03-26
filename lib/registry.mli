@@ -9,7 +9,7 @@ type registered_card = {
   set_id : set_id;
   set_name : set_name;
   rendered_text : string;
-  card_data : Cards.core_card option;
+  card_data : Cards.any_core_card option;
 }
 
 type set_metadata = { id : set_id; name : set_name }
@@ -40,7 +40,7 @@ val register_core_division :
   t ->
   id:set_id ->
   name:set_name ->
-  cards:Cards.core_card list ->
+  cards:Cards.any_core_card list ->
   (t, error) result
 
 val list_sets : t -> set_metadata list
@@ -66,7 +66,7 @@ module Global : sig
   val register_core_division :
     id:set_id ->
     name:set_name ->
-    cards:Cards.core_card list ->
+    cards:Cards.any_core_card list ->
     (unit, error) result
 
   val list_sets : unit -> set_metadata list

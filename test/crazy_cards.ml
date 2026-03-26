@@ -10,11 +10,11 @@ open Typefuckery.Cards
 open Typefuckery.Abilities
 open Util
 
-let card_manipulation_specialist : core_personnel =
+let card_manipulation_specialist =
   {
     id = Card_id.of_string "test:card_manipulation_specialist";
     name = "Card Manipulation Specialist";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.five;
@@ -51,11 +51,11 @@ let card_manipulation_specialist : core_personnel =
       ];
   }
 
-let resource_redistributor : core_personnel =
+let resource_redistributor =
   {
     id = Card_id.of_string "test:resource_redistributor";
     name = "Resource Redistributor";
-    division = OCaml;
+    division = OCaml_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.four;
@@ -83,11 +83,11 @@ let resource_redistributor : core_personnel =
       ];
   }
 
-let temporal_strategist : core_personnel =
+let temporal_strategist =
   {
     id = Card_id.of_string "test:temporal_strategist";
     name = "Temporal Strategist";
-    division = Haskell;
+    division = Haskell_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.six;
@@ -116,11 +116,11 @@ let temporal_strategist : core_personnel =
       ];
   }
 
-let conditional_operative : core_personnel =
+let conditional_operative =
   {
     id = Card_id.of_string "test:conditional_operative";
     name = "Conditional Operative";
-    division = Ada;
+    division = Ada_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.three;
@@ -155,11 +155,11 @@ let conditional_operative : core_personnel =
       ];
   }
 
-let custom_effect_engineer : core_personnel =
+let custom_effect_engineer =
   {
     id = Card_id.of_string "test:custom_effect_engineer";
     name = "Custom Effect Engineer";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.four;
@@ -182,11 +182,11 @@ let custom_effect_engineer : core_personnel =
       ];
   }
 
-let cascading_failure : core_entity =
+let cascading_failure =
   {
     id = Card_id.of_string "test:cascading_failure";
     name = "Cascading Failure";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Keter;
@@ -211,11 +211,11 @@ let cascading_failure : core_entity =
       };
   }
 
-let deployment_coordinator : core_personnel =
+let deployment_coordinator =
   {
     id = Card_id.of_string "test:deployment_coordinator";
     name = "Deployment Coordinator";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.five;
@@ -249,11 +249,11 @@ let deployment_coordinator : core_personnel =
       ];
   }
 
-let opportunistic_tactician : core_procedure =
+let opportunistic_tactician : haskell core_procedure =
   {
     id = Card_id.of_string "test:opportunistic_tactician";
     name = "Opportunistic Tactician";
-    division = Haskell;
+    division = Haskell_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -269,11 +269,11 @@ let opportunistic_tactician : core_procedure =
         ];
   }
 
-let coordinated_assault : core_procedure =
+let coordinated_assault : rust core_procedure =
   {
     id = Card_id.of_string "test:coordinated_assault";
     name = "Coordinated Assault";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -287,11 +287,11 @@ let coordinated_assault : core_procedure =
             ]);
   }
 
-let selective_purge : core_event =
+let selective_purge : institute core_event =
   {
     id = Card_id.of_string "test:selective_purge";
     name = "Selective Purge";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -310,11 +310,11 @@ let selective_purge : core_event =
         ];
   }
 
-let diplomatic_intervention : core_event =
+let diplomatic_intervention : institute core_event =
   {
     id = Card_id.of_string "test:diplomatic_intervention";
     name = "Diplomatic Intervention";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -329,11 +329,11 @@ let diplomatic_intervention : core_event =
         ];
   }
 
-let omni_responsive_agent : core_personnel =
+let omni_responsive_agent =
   {
     id = Card_id.of_string "test:omni_responsive_agent";
     name = "Omni-Responsive Agent";
-    division = Ada;
+    division = Ada_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.seven;
@@ -394,11 +394,11 @@ let omni_responsive_agent : core_personnel =
       ];
   }
 
-let reality_fragmenter : core_entity =
+let reality_fragmenter =
   {
     id = Card_id.of_string "test:reality_fragmenter";
     name = "Reality Fragmenter";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Titan;
@@ -432,11 +432,11 @@ let reality_fragmenter : core_entity =
       };
   }
 
-let adaptive_defender : core_personnel =
+let adaptive_defender =
   {
     id = Card_id.of_string "test:adaptive_defender";
     name = "Adaptive Defender";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.five;
@@ -474,11 +474,11 @@ let adaptive_defender : core_personnel =
       ];
   }
 
-let sector_lockdown : core_procedure =
+let sector_lockdown : ada core_procedure =
   {
     id = Card_id.of_string "test:sector_lockdown";
     name = "Sector Lockdown";
-    division = Ada;
+    division = Ada_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -491,16 +491,17 @@ let sector_lockdown : core_procedure =
         ];
   }
 
-let quantum_entangler : core_procedure =
+let quantum_entangler : haskell core_procedure =
   {
     id = Card_id.of_string "test:quantum_entangler";
     name = "Quantum Entangler";
-    division = Haskell;
+    division = Haskell_div;
     lore = None;
     flavor_text = None;
     card_effect =
       E.let_ (T.choose_personnel ()) (fun first ->
-          E.let_ (T.choose_personnel ~filter:T.other_personnel ()) (fun second ->
+          E.let_ (T.choose_personnel ~filter:T.other_personnel ())
+            (fun second ->
               E.composite
                 [
                   E.move_cc ~from:first ~to_:second ~amount:Int.Positive.one;
@@ -516,24 +517,24 @@ let quantum_entangler : core_procedure =
   }
 
 let () =
-  let cards : core_card list =
+  let cards =
     [
-      Personnel card_manipulation_specialist;
-      Personnel resource_redistributor;
-      Personnel temporal_strategist;
-      Personnel conditional_operative;
-      Personnel custom_effect_engineer;
-      Entity cascading_failure;
-      Personnel deployment_coordinator;
-      Procedure opportunistic_tactician;
-      Procedure coordinated_assault;
-      Event selective_purge;
-      Event diplomatic_intervention;
-      Personnel omni_responsive_agent;
-      Entity reality_fragmenter;
-      Personnel adaptive_defender;
-      Procedure sector_lockdown;
-      Procedure quantum_entangler;
+      pack_core_card (Personnel card_manipulation_specialist);
+      pack_core_card (Personnel resource_redistributor);
+      pack_core_card (Personnel temporal_strategist);
+      pack_core_card (Personnel conditional_operative);
+      pack_core_card (Personnel custom_effect_engineer);
+      pack_core_card (Entity cascading_failure);
+      pack_core_card (Personnel deployment_coordinator);
+      pack_core_card (Procedure opportunistic_tactician);
+      pack_core_card (Procedure coordinated_assault);
+      pack_core_card (Event selective_purge);
+      pack_core_card (Event diplomatic_intervention);
+      pack_core_card (Personnel omni_responsive_agent);
+      pack_core_card (Entity reality_fragmenter);
+      pack_core_card (Personnel adaptive_defender);
+      pack_core_card (Procedure sector_lockdown);
+      pack_core_card (Procedure quantum_entangler);
     ]
   in
 
@@ -589,31 +590,40 @@ let () =
   let json_golden_files =
     [
       ( "json_crazy_personnel_card_manipulation_specialist",
-        Personnel card_manipulation_specialist );
+        pack_core_card (Personnel card_manipulation_specialist) );
       ( "json_crazy_personnel_resource_redistributor",
-        Personnel resource_redistributor );
-      ("json_crazy_personnel_temporal_strategist", Personnel temporal_strategist);
+        pack_core_card (Personnel resource_redistributor) );
+      ( "json_crazy_personnel_temporal_strategist",
+        pack_core_card (Personnel temporal_strategist) );
       ( "json_crazy_personnel_conditional_operative",
-        Personnel conditional_operative );
+        pack_core_card (Personnel conditional_operative) );
       ( "json_crazy_personnel_custom_effect_engineer",
-        Personnel custom_effect_engineer );
+        pack_core_card (Personnel custom_effect_engineer) );
       ( "json_crazy_personnel_deployment_coordinator",
-        Personnel deployment_coordinator );
+        pack_core_card (Personnel deployment_coordinator) );
       ( "json_crazy_personnel_omni_responsive_agent",
-        Personnel omni_responsive_agent );
-      ("json_crazy_personnel_adaptive_defender", Personnel adaptive_defender);
+        pack_core_card (Personnel omni_responsive_agent) );
+      ( "json_crazy_personnel_adaptive_defender",
+        pack_core_card (Personnel adaptive_defender) );
       ( "json_crazy_procedure_opportunistic_tactician",
-        Procedure opportunistic_tactician );
-      ("json_crazy_procedure_coordinated_assault", Procedure coordinated_assault);
-      ("json_crazy_procedure_sector_lockdown", Procedure sector_lockdown);
-      ("json_crazy_procedure_quantum_entangler", Procedure quantum_entangler);
-      ("json_crazy_event_selective_purge", Event selective_purge);
-      ("json_crazy_event_diplomatic_intervention", Event diplomatic_intervention);
-      ("json_crazy_entity_cascading_failure", Entity cascading_failure);
-      ("json_crazy_entity_reality_fragmenter", Entity reality_fragmenter);
+        pack_core_card (Procedure opportunistic_tactician) );
+      ( "json_crazy_procedure_coordinated_assault",
+        pack_core_card (Procedure coordinated_assault) );
+      ( "json_crazy_procedure_sector_lockdown",
+        pack_core_card (Procedure sector_lockdown) );
+      ( "json_crazy_procedure_quantum_entangler",
+        pack_core_card (Procedure quantum_entangler) );
+      ( "json_crazy_event_selective_purge",
+        pack_core_card (Event selective_purge) );
+      ( "json_crazy_event_diplomatic_intervention",
+        pack_core_card (Event diplomatic_intervention) );
+      ( "json_crazy_entity_cascading_failure",
+        pack_core_card (Entity cascading_failure) );
+      ( "json_crazy_entity_reality_fragmenter",
+        pack_core_card (Entity reality_fragmenter) );
     ]
   in
 
   run_json_golden_tests
-    ~render:(fun card -> J.json_to_string (J.card_to_json card))
+    ~render:(fun card -> J.json_to_string (J.any_core_card_to_json card))
     json_golden_files

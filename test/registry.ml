@@ -10,12 +10,12 @@ let assert_some opt label =
 let assert_true = Util.assert_true
 
 let () =
-  let card_1 : Cards.core_card =
+  let card_1 =
     Cards.Personnel
       {
         id = Core.Card_id.of_string "TEST:001";
         name = "Test Personnel";
-        division = Core.Rust;
+        division = Core.Rust_div;
         lore = None;
         flavor_text = None;
         starting_cc = Int.zero;
@@ -26,7 +26,7 @@ let () =
   let registry_1 =
     match
       R.register_core_division R.empty ~id:"test-set" ~name:"Test Set"
-        ~cards:[ card_1 ]
+        ~cards:[ Cards.pack_core_card card_1 ]
     with
     | Ok registry -> registry
     | Error _ -> failwith "Expected set registration to succeed"
@@ -71,7 +71,7 @@ let () =
 
   (match
      R.register_core_division registry_1 ~id:"test-set-2" ~name:"Test Set 2"
-       ~cards:[ card_1 ]
+       ~cards:[ Cards.pack_core_card card_1 ]
    with
   | Ok _ -> failwith "Expected duplicate card id across sets to fail"
   | Error (`Card_id_already_registered (cid, existing_sid, new_sid)) ->
@@ -87,24 +87,24 @@ let () =
   | Error (`Duplicate_card_id_within_set _) ->
       failwith "Expected Card_id_already_registered");
 
-  let dup_card_a : Cards.core_card =
+  let dup_card_a =
     Cards.Personnel
       {
         id = Core.Card_id.of_string "TEST:DUP";
         name = "Dup A";
-        division = Core.Rust;
+        division = Core.Rust_div;
         lore = None;
         flavor_text = None;
         starting_cc = Int.one;
         abilities = [];
       }
   in
-  let dup_card_b : Cards.core_card =
+  let dup_card_b =
     Cards.Personnel
       {
         id = Core.Card_id.of_string "TEST:DUP";
         name = "Dup B";
-        division = Core.Rust;
+        division = Core.Rust_div;
         lore = None;
         flavor_text = None;
         starting_cc = Int.one;
@@ -113,7 +113,8 @@ let () =
   in
   (match
      R.register_core_division R.empty ~id:"dup-set" ~name:"Dup Set"
-       ~cards:[ dup_card_a; dup_card_b ]
+       ~cards:
+         [ Cards.pack_core_card dup_card_a; Cards.pack_core_card dup_card_b ]
    with
   | Error (`Duplicate_card_id_within_set (sid, cid, idx)) ->
       assert_true (sid = "dup-set") "duplicate set id reported";
@@ -130,12 +131,12 @@ let () =
       failwith "Expected Duplicate_card_id_within_set");
 
   let custom_renderer card = "[CUSTOM] " ^ R.card_name card in
-  let card_2 : Cards.core_card =
+  let card_2 =
     Cards.Procedure
       {
         id = Core.Card_id.of_string "TEST:002";
         name = "Test Procedure";
-        division = Core.Ada;
+        division = Core.Ada_div;
         lore = None;
         flavor_text = None;
         card_effect = Typefuckery.Effects.Noop;

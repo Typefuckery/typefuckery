@@ -160,6 +160,11 @@ module Syntax = Make_syntax (Engine.Core)
 module Entity_syntax = Make_entity_syntax (Engine.Core)
 include Core_
 
+let ada = Ada_div
+let haskell = Haskell_div
+let ocaml_div = OCaml_div
+let rust = Rust_div
+let institute = Institute_div
 let one = Int.Positive.one
 let two = Int.Positive.two
 let three = Int.Positive.three
@@ -260,10 +265,10 @@ let on_cc_loss ?(not_from_spend = false) target ?limit ?(optional = false)
     ~on:(When_cc_would_reduce { target; exclude_source })
     ?limit ~optional ?when_ eff
 
-let personnel id name division ?lore ?flavor_text ~cc abilities : core_personnel
-    =
+let personnel id name division ?lore ?flavor_text ~cc abilities :
+    'div core_personnel =
   {
-    id = Card_id.of_string id;
+    id = Core.card_id_of_slug division id;
     name;
     division;
     lore;
@@ -272,9 +277,9 @@ let personnel id name division ?lore ?flavor_text ~cc abilities : core_personnel
     abilities;
   }
 
-let procedure id name division ?lore ?flavor_text eff : core_procedure =
+let procedure id name division ?lore ?flavor_text eff : 'div core_procedure =
   {
-    id = Card_id.of_string id;
+    id = Core.card_id_of_slug division id;
     name;
     division;
     lore;
@@ -282,9 +287,9 @@ let procedure id name division ?lore ?flavor_text eff : core_procedure =
     card_effect = eff;
   }
 
-let event id name division ?lore ?flavor_text eff : core_event =
+let event id name division ?lore ?flavor_text eff : 'div core_event =
   {
-    id = Card_id.of_string id;
+    id = Core.card_id_of_slug division id;
     name;
     division;
     lore;
@@ -293,9 +298,9 @@ let event id name division ?lore ?flavor_text eff : core_event =
   }
 
 let entity id name division ?lore ?flavor_text ~threat ~timer ~on_end_phase
-    ~on_breach ~contained () : core_entity =
+    ~on_breach ~contained () : 'div core_entity =
   {
-    id = Card_id.of_string id;
+    id = Core.card_id_of_slug division id;
     name;
     division;
     lore;

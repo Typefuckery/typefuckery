@@ -1,6 +1,6 @@
 Terse Defender
 Division: Rust
-Id: test:terse_defender
+Id: rust:terse_defender
 Starting CC: 5
 
 Abilities:

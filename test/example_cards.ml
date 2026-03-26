@@ -14,11 +14,11 @@ open Typefuckery.Cards
 open Typefuckery.Abilities
 open Util
 
-let borrow_checker_chaplain : core_personnel =
+let borrow_checker_chaplain =
   {
     id = Card_id.of_string "rust:borrow_checker_chaplain";
     name = "Borrow-Checker Chaplain";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.three;
@@ -75,11 +75,11 @@ let borrow_checker_chaplain : core_personnel =
       ];
   }
 
-let ada_safety_engineer : core_personnel =
+let ada_safety_engineer =
   {
     id = Card_id.of_string "ada:ada_safety_engineer";
     name = "Ada Safety Engineer";
-    division = Ada;
+    division = Ada_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.four;
@@ -121,11 +121,11 @@ let ada_safety_engineer : core_personnel =
       ];
   }
 
-let haskell_lazy_evaluator : core_personnel =
+let haskell_lazy_evaluator =
   {
     id = Card_id.of_string "haskell:haskell_lazy_evaluator";
     name = "Haskell Lazy Evaluator";
-    division = Haskell;
+    division = Haskell_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.two;
@@ -170,11 +170,11 @@ let haskell_lazy_evaluator : core_personnel =
       ];
   }
 
-let ocaml_module_architect : core_personnel =
+let ocaml_module_architect =
   {
     id = Card_id.of_string "ocaml:ocaml_module_architect";
     name = "OCaml Module Architect";
-    division = OCaml;
+    division = OCaml_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.three;
@@ -216,11 +216,11 @@ let ocaml_module_architect : core_personnel =
       ];
   }
 
-let institute_operative : core_personnel =
+let institute_operative =
   {
     id = Card_id.of_string "institute:institute_operative";
     name = "Institute Operative";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.three;
@@ -258,11 +258,11 @@ let institute_operative : core_personnel =
       ];
   }
 
-let shift_supervisor : core_personnel =
+let shift_supervisor =
   {
     id = Card_id.of_string "institute:shift_supervisor";
     name = "Shift Supervisor";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.four;
@@ -295,22 +295,22 @@ let shift_supervisor : core_personnel =
       ];
   }
 
-let lifetime_extension : core_procedure =
+let lifetime_extension : rust core_procedure =
   {
     id = Card_id.of_string "rust:lifetime_extension";
     name = "Lifetime Extension";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     card_effect =
       E.add_breach_marker ~target:(T.choose_entity ()) ~amount:Int.Positive.one;
   }
 
-let ownership_transfer : core_procedure =
+let ownership_transfer : rust core_procedure =
   {
     id = Card_id.of_string "rust:ownership_transfer";
     name = "Ownership Transfer";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -318,11 +318,11 @@ let ownership_transfer : core_procedure =
         ~to_sector:(T.choose_sector ());
   }
 
-let mutable_borrow : core_procedure =
+let mutable_borrow : rust core_procedure =
   {
     id = Card_id.of_string "rust:mutable_borrow";
     name = "Mutable Borrow";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -332,11 +332,11 @@ let mutable_borrow : core_procedure =
            ~amount:Int.Positive.one);
   }
 
-let rapid_response : core_procedure =
+let rapid_response : institute core_procedure =
   {
     id = Card_id.of_string "institute:rapid_response";
     name = "Rapid Response";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -344,11 +344,11 @@ let rapid_response : core_procedure =
         ~to_sector:(T.choose_sector ());
   }
 
-let standard_protocol : core_procedure =
+let standard_protocol : institute core_procedure =
   {
     id = Card_id.of_string "institute:standard_protocol";
     name = "Standard Protocol";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -360,11 +360,11 @@ let standard_protocol : core_procedure =
         ];
   }
 
-let lifetime_violation : core_event =
+let lifetime_violation : rust core_event =
   {
     id = Card_id.of_string "rust:lifetime_violation";
     name = "Lifetime Violation";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -373,11 +373,11 @@ let lifetime_violation : core_event =
         ~amount:Int.Positive.three;
   }
 
-let borrow_checker_rejection : core_event =
+let borrow_checker_rejection : rust core_event =
   {
     id = Card_id.of_string "rust:borrow_checker_rejection";
     name = "Borrow Checker Rejection";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -386,22 +386,22 @@ let borrow_checker_rejection : core_event =
         ~amount:Int.Positive.one;
   }
 
-let unsafe_code_panic : core_event =
+let unsafe_code_panic : rust core_event =
   {
     id = Card_id.of_string "rust:unsafe_code_panic";
     name = "Unsafe Code Panic";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     card_effect =
       E.add_breach_marker ~target:(T.choose_entity ()) ~amount:Int.Positive.one;
   }
 
-let buffer_overflow : core_entity =
+let buffer_overflow =
   {
     id = Card_id.of_string "institute:buffer_overflow";
     name = "Buffer Overflow";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Keter;
@@ -413,11 +413,11 @@ let buffer_overflow : core_entity =
     containment = { check = Condition.personnel_count_in_sector Alpha 2 };
   }
 
-let deadlock_demon : core_entity =
+let deadlock_demon =
   {
     id = Card_id.of_string "institute:deadlock_demon";
     name = "Deadlock Demon";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Euclid;
@@ -428,11 +428,11 @@ let deadlock_demon : core_entity =
     containment = { check = Condition.personnel_count_in_sector Beta 1 };
   }
 
-let infinite_loop : core_entity =
+let infinite_loop =
   {
     id = Card_id.of_string "institute:infinite_loop";
     name = "Infinite Loop";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Safe;
@@ -443,11 +443,11 @@ let infinite_loop : core_entity =
     containment = { check = Condition.sector_is_breached Gamma };
   }
 
-let memory_leak : core_entity =
+let memory_leak =
   {
     id = Card_id.of_string "institute:memory_leak";
     name = "Memory Leak";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Euclid;
@@ -464,11 +464,11 @@ let memory_leak : core_entity =
       };
   }
 
-let null_pointer : core_entity =
+let null_pointer =
   {
     id = Card_id.of_string "institute:null_pointer";
     name = "Null Pointer";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Keter;
@@ -483,11 +483,11 @@ let null_pointer : core_entity =
     containment = { check = Condition.always };
   }
 
-let race_hazard : core_entity =
+let race_hazard =
   {
     id = Card_id.of_string "institute:race_hazard";
     name = "Race Hazard";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Titan;
@@ -506,11 +506,11 @@ let race_hazard : core_entity =
       };
   }
 
-let syntax_glitch : core_entity =
+let syntax_glitch =
   {
     id = Card_id.of_string "institute:syntax_glitch";
     name = "Syntax Glitch";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Safe;
@@ -520,11 +520,11 @@ let syntax_glitch : core_entity =
     containment = { check = Condition.always };
   }
 
-let heisenbug : core_entity =
+let heisenbug =
   {
     id = Card_id.of_string "institute:heisenbug";
     name = "Heisenbug";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Euclid;
@@ -541,11 +541,11 @@ let heisenbug : core_entity =
     containment = { check = Condition.personnel_count_in_sector Alpha 1 };
   }
 
-let memguard : core_personnel =
+let memguard =
   {
     id = Card_id.of_string "rust:memguard";
     name = "Memguard";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.four;
@@ -590,11 +590,11 @@ let memguard : core_personnel =
       ];
   }
 
-let temporary_boost : core_procedure =
+let temporary_boost : rust core_procedure =
   {
     id = Card_id.of_string "rust:temporary_boost";
     name = "Temporary Boost";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -607,21 +607,21 @@ let temporary_boost : core_procedure =
             ]);
   }
 
-let forced_knowledge : core_procedure =
+let forced_knowledge : institute core_procedure =
   {
     id = Card_id.of_string "institute:forced_knowledge";
     name = "Forced Knowledge";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     card_effect = E.draw ~player:T.another_player ~amount:Int.Positive.three;
   }
 
-let e_acc : core_personnel =
+let e_acc =
   {
     id = Card_id.of_string "institute:e_acc";
     name = "e/acc";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.four;
@@ -657,11 +657,11 @@ let e_acc : core_personnel =
       ];
   }
 
-let strategic_retreat : core_event =
+let strategic_retreat =
   {
     id = Card_id.of_string "institute:strategic_retreat";
     name = "Strategic Retreat";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -674,35 +674,35 @@ let strategic_retreat : core_event =
   }
 
 let () =
-  let cards : core_card list =
+  let cards =
     [
-      Personnel borrow_checker_chaplain;
-      Personnel ada_safety_engineer;
-      Personnel haskell_lazy_evaluator;
-      Personnel ocaml_module_architect;
-      Personnel institute_operative;
-      Personnel shift_supervisor;
-      Procedure lifetime_extension;
-      Procedure ownership_transfer;
-      Procedure mutable_borrow;
-      Procedure rapid_response;
-      Procedure standard_protocol;
-      Event lifetime_violation;
-      Event borrow_checker_rejection;
-      Event unsafe_code_panic;
-      Entity buffer_overflow;
-      Entity deadlock_demon;
-      Entity infinite_loop;
-      Entity memory_leak;
-      Entity null_pointer;
-      Entity race_hazard;
-      Entity syntax_glitch;
-      Entity heisenbug;
-      Personnel memguard;
-      Procedure temporary_boost;
-      Procedure forced_knowledge;
-      Personnel e_acc;
-      Event strategic_retreat;
+      pack_core_card (Personnel borrow_checker_chaplain);
+      pack_core_card (Personnel ada_safety_engineer);
+      pack_core_card (Personnel haskell_lazy_evaluator);
+      pack_core_card (Personnel ocaml_module_architect);
+      pack_core_card (Personnel institute_operative);
+      pack_core_card (Personnel shift_supervisor);
+      pack_core_card (Procedure lifetime_extension);
+      pack_core_card (Procedure ownership_transfer);
+      pack_core_card (Procedure mutable_borrow);
+      pack_core_card (Procedure rapid_response);
+      pack_core_card (Procedure standard_protocol);
+      pack_core_card (Event lifetime_violation);
+      pack_core_card (Event borrow_checker_rejection);
+      pack_core_card (Event unsafe_code_panic);
+      pack_core_card (Entity buffer_overflow);
+      pack_core_card (Entity deadlock_demon);
+      pack_core_card (Entity infinite_loop);
+      pack_core_card (Entity memory_leak);
+      pack_core_card (Entity null_pointer);
+      pack_core_card (Entity race_hazard);
+      pack_core_card (Entity syntax_glitch);
+      pack_core_card (Entity heisenbug);
+      pack_core_card (Personnel memguard);
+      pack_core_card (Procedure temporary_boost);
+      pack_core_card (Procedure forced_knowledge);
+      pack_core_card (Personnel e_acc);
+      pack_core_card (Event strategic_retreat);
     ]
   in
 
@@ -768,18 +768,21 @@ let () =
 
   let personnel_golden_tests =
     [
-      (borrow_checker_chaplain, "personnel_borrow_checker_chaplain");
-      (ada_safety_engineer, "personnel_ada_safety_engineer");
-      (haskell_lazy_evaluator, "personnel_haskell_lazy_evaluator");
-      (ocaml_module_architect, "personnel_ocaml_module_architect");
-      (institute_operative, "personnel_institute_operative");
-      (shift_supervisor, "personnel_shift_supervisor");
-      (memguard, "personnel_memguard");
+      ( pack_core_personnel borrow_checker_chaplain,
+        "personnel_borrow_checker_chaplain" );
+      (pack_core_personnel ada_safety_engineer, "personnel_ada_safety_engineer");
+      ( pack_core_personnel haskell_lazy_evaluator,
+        "personnel_haskell_lazy_evaluator" );
+      ( pack_core_personnel ocaml_module_architect,
+        "personnel_ocaml_module_architect" );
+      (pack_core_personnel institute_operative, "personnel_institute_operative");
+      (pack_core_personnel shift_supervisor, "personnel_shift_supervisor");
+      (pack_core_personnel memguard, "personnel_memguard");
     ]
   in
 
   List.iter
-    (fun (p, golden_filename) ->
+    (fun (Any_core_personnel p, golden_filename) ->
       let actual_full = TS.personnel_to_string p in
       let expected_full = load_golden_file golden_filename in
       assert_true
@@ -799,16 +802,16 @@ let () =
 
   let procedure_golden_tests =
     [
-      (lifetime_extension, "procedure_lifetime_extension");
-      (ownership_transfer, "procedure_ownership_transfer");
-      (mutable_borrow, "procedure_mutable_borrow");
-      (rapid_response, "procedure_rapid_response");
-      (standard_protocol, "procedure_standard_protocol");
+      (pack_core_procedure lifetime_extension, "procedure_lifetime_extension");
+      (pack_core_procedure ownership_transfer, "procedure_ownership_transfer");
+      (pack_core_procedure mutable_borrow, "procedure_mutable_borrow");
+      (pack_core_procedure rapid_response, "procedure_rapid_response");
+      (pack_core_procedure standard_protocol, "procedure_standard_protocol");
     ]
   in
 
   List.iter
-    (fun (proc, golden_filename) ->
+    (fun (Any_core_procedure proc, golden_filename) ->
       let actual_full = TS.procedure_to_string proc in
       let expected_full = load_golden_file golden_filename in
       let effect_str = TS.card_effect_to_string proc.card_effect in
@@ -826,14 +829,15 @@ let () =
 
   let event_golden_tests =
     [
-      (lifetime_violation, "event_lifetime_violation");
-      (borrow_checker_rejection, "event_borrow_checker_rejection");
-      (unsafe_code_panic, "event_unsafe_code_panic");
+      (pack_core_event lifetime_violation, "event_lifetime_violation");
+      ( pack_core_event borrow_checker_rejection,
+        "event_borrow_checker_rejection" );
+      (pack_core_event unsafe_code_panic, "event_unsafe_code_panic");
     ]
   in
 
   List.iter
-    (fun (evt, golden_filename) ->
+    (fun (Any_core_event evt, golden_filename) ->
       let actual_full = TS.event_to_string evt in
       let expected_full = load_golden_file golden_filename in
       let effect_str = TS.card_effect_to_string evt.card_effect in
@@ -850,18 +854,18 @@ let () =
 
   let entity_golden_tests =
     [
-      (buffer_overflow, "entity_buffer_overflow");
-      (deadlock_demon, "entity_deadlock_demon");
-      (infinite_loop, "entity_infinite_loop");
-      (memory_leak, "entity_memory_leak");
-      (null_pointer, "entity_null_pointer");
-      (race_hazard, "entity_race_hazard");
-      (syntax_glitch, "entity_syntax_glitch");
+      (pack_core_entity buffer_overflow, "entity_buffer_overflow");
+      (pack_core_entity deadlock_demon, "entity_deadlock_demon");
+      (pack_core_entity infinite_loop, "entity_infinite_loop");
+      (pack_core_entity memory_leak, "entity_memory_leak");
+      (pack_core_entity null_pointer, "entity_null_pointer");
+      (pack_core_entity race_hazard, "entity_race_hazard");
+      (pack_core_entity syntax_glitch, "entity_syntax_glitch");
     ]
   in
 
   List.iter
-    (fun (ent, golden_filename) ->
+    (fun (Any_core_entity ent, golden_filename) ->
       let actual_full = TS.entity_to_string ent in
       let expected_full = load_golden_file golden_filename in
       let effect_str = TS.card_effect_to_string ent.end_phase_effect in
@@ -891,55 +895,73 @@ let () =
   let json_golden_files =
     [
       ( "json_personnel_borrow_checker_chaplain",
-        Personnel borrow_checker_chaplain );
-      ("json_personnel_ada_safety_engineer", Personnel ada_safety_engineer);
-      ("json_personnel_haskell_lazy_evaluator", Personnel haskell_lazy_evaluator);
-      ("json_personnel_ocaml_module_architect", Personnel ocaml_module_architect);
-      ("json_personnel_institute_operative", Personnel institute_operative);
-      ("json_personnel_shift_supervisor", Personnel shift_supervisor);
-      ("json_personnel_memguard", Personnel memguard);
-      ("json_personnel_e_acc", Personnel e_acc);
-      ("json_procedure_lifetime_extension", Procedure lifetime_extension);
-      ("json_procedure_mutable_borrow", Procedure mutable_borrow);
-      ("json_procedure_ownership_transfer", Procedure ownership_transfer);
-      ("json_procedure_rapid_response", Procedure rapid_response);
-      ("json_procedure_standard_protocol", Procedure standard_protocol);
-      ("json_procedure_temporary_boost", Procedure temporary_boost);
-      ("json_procedure_forced_knowledge", Procedure forced_knowledge);
-      ("json_event_borrow_checker_rejection", Event borrow_checker_rejection);
-      ("json_event_lifetime_violation", Event lifetime_violation);
-      ("json_event_unsafe_code_panic", Event unsafe_code_panic);
-      ("json_event_strategic_retreat", Event strategic_retreat);
-      ("json_entity_buffer_overflow", Entity buffer_overflow);
-      ("json_entity_deadlock_demon", Entity deadlock_demon);
-      ("json_entity_infinite_loop", Entity infinite_loop);
-      ("json_entity_memory_leak", Entity memory_leak);
-      ("json_entity_null_pointer", Entity null_pointer);
-      ("json_entity_race_hazard", Entity race_hazard);
-      ("json_entity_syntax_glitch", Entity syntax_glitch);
-      ("json_entity_heisenbug", Entity heisenbug);
+        pack_core_card (Personnel borrow_checker_chaplain) );
+      ( "json_personnel_ada_safety_engineer",
+        pack_core_card (Personnel ada_safety_engineer) );
+      ( "json_personnel_haskell_lazy_evaluator",
+        pack_core_card (Personnel haskell_lazy_evaluator) );
+      ( "json_personnel_ocaml_module_architect",
+        pack_core_card (Personnel ocaml_module_architect) );
+      ( "json_personnel_institute_operative",
+        pack_core_card (Personnel institute_operative) );
+      ( "json_personnel_shift_supervisor",
+        pack_core_card (Personnel shift_supervisor) );
+      ("json_personnel_memguard", pack_core_card (Personnel memguard));
+      ("json_personnel_e_acc", pack_core_card (Personnel e_acc));
+      ( "json_procedure_lifetime_extension",
+        pack_core_card (Procedure lifetime_extension) );
+      ( "json_procedure_mutable_borrow",
+        pack_core_card (Procedure mutable_borrow) );
+      ( "json_procedure_ownership_transfer",
+        pack_core_card (Procedure ownership_transfer) );
+      ( "json_procedure_rapid_response",
+        pack_core_card (Procedure rapid_response) );
+      ( "json_procedure_standard_protocol",
+        pack_core_card (Procedure standard_protocol) );
+      ( "json_procedure_temporary_boost",
+        pack_core_card (Procedure temporary_boost) );
+      ( "json_procedure_forced_knowledge",
+        pack_core_card (Procedure forced_knowledge) );
+      ( "json_event_borrow_checker_rejection",
+        pack_core_card (Event borrow_checker_rejection) );
+      ( "json_event_lifetime_violation",
+        pack_core_card (Event lifetime_violation) );
+      ("json_event_unsafe_code_panic", pack_core_card (Event unsafe_code_panic));
+      ("json_event_strategic_retreat", pack_core_card (Event strategic_retreat));
+      ("json_entity_buffer_overflow", pack_core_card (Entity buffer_overflow));
+      ("json_entity_deadlock_demon", pack_core_card (Entity deadlock_demon));
+      ("json_entity_infinite_loop", pack_core_card (Entity infinite_loop));
+      ("json_entity_memory_leak", pack_core_card (Entity memory_leak));
+      ("json_entity_null_pointer", pack_core_card (Entity null_pointer));
+      ("json_entity_race_hazard", pack_core_card (Entity race_hazard));
+      ("json_entity_syntax_glitch", pack_core_card (Entity syntax_glitch));
+      ("json_entity_heisenbug", pack_core_card (Entity heisenbug));
     ]
   in
 
   run_json_golden_tests
-    ~render:(fun card -> J.json_to_string (J.card_to_json card))
+    ~render:(fun card -> J.json_to_string (J.any_core_card_to_json card))
     json_golden_files;
 
   let language_json_items =
     [
       ( "json_rust_personnel_borrow_checker_chaplain",
-        Personnel borrow_checker_chaplain );
-      ("json_rust_procedure_lifetime_extension", Procedure lifetime_extension);
-      ("json_ada_personnel_ada_safety_engineer", Personnel ada_safety_engineer);
+        pack_core_card (Personnel borrow_checker_chaplain) );
+      ( "json_rust_procedure_lifetime_extension",
+        pack_core_card (Procedure lifetime_extension) );
+      ( "json_ada_personnel_ada_safety_engineer",
+        pack_core_card (Personnel ada_safety_engineer) );
       ( "json_haskell_personnel_haskell_lazy_evaluator",
-        Personnel haskell_lazy_evaluator );
+        pack_core_card (Personnel haskell_lazy_evaluator) );
       ( "json_ocaml_personnel_ocaml_module_architect",
-        Personnel ocaml_module_architect );
-      ("json_institute_entity_buffer_overflow", Entity buffer_overflow);
+        pack_core_card (Personnel ocaml_module_architect) );
+      ( "json_institute_entity_buffer_overflow",
+        pack_core_card (Entity buffer_overflow) );
     ]
   in
 
-  let run_language_json_tests ~render ~prefix items =
+  let run_language_json_tests ~(render : any_core_card -> string) ~prefix
+      (items : (string * any_core_card) list) =
     let prefixed_items =
       List.map (fun (name, card) -> (prefix ^ "_" ^ name, card)) items
     in
@@ -949,48 +971,50 @@ let () =
       ~render ~label:"Language JSON" prefixed_items
   in
 
-  run_language_json_tests
-    ~render:(fun card -> TS_Rust.card_to_string card)
-    ~prefix:"rust" language_json_items;
+  run_language_json_tests ~render:TS_Rust.any_core_card_to_string ~prefix:"rust"
+    language_json_items;
 
-  run_language_json_tests
-    ~render:(fun card -> TS_Haskell.card_to_string card)
+  run_language_json_tests ~render:TS_Haskell.any_core_card_to_string
     ~prefix:"haskell" language_json_items;
 
-  run_language_json_tests
-    ~render:(fun card -> TS_Ada.card_to_string card)
-    ~prefix:"ada" language_json_items;
+  run_language_json_tests ~render:TS_Ada.any_core_card_to_string ~prefix:"ada"
+    language_json_items;
 
-  run_language_json_tests
-    ~render:(fun card -> TS_OCaml.card_to_string card)
+  run_language_json_tests ~render:TS_OCaml.any_core_card_to_string
     ~prefix:"ocaml" language_json_items;
 
   let language_test_items =
     [
-      ("personnel_borrow_checker_chaplain", Personnel borrow_checker_chaplain);
-      ("procedure_lifetime_extension", Procedure lifetime_extension);
-      ("personnel_ada_safety_engineer", Personnel ada_safety_engineer);
-      ("personnel_haskell_lazy_evaluator", Personnel haskell_lazy_evaluator);
-      ("personnel_ocaml_module_architect", Personnel ocaml_module_architect);
-      ("entity_buffer_overflow", Entity buffer_overflow);
+      ( "personnel_borrow_checker_chaplain",
+        Any_core_card (Personnel borrow_checker_chaplain) );
+      ( "procedure_lifetime_extension",
+        Any_core_card (Procedure lifetime_extension) );
+      ( "personnel_ada_safety_engineer",
+        Any_core_card (Personnel ada_safety_engineer) );
+      ( "personnel_haskell_lazy_evaluator",
+        Any_core_card (Personnel haskell_lazy_evaluator) );
+      ( "personnel_ocaml_module_architect",
+        Any_core_card (Personnel ocaml_module_architect) );
+      ("entity_buffer_overflow", Any_core_card (Entity buffer_overflow));
     ]
   in
 
-  let run_language_golden_tests ~render ~prefix items =
+  let run_language_golden_tests ~(render : any_core_card -> string) ~prefix
+      (items : (string * any_core_card) list) =
     let labeled_items =
       List.map (fun (name, card) -> (prefix ^ "_" ^ name, card)) items
     in
     run_text_golden_tests ~render labeled_items
   in
 
-  run_language_golden_tests ~render:TS_Rust.card_to_string ~prefix:"rust"
+  run_language_golden_tests ~render:TS_Rust.any_core_card_to_string
+    ~prefix:"rust" language_test_items;
+
+  run_language_golden_tests ~render:TS_Haskell.any_core_card_to_string
+    ~prefix:"haskell" language_test_items;
+
+  run_language_golden_tests ~render:TS_Ada.any_core_card_to_string ~prefix:"ada"
     language_test_items;
 
-  run_language_golden_tests ~render:TS_Haskell.card_to_string ~prefix:"haskell"
-    language_test_items;
-
-  run_language_golden_tests ~render:TS_Ada.card_to_string ~prefix:"ada"
-    language_test_items;
-
-  run_language_golden_tests ~render:TS_OCaml.card_to_string ~prefix:"ocaml"
-    language_test_items
+  run_language_golden_tests ~render:TS_OCaml.any_core_card_to_string
+    ~prefix:"ocaml" language_test_items

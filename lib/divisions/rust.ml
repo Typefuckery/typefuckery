@@ -1,8 +1,9 @@
+open Core
 open Card_dsl
 open Cards
 
 let scrupulous_shrimp =
-  entity "rust:scrupulous_shrimp" "The Scrupulous Shrimp" Rust
+  entity "scrupulous_shrimp" "The Scrupulous Shrimp" rust
     ~lore:(Lore.doc_uri "")
     ~flavor_text:
       "Weaponized ethics. The borrow checker becomes a moral imperative, and \
@@ -17,8 +18,10 @@ let scrupulous_shrimp =
     ()
 
 include Division_helper.Make_core_division (struct
-  let id = "rust"
+  type div = rust
+
+  let division = Rust_div
   let name = "Rust Division"
   let lore = None
-  let cards = [ Entity scrupulous_shrimp ]
+  let cards : div Cards.core_card list = [ Entity scrupulous_shrimp ]
 end)

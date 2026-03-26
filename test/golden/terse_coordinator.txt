@@ -1,6 +1,6 @@
 Terse Coordinator
 Division: Institute
-Id: test:terse_coordinator
+Id: institute:terse_coordinator
 Starting CC: 5
 
 Abilities:

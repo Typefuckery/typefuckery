@@ -12,7 +12,7 @@ type registered_card = {
   set_id : set_id;
   set_name : set_name;
   rendered_text : string;
-  card_data : Cards.core_card option;
+  card_data : Cards.any_core_card option;
 }
 
 type set_metadata = { id : set_id; name : set_name }
@@ -81,9 +81,9 @@ let render_card (entry : registered_card)
     (ser : (module To_string.TEXT_SERIALIZER)) : string option =
   match entry.card_data with
   | None -> None
-  | Some card ->
+  | Some (Cards.Any_core_card _ as any_card) ->
       let module S = (val ser : To_string.TEXT_SERIALIZER) in
-      Some (S.card_to_string card)
+      Some (S.any_core_card_to_string any_card)
 
 let ( let* ) = Result.bind
 
@@ -147,17 +147,22 @@ let prerender_cards : type div fx trig.
   in
   List.map prerender_card cards
 
-let prerender_core_cards ~(set_id : set_id) ~(set_name : set_name)
-    ~(cards : Cards.core_card list) : registered_card list =
-  let prerender_card card =
+let prerender_core_cards :
+    set_id:set_id ->
+    set_name:set_name ->
+    cards:Cards.any_core_card list ->
+    registered_card list =
+ fun ~set_id ~set_name ~cards ->
+  let prerender_card (Cards.Any_core_card card as any_card) =
     {
       card_id = card_id card;
       name = card_name card;
       card_type = card_type_of card;
       set_id;
       set_name;
-      rendered_text = To_string.Core.card_to_string card;
-      card_data = Some card;
+      rendered_text =
+        To_string.Detailed_English.any_core_card_to_string any_card;
+      card_data = Some any_card;
     }
   in
   List.map prerender_card cards
@@ -191,7 +196,7 @@ let register_division : type div fx trig.
   Ok { sets_by_id; set_ids_by_name; cards_by_id }
 
 let register_core_division (registry : t) ~(id : set_id) ~(name : set_name)
-    ~(cards : Cards.core_card list) : (t, error) result =
+    ~(cards : Cards.any_core_card list) : (t, error) result =
   let* () = validate_set_id_unique registry id in
   let* () = validate_set_name_unique registry name in
   let rendered_cards = prerender_core_cards ~set_id:id ~set_name:name ~cards in

@@ -20,6 +20,42 @@ module Card_id = struct
 end
 
 type division = Ada | Haskell | OCaml | Rust | Institute
+type ada
+type haskell
+type ocaml_div
+type rust
+type institute
+
+type _ division_tag =
+  | Ada_div : ada division_tag
+  | Haskell_div : haskell division_tag
+  | OCaml_div : ocaml_div division_tag
+  | Rust_div : rust division_tag
+  | Institute_div : institute division_tag
+
+let division_of_tag : type div. div division_tag -> division = function
+  | Ada_div -> Ada
+  | Haskell_div -> Haskell
+  | OCaml_div -> OCaml
+  | Rust_div -> Rust
+  | Institute_div -> Institute
+
+let division_prefix : type div. div division_tag -> string = function
+  | Ada_div -> "ada"
+  | Haskell_div -> "haskell"
+  | OCaml_div -> "ocaml"
+  | Rust_div -> "rust"
+  | Institute_div -> "institute"
+
+let card_id_of_slug : type div. div division_tag -> string -> Card_id.t =
+ fun division slug ->
+  if slug = "" then invalid_arg "Core.card_id_of_slug: empty slug"
+  else if String.contains slug ':' then
+    invalid_arg "Core.card_id_of_slug: slug must not contain ':'"
+  else Card_id.of_string (division_prefix division ^ ":" ^ slug)
+
+let set_id_of_division division = division_prefix division
+
 type sector = Alpha | Beta | Lambda | Gamma
 type sector_state = Secure | Breached
 type zone = Hand | Battlefield of sector | Abyss | Stack | Deck

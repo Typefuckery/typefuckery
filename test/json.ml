@@ -8,11 +8,11 @@ open Typefuckery.Abilities
 open Typefuckery.Cards
 open Util
 
-let test_personnel : core_personnel =
+let test_personnel  =
   {
     id = Card_id.of_string "test:sample";
     name = "Sample Personnel";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.three;
@@ -44,11 +44,11 @@ let test_personnel : core_personnel =
       ];
   }
 
-let test_entity : core_entity =
+let test_entity  =
   {
     id = Card_id.of_string "test:entity";
     name = "Test Entity";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     threat_level = Euclid;

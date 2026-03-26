@@ -87,6 +87,11 @@ module Core_ : S with type effect_t = Engine.Core.effect_t
 module Syntax : SYNTAX with type effect_t = Effects.core
 module Entity_syntax : ENTITY_SYNTAX with type effect_t = Effects.core
 
+val ada : Core.ada Core.division_tag
+val haskell : Core.haskell Core.division_tag
+val ocaml_div : Core.ocaml_div Core.division_tag
+val rust : Core.rust Core.division_tag
+val institute : Core.institute Core.division_tag
 val ( +@ ) : target_personnel -> Int.positive Int.t -> Effects.core
 val ( -@ ) : target_personnel -> Int.positive Int.t -> Effects.core
 val ( &+ ) : Effects.core -> Effects.core -> Effects.core
@@ -292,35 +297,35 @@ val on_cc_loss :
 val personnel :
   string ->
   string ->
-  division ->
+  'div Core.division_tag ->
   ?lore:Lore.t ->
   ?flavor_text:string ->
   cc:Int.non_negative Int.t ->
   core_ability list ->
-  core_personnel
+  'div core_personnel
 
 val procedure :
   string ->
   string ->
-  division ->
+  'div Core.division_tag ->
   ?lore:Lore.t ->
   ?flavor_text:string ->
   Effects.core ->
-  core_procedure
+  'div core_procedure
 
 val event :
   string ->
   string ->
-  division ->
+  'div Core.division_tag ->
   ?lore:Lore.t ->
   ?flavor_text:string ->
   Effects.core ->
-  core_event
+  'div core_event
 
 val entity :
   string ->
   string ->
-  division ->
+  'div Core.division_tag ->
   ?lore:Lore.t ->
   ?flavor_text:string ->
   threat:threat_level ->
@@ -329,4 +334,4 @@ val entity :
   on_breach:Effects.core ->
   contained:condition ->
   unit ->
-  core_entity
+  'div core_entity

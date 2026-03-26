@@ -147,7 +147,7 @@ module type TEXT_SERIALIZER = sig
   val event : string
   val entity : string
   val int_to_string : _ Int.t -> string
-  val division_to_string : Core.division -> string
+  val division_to_string : 'div Core.division_tag -> string
   val sector_to_string : Core.sector -> string
   val sector_state_to_string : Core.sector_state -> string
   val zone_to_string : Core.zone -> string
@@ -176,11 +176,12 @@ module type TEXT_SERIALIZER = sig
   val containment_requirement_to_string :
     Cards.containment_requirement -> string
 
-  val personnel_to_string : Cards.core_personnel -> string
-  val procedure_to_string : Cards.core_procedure -> string
-  val event_to_string : Cards.core_event -> string
-  val entity_to_string : Cards.core_entity -> string
-  val card_to_string : Cards.core_card -> string
+  val personnel_to_string : 'div Cards.core_personnel -> string
+  val procedure_to_string : 'div Cards.core_procedure -> string
+  val event_to_string : 'div Cards.core_event -> string
+  val entity_to_string : 'div Cards.core_entity -> string
+  val card_to_string : 'div Cards.core_card -> string
+  val any_core_card_to_string : Cards.any_core_card -> string
 end
 
 module type S = sig

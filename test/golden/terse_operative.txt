@@ -1,6 +1,6 @@
 Terse Operative
 Division: Institute
-Id: test:terse_operative
+Id: institute:terse_operative
 Starting CC: 3
 
 Abilities:

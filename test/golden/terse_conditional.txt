@@ -1,6 +1,6 @@
 Terse Conditional
 Division: Ada
-Id: test:terse_conditional
+Id: ada:terse_conditional
 Starting CC: 3
 
 Abilities:

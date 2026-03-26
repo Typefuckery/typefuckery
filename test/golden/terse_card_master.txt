@@ -1,6 +1,6 @@
 Terse Card Master
 Division: Institute
-Id: test:terse_card_master
+Id: institute:terse_card_master
 Starting CC: 5
 
 Abilities:

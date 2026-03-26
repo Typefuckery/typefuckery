@@ -1,6 +1,6 @@
 Terse Responder
 Division: Ada
-Id: test:terse_responder
+Id: ada:terse_responder
 Starting CC: 7
 
 Abilities:

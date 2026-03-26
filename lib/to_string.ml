@@ -3,6 +3,7 @@ open Targets
 open Effects
 open Abilities
 open Cards
+module Core_types = Core
 
 type verb_forms = Phrases_common.verb_forms = {
   infinitive : string;
@@ -153,7 +154,7 @@ module type TEXT_SERIALIZER = sig
   val event : string
   val entity : string
   val int_to_string : _ Int.t -> string
-  val division_to_string : division -> string
+  val division_to_string : 'div Core.division_tag -> string
   val sector_to_string : sector -> string
   val sector_state_to_string : sector_state -> string
   val zone_to_string : zone -> string
@@ -179,11 +180,12 @@ module type TEXT_SERIALIZER = sig
   val ability_to_string : core_ability -> string
   val threat_level_to_string : threat_level -> string
   val containment_requirement_to_string : containment_requirement -> string
-  val personnel_to_string : core_personnel -> string
-  val procedure_to_string : core_procedure -> string
-  val event_to_string : core_event -> string
-  val entity_to_string : core_entity -> string
-  val card_to_string : core_card -> string
+  val personnel_to_string : 'div Cards.core_personnel -> string
+  val procedure_to_string : 'div Cards.core_procedure -> string
+  val event_to_string : 'div Cards.core_event -> string
+  val entity_to_string : 'div Cards.core_entity -> string
+  val card_to_string : 'div Cards.core_card -> string
+  val any_core_card_to_string : Cards.any_core_card -> string
 end
 
 module type S = sig
@@ -994,7 +996,10 @@ module Make (P : PHRASES) : TEXT_SERIALIZER = struct
   let event = P.event
   let entity = P.entity
   let int_to_string = M.int_to_string
-  let division_to_string = M.division_to_string
+
+  let division_to_string div =
+    M.division_to_string (Core_types.division_of_tag div)
+
   let sector_to_string = M.sector_to_string
   let sector_state_to_string = M.sector_state_to_string
   let zone_to_string = M.zone_to_string
@@ -1020,11 +1025,26 @@ module Make (P : PHRASES) : TEXT_SERIALIZER = struct
   let ability_to_string = M.ability_to_string
   let threat_level_to_string = M.threat_level_to_string
   let containment_requirement_to_string = M.containment_requirement_to_string
-  let personnel_to_string = M.personnel_to_string
-  let procedure_to_string = M.procedure_to_string
-  let event_to_string = M.event_to_string
-  let entity_to_string = M.entity_to_string
-  let card_to_string = M.card_to_string
+
+  let personnel_to_string (p : 'div Cards.core_personnel) =
+    M.personnel_to_string (Cards.erase_core_personnel p)
+
+  let procedure_to_string (p : 'div Cards.core_procedure) =
+    M.procedure_to_string (Cards.erase_core_procedure p)
+
+  let event_to_string (e : 'div Cards.core_event) =
+    M.event_to_string (Cards.erase_core_event e)
+
+  let entity_to_string (e : 'div Cards.core_entity) =
+    M.entity_to_string (Cards.erase_core_entity e)
+
+  let card_to_string : type div. div Cards.core_card -> string = function
+    | Cards.Personnel p -> personnel_to_string p
+    | Cards.Procedure p -> procedure_to_string p
+    | Cards.Event e -> event_to_string e
+    | Cards.Entity e -> entity_to_string e
+
+  let any_core_card_to_string (Cards.Any_core_card card) = card_to_string card
 end
 
 module Detailed_English : TEXT_SERIALIZER = Make (English_phrases)

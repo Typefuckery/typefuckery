@@ -1,8 +1,9 @@
+open Core
 open Cards
 open Card_dsl
 
 let argus_daemon =
-  personnel "institute:argus" "ARGUS, the Daemon" Institute ~cc:CC.seven
+  personnel "argus" "ARGUS, the Daemon" institute ~cc:CC.seven
     [
       on_deploy (others_in_play +@ two);
       activated ~cost:CC.two (transfer one others_in_play me);
@@ -11,10 +12,10 @@ let argus_daemon =
     ]
 
 let pyroclasm =
-  event "institute:pyroclasm" "Pyroclasm" Institute (everyone -@ two)
+  event "pyroclasm" "Pyroclasm" institute (everyone -@ two)
 
 let game_reset =
-  event "institute:game_reset" "Game Reset" Institute
+  event "game_reset" "Game Reset" institute
     (seq
        [
          secure_all_sectors;
@@ -24,7 +25,7 @@ let game_reset =
        ])
 
 let recursive_mirror =
-  entity "institute:recursive_mirror" "Recursive Mirror" Institute
+  entity "recursive_mirror" "Recursive Mirror" institute
     ~flavor_text:
       "It reflects not your image, but your definition. And definitions that \
        reference themselves have no base case."
@@ -34,11 +35,13 @@ let recursive_mirror =
     ()
 
 include Division_helper.Make_core_division (struct
-  let id = "institute"
+  type div = institute
+
+  let division = Institute_div
   let name = "Institute"
   let lore = None
 
-  let cards =
+  let cards : div Cards.core_card list =
     [
       Personnel argus_daemon;
       Event pyroclasm;

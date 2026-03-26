@@ -174,11 +174,11 @@ let test_condition_equivalence () =
 
   assert_true (here = T.this_sector) "DSL here equals T.this_sector"
 
-let dsl_operative : core_personnel =
+let dsl_operative =
   {
     id = Card_id.of_string "test:dsl_operative";
     name = "DSL Operative";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.three;
@@ -211,11 +211,11 @@ let dsl_operative : core_personnel =
       ];
   }
 
-let dsl_composite_test : core_personnel =
+let dsl_composite_test =
   {
     id = Card_id.of_string "test:dsl_composite";
     name = "DSL Composite Test";
-    division = Rust;
+    division = Rust_div;
     lore = None;
     flavor_text = None;
     starting_cc = Int.four;
@@ -242,11 +242,11 @@ let dsl_composite_test : core_personnel =
       ];
   }
 
-let dsl_sector_procedure : core_procedure =
+let dsl_sector_procedure : institute core_procedure =
   {
     id = Card_id.of_string "test:dsl_sector_procedure";
     name = "DSL Sector Procedure";
-    division = Institute;
+    division = Institute_div;
     lore = None;
     flavor_text = None;
     card_effect =
@@ -254,7 +254,7 @@ let dsl_sector_procedure : core_procedure =
   }
 
 let terse_operative =
-  personnel "test:terse_operative" "Terse Operative" Institute ~cc:CC.three
+  personnel "terse_operative" "Terse Operative" institute ~cc:CC.three
     [
       passive (me +@ one);
       activated ~cost:CC.one (anyone () +@ two);
@@ -263,7 +263,7 @@ let terse_operative =
     ]
 
 let terse_conditional =
-  personnel "test:terse_conditional" "Terse Conditional" Ada ~cc:CC.three
+  personnel "terse_conditional" "Terse Conditional" ada ~cc:CC.three
     [
       passive
         ~when_:
@@ -276,7 +276,7 @@ let terse_conditional =
     ]
 
 let terse_defender =
-  personnel "test:terse_defender" "Terse Defender" Rust ~cc:CC.five
+  personnel "terse_defender" "Terse Defender" rust ~cc:CC.five
     [
       passive ~limit:once_per_round ~when_:(sector_breached Alpha)
         (shield (everyone_in Alpha) one);
@@ -286,7 +286,7 @@ let terse_defender =
     ]
 
 let terse_temporal =
-  personnel "test:terse_temporal" "Terse Temporal" Haskell ~cc:CC.six
+  personnel "terse_temporal" "Terse Temporal" haskell ~cc:CC.six
     [
       activated ~cost:CC.four
         (let* target = anyone () in
@@ -299,7 +299,7 @@ let terse_temporal =
     ]
 
 let terse_responder =
-  personnel "test:terse_responder" "Terse Responder" Ada ~cc:CC.seven
+  personnel "terse_responder" "Terse Responder" ada ~cc:CC.seven
     [
       on_deploy (me +@ one);
       on_end_phase (me +@ one);
@@ -309,14 +309,14 @@ let terse_responder =
     ]
 
 let terse_coordinator =
-  personnel "test:terse_coordinator" "Terse Coordinator" Institute ~cc:CC.five
+  personnel "terse_coordinator" "Terse Coordinator" institute ~cc:CC.five
     [
       on_deployed_in Alpha (seq [ me +@ one; everyone_in Alpha +@ one ]);
       on_deployed_in Beta ~limit:once_per_round ~optional:true (draw one);
     ]
 
 let terse_memguard =
-  personnel "test:terse_memguard" "Terse Memguard" Rust ~cc:CC.four
+  personnel "terse_memguard" "Terse Memguard" rust ~cc:CC.four
     [
       passive (shield me one);
       on_cc_loss ~not_from_spend:true me ~limit:once_per_round ~optional:true
@@ -326,7 +326,7 @@ let terse_memguard =
     ]
 
 let terse_card_master =
-  personnel "test:terse_card_master" "Terse Card Master" Institute ~cc:CC.five
+  personnel "terse_card_master" "Terse Card Master" institute ~cc:CC.five
     [
       activated ~cost:CC.two (draw three);
       activated ~cost:CC.one (seq [ discard two; draw two ]);
@@ -334,11 +334,11 @@ let terse_card_master =
     ]
 
 let terse_protocol =
-  procedure "test:terse_protocol" "Terse Protocol" Institute
+  procedure "terse_protocol" "Terse Protocol" institute
     (seq [ anyone () +@ one; any_entity () |- one ])
 
 let terse_assault =
-  procedure "test:terse_assault" "Terse Assault" Rust
+  procedure "terse_assault" "Terse Assault" rust
     (let* target = anyone () in
      seq
        [
@@ -346,19 +346,19 @@ let terse_assault =
        ])
 
 let sigkill_engagement =
-  procedure "institute:sigkill_engagement" "Sigkill Engagement" Institute
+  procedure "sigkill_engagement" "Sigkill Engagement" institute
     ~flavor_text:"Sigkill takes what containment cannot."
     (let* source = anyone ~filter:controlled_by_you () in
      seq [ source -@ two; any_entity () |+ one ])
 
 let operation_execute =
-  procedure "institute:operation_execute" "Operation Execute" Institute
+  procedure "operation_execute" "Operation Execute" institute
     ~flavor_text:"No process survives a SIGKILL. Neither do we."
     (let* source = anyone ~filter:controlled_by_you () in
      seq [ source -@ three; all_entities () |+ one ])
 
 let containment_override =
-  procedure "institute:containment_override" "Containment Override" Institute
+  procedure "containment_override" "Containment Override" institute
     ~flavor_text:
       "SIGKILL -9: reality. The memetic field flatlines. All sectors report \
        nominal."
@@ -373,34 +373,34 @@ let containment_override =
        ])
 
 let emergency_containment =
-  procedure "institute:emergency_containment" "Emergency Containment" Institute
+  procedure "emergency_containment" "Emergency Containment" institute
     ~flavor_text:"Temporary measures for permanent problems."
     (contain entity_here)
 
 let targeted_containment =
-  procedure "institute:targeted_containment" "Targeted Containment" Institute
+  procedure "targeted_containment" "Targeted Containment" institute
     ~flavor_text:"Focus the suppression field on sector Alpha."
     (contain (entity_in Alpha))
 
 let mass_containment =
-  procedure "institute:mass_containment" "Mass Containment" Institute
+  procedure "mass_containment" "Mass Containment" institute
     ~flavor_text:"When one containment isn't enough."
     (seq [ contain entity_here; contain (any_entity ()) ])
 
 let terse_violation =
-  event "test:terse_violation" "Terse Violation" Rust (anyone () -@ three)
+  event "terse_violation" "Terse Violation" rust (anyone () -@ three)
 
 let terse_retreat =
-  event "test:terse_retreat" "Terse Retreat" Institute
+  event "terse_retreat" "Terse Retreat" institute
     (seq [ anyone () --> any_sector (); secure (any_sector ()) ])
 
 let terse_overflow =
-  entity "test:terse_overflow" "Terse Overflow" Institute ~threat:keter
+  entity "terse_overflow" "Terse Overflow" institute ~threat:keter
     ~timer:four ~on_end_phase:(everyone -@ one) ~on_breach:(everyone -@ three)
     ~contained:(personnel_count Alpha 2) ()
 
 let terse_fragmenter =
-  entity "test:terse_fragmenter" "Terse Fragmenter" Institute ~threat:titan
+  entity "terse_fragmenter" "Terse Fragmenter" institute ~threat:titan
     ~timer:Timer.seven
     ~on_end_phase:
       (let* victim = anyone () in
@@ -425,7 +425,7 @@ let terse_fragmenter =
     ()
 
 let quantum_specialist =
-  personnel "test:quantum_specialist" "Quantum Specialist" Haskell ~cc:CC.five
+  personnel "quantum_specialist" "Quantum Specialist" haskell ~cc:CC.five
     [
       passive ~when_:(sector_breached Gamma) (shield everyone_here two);
       activated ~cost:CC.two
@@ -439,43 +439,57 @@ let quantum_specialist =
 
 let personnel_golden_tests =
   [
-    ("dsl_operative", dsl_operative);
-    ("dsl_composite", dsl_composite_test);
-    ("terse_operative", terse_operative);
-    ("terse_conditional", terse_conditional);
-    ("terse_defender", terse_defender);
-    ("terse_temporal", terse_temporal);
-    ("terse_responder", terse_responder);
-    ("terse_coordinator", terse_coordinator);
-    ("terse_memguard", terse_memguard);
-    ("terse_card_master", terse_card_master);
-    ("quantum_specialist", quantum_specialist);
+    ("dsl_operative", pack_core_personnel dsl_operative);
+    ("dsl_composite", pack_core_personnel dsl_composite_test);
+    ("terse_operative", pack_core_personnel terse_operative);
+    ("terse_conditional", pack_core_personnel terse_conditional);
+    ("terse_defender", pack_core_personnel terse_defender);
+    ("terse_temporal", pack_core_personnel terse_temporal);
+    ("terse_responder", pack_core_personnel terse_responder);
+    ("terse_coordinator", pack_core_personnel terse_coordinator);
+    ("terse_memguard", pack_core_personnel terse_memguard);
+    ("terse_card_master", pack_core_personnel terse_card_master);
+    ("quantum_specialist", pack_core_personnel quantum_specialist);
   ]
 
 let procedure_golden_tests =
   [
-    ("dsl_sector_procedure", dsl_sector_procedure);
-    ("terse_protocol", terse_protocol);
-    ("terse_assault", terse_assault);
-    ("sigkill_engagement", sigkill_engagement);
-    ("operation_execute", operation_execute);
-    ("containment_override", containment_override);
-    ("emergency_containment", emergency_containment);
-    ("targeted_containment", targeted_containment);
-    ("mass_containment", mass_containment);
+    ("dsl_sector_procedure", pack_core_procedure dsl_sector_procedure);
+    ("terse_protocol", pack_core_procedure terse_protocol);
+    ("terse_assault", pack_core_procedure terse_assault);
+    ("sigkill_engagement", pack_core_procedure sigkill_engagement);
+    ("operation_execute", pack_core_procedure operation_execute);
+    ("containment_override", pack_core_procedure containment_override);
+    ("emergency_containment", pack_core_procedure emergency_containment);
+    ("targeted_containment", pack_core_procedure targeted_containment);
+    ("mass_containment", pack_core_procedure mass_containment);
   ]
 
 let event_golden_tests =
-  [ ("terse_violation", terse_violation); ("terse_retreat", terse_retreat) ]
+  [
+    ("terse_violation", pack_core_event terse_violation);
+    ("terse_retreat", pack_core_event terse_retreat);
+  ]
 
 let entity_golden_tests =
-  [ ("terse_overflow", terse_overflow); ("terse_fragmenter", terse_fragmenter) ]
+  [
+    ("terse_overflow", pack_core_entity terse_overflow);
+    ("terse_fragmenter", pack_core_entity terse_fragmenter);
+  ]
 
 let () =
   test_dsl_equivalence ();
   test_condition_equivalence ();
 
-  run_text_golden_tests ~render:TS.personnel_to_string personnel_golden_tests;
-  run_text_golden_tests ~render:TS.procedure_to_string procedure_golden_tests;
-  run_text_golden_tests ~render:TS.event_to_string event_golden_tests;
-  run_text_golden_tests ~render:TS.entity_to_string entity_golden_tests
+  run_text_golden_tests
+    ~render:(fun (Any_core_personnel card) -> TS.personnel_to_string card)
+    personnel_golden_tests;
+  run_text_golden_tests
+    ~render:(fun (Any_core_procedure card) -> TS.procedure_to_string card)
+    procedure_golden_tests;
+  run_text_golden_tests
+    ~render:(fun (Any_core_event card) -> TS.event_to_string card)
+    event_golden_tests;
+  run_text_golden_tests
+    ~render:(fun (Any_core_entity card) -> TS.entity_to_string card)
+    entity_golden_tests

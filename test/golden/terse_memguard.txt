@@ -1,6 +1,6 @@
 Terse Memguard
 Division: Rust
-Id: test:terse_memguard
+Id: rust:terse_memguard
 Starting CC: 4
 
 Abilities:

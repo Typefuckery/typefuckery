@@ -1,6 +1,6 @@
 Quantum Specialist
 Division: Haskell
-Id: test:quantum_specialist
+Id: haskell:quantum_specialist
 Starting CC: 5
 
 Abilities:

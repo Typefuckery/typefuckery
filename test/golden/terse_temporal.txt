@@ -1,6 +1,6 @@
 Terse Temporal
 Division: Haskell
-Id: test:terse_temporal
+Id: haskell:terse_temporal
 Starting CC: 6
 
 Abilities:

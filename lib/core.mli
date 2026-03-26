@@ -13,6 +13,24 @@ module Card_id : sig
 end
 
 type division = Ada | Haskell | OCaml | Rust | Institute
+type ada
+type haskell
+type ocaml_div
+type rust
+type institute
+
+type _ division_tag =
+  | Ada_div : ada division_tag
+  | Haskell_div : haskell division_tag
+  | OCaml_div : ocaml_div division_tag
+  | Rust_div : rust division_tag
+  | Institute_div : institute division_tag
+
+val division_of_tag : 'div division_tag -> division
+val division_prefix : 'div division_tag -> string
+val card_id_of_slug : 'div division_tag -> string -> Card_id.t
+val set_id_of_division : 'div division_tag -> string
+
 type sector = Alpha | Beta | Lambda | Gamma
 type sector_state = Secure | Breached
 type zone = Hand | Battlefield of sector | Abyss | Stack | Deck

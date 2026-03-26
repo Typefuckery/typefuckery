@@ -114,7 +114,8 @@ let render_entry_text (entry : R.registered_card) serializer =
 
 let render_entry_json (entry : R.registered_card) =
   match entry.card_data with
-  | Some card -> Some (To_json.json_to_string (To_json.card_to_json card))
+  | Some (Typefuckery.Cards.Any_core_card _ as any_card) ->
+      Some (To_json.json_to_string (To_json.any_core_card_to_json any_card))
   | None -> None
 
 let show_card card_id_str ~format ~lang =

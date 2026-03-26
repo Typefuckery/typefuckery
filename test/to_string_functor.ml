@@ -14,12 +14,12 @@ let assert_eq actual expected label =
     failwith (Printf.sprintf "%s: expected %S, got %S" label expected actual)
 
 let test_core_matches_detailed_english () =
-  let card : Cards.core_card =
+  let card =
     Cards.Personnel
       {
         id = Core.Card_id.of_string "test:core-match";
         name = "Core Match Test";
-        division = Core.Rust;
+        division = Core.Rust_div;
         lore = None;
         flavor_text = None;
         starting_cc = Int.three;
@@ -41,7 +41,9 @@ let test_core_matches_detailed_english () =
           ];
       }
   in
-  let core_output = TS.Core.card_to_string card in
+  let core_output =
+    TS.Detailed_English.any_core_card_to_string (Cards.pack_core_card card)
+  in
   let legacy_output = TS.Detailed_English.card_to_string card in
   assert_eq core_output legacy_output
     "Core and Detailed_English produce same output"
@@ -170,12 +172,12 @@ end
 module Custom_serializer = TS.Make (Custom_phrases)
 
 let test_make_backward_compat () =
-  let card : Cards.core_card =
+  let card =
     Cards.Personnel
       {
         id = Core.Card_id.of_string "test:compat";
         name = "Compat Test";
-        division = Core.Haskell;
+        division = Core.Haskell_div;
         lore = None;
         flavor_text = None;
         starting_cc = Int.one;
